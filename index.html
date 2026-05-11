@@ -106,6 +106,8 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
+      .hero-photo-reveal { clip-path: inset(0 0 0 0) !important; }
+      .hero-photo-img { transform: none !important; }
     }
     /* High contrast text on tool bars */
     .tool-level { min-width: 80px; }
@@ -133,6 +135,43 @@
 
     /* Hero */
     #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5rem; padding-top: 58px; }
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, min(38vw, 400px));
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+      width: 100%;
+    }
+    .hero-copy { min-width: 0; }
+    .hero-photo-wrap { margin: 0; max-width: 400px; width: 100%; justify-self: end; }
+    .hero-photo-inner {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+      aspect-ratio: 819 / 1024;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 14px 44px rgba(32,33,36,.1);
+      background: var(--off);
+    }
+    [data-theme="dark"] .hero-photo-inner { box-shadow: 0 14px 44px rgba(0,0,0,.45); border-color: var(--border); }
+    .hero-photo-reveal {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(0 0 100% 0);
+      will-change: clip-path;
+      transition: clip-path 2.85s cubic-bezier(0.45, 0, 0.14, 1);
+    }
+    .hero-photo-wrap.revealed .hero-photo-reveal { clip-path: inset(0 0 0 0); }
+    .hero-photo-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transform: scale(1.06);
+      transition: transform 2.85s cubic-bezier(0.45, 0, 0.14, 1);
+    }
+    .hero-photo-wrap.revealed .hero-photo-img { transform: scale(1); }
     .avail-dot { display: inline-block; width: 7px; height: 7px; background: #22a06b; border-radius: 50%; flex-shrink: 0; animation: blink 2.5s ease-in-out infinite; }
     h1 { font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4.8rem); line-height: 1.1; font-weight: 400; color: var(--text); letter-spacing: -.01em; max-width: 820px; min-height: 3.4em; }
     h1 em { font-style: normal; color: var(--punch); font-weight: 400; }
@@ -385,6 +424,8 @@
     @media(max-width:900px){
       nav{padding:0 1.5rem;} section,#contact,footer{padding:4rem 1.5rem;}
       #hero{padding:5rem 1.5rem 3.5rem;min-height:auto;}
+      .hero-top{grid-template-columns:1fr;gap:2.25rem;}
+      .hero-photo-wrap{max-width:min(320px,88vw);justify-self:center;margin-top:.25rem;}
       .hero-stats{grid-template-columns:1fr 1fr;}
       .hstat{border-right:none;border-bottom:1px solid var(--border);}
       .hstat:nth-child(odd){border-right:1px solid var(--border);}
@@ -469,11 +510,22 @@
 
 <main id="main-content">
 <section id="hero" aria-labelledby="hero-heading">
-  <h1 id="hero-heading" data-i18n="hero_h1">I design content.<br>I build tools.<br><em>I measure both.</em></h1>
-  <p class="hero-p" data-i18n="hero_p">I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.</p>
-  <div class="hero-acts">
-    <a href="#portfolio" class="btn-dark" data-i18n="hero_cta1">See my work</a>
-    <a href="#contact" class="btn-line" data-i18n="hero_cta2">Say hello</a>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <h1 id="hero-heading" data-i18n="hero_h1">I design content.<br>I build tools.<br><em>I measure both.</em></h1>
+      <p class="hero-p" data-i18n="hero_p">I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.</p>
+      <div class="hero-acts">
+        <a href="#portfolio" class="btn-dark" data-i18n="hero_cta1">See my work</a>
+        <a href="#contact" class="btn-line" data-i18n="hero_cta2">Say hello</a>
+      </div>
+    </div>
+    <figure class="hero-photo-wrap" aria-label="Portrait and illustration">
+      <div class="hero-photo-inner">
+        <div class="hero-photo-reveal">
+          <img class="hero-photo-img" src="assets/rishi-hero-modern-art.png" width="819" height="1024" alt="Rishi Sharma — illustrated portrait with the line: Keep building. Keep growing." decoding="async" />
+        </div>
+      </div>
+    </figure>
   </div>
   <div class="hero-stats">
     <div class="hstat">
@@ -1242,6 +1294,18 @@ setTimeout(()=>logSession({event:'engaged'}), 3000);
     setTimeout(nextLine, i===1?600: i===4?500: i===7?800: 320);
   }
   setTimeout(nextLine, 300);
+})();
+
+(function initHeroPortrait(){
+  const wrap = document.querySelector('.hero-photo-wrap');
+  if (!wrap) return;
+  const reveal = () => { wrap.classList.add('revealed'); };
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    reveal();
+    return;
+  }
+  document.addEventListener('bootcomplete', reveal, { once: true });
+  setTimeout(() => { if (!wrap.classList.contains('revealed')) reveal(); }, 7000);
 })();
 
 // ── SCROLL REVEAL ──
