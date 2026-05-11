@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" sizes="any" />
   <title>Rishi Sharma — Lead Content Designer</title>
-  <meta name="description" content="Lead Content Designer with 8+ years in SaaS. UX content, content systems, AI tools, and analytics. Based in Jaipur, open to remote." />
+  <meta name="description" content="Lead Content Designer with 8+ years in SaaS. Content systems, UX writing, AI tools, analytics, and speaking—a reference point for serious content design work." />
  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFL80M33TL"></script>
 <script>
@@ -106,7 +107,7 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
-      .hero-photo-reveal { clip-path: inset(0 0 0 0) !important; }
+      .hero-photo-reveal { clip-path: inset(0 0 0 0) !important; transform: none !important; opacity: 1 !important; filter: none !important; }
       .hero-photo-img { transform: none !important; }
     }
     /* High contrast text on tool bars */
@@ -116,7 +117,11 @@
     .nav-controls { display: flex; align-items: center; gap: .75rem; }
     .theme-btn { background: none; border: 1px solid var(--border); border-radius: 20px; padding: .3rem .75rem; font-size: .8rem; color: var(--text-3); cursor: pointer; font-family: var(--sans); transition: all .15s; display: flex; align-items: center; gap: .4rem; line-height: 1; }
     .theme-btn:hover { border-color: var(--punch); color: var(--punch); }
-    .theme-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .theme-btn .theme-icons { width: 14px; height: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .theme-btn .theme-icon { width: 14px; height: 14px; flex-shrink: 0; }
+    .theme-btn .theme-icon-sun { display: none; }
+    .theme-btn.theme-btn--dark-on .theme-icon-moon { display: none; }
+    .theme-btn.theme-btn--dark-on .theme-icon-sun { display: block; }
     .lang-select { background: none; border: 1px solid var(--border); border-radius: 20px; padding: .3rem .75rem; font-size: .8rem; color: var(--text-3); cursor: pointer; font-family: var(--sans); transition: all .15s; appearance: none; -webkit-appearance: none; padding-right: 1.5rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239aa0a6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .5rem center; }
     .lang-select:hover { border-color: var(--punch); color: var(--punch); }
     [data-theme="dark"] .lang-select { background-color: transparent; }
@@ -151,6 +156,7 @@
       padding-right: clamp(0rem, 1.5vw, 1rem);
     }
     .hero-photo-wrap {
+      position: relative;
       margin: 0;
       width: 100%;
       height: 100%;
@@ -182,6 +188,12 @@
       transition: clip-path 2.85s cubic-bezier(0.45, 0, 0.14, 1);
     }
     .hero-photo-wrap.revealed .hero-photo-reveal { clip-path: inset(0 0 0 0); }
+    .hero-photo-wrap--floating {
+      position: relative;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .hero-photo-inner--scatter { overflow: visible; }
     .hero-photo-img {
       display: block;
       width: 100%;
@@ -189,12 +201,15 @@
       object-fit: contain;
       object-position: center center;
       transform: scale(1.06);
+      transform-origin: center center;
       transition: transform 2.85s cubic-bezier(0.45, 0, 0.14, 1);
     }
     .hero-photo-wrap.revealed .hero-photo-img { transform: scale(1); }
     .avail-dot { display: inline-block; width: 7px; height: 7px; background: #22a06b; border-radius: 50%; flex-shrink: 0; animation: blink 2.5s ease-in-out infinite; }
     h1 { font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4.8rem); line-height: 1.1; font-weight: 400; color: var(--text); letter-spacing: -.01em; max-width: 820px; min-height: 3.4em; }
     h1 em { font-style: normal; color: var(--punch); font-weight: 400; }
+    h1 em.hero-em-google { font-style: normal; }
+    h1 em.hero-em-google span { font-style: normal; font-weight: 400; }
     .hero-p { margin-top: 1.75rem; font-size: 1.05rem; color: var(--text-2); max-width: 540px; line-height: 1.75; font-weight: 400; }
     .hero-acts { margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center; }
     .btn-dark { background: var(--text); color: var(--white); padding: .8rem 1.75rem; border-radius: 2px; font-size: .875rem; font-weight: 500; text-decoration: none; transition: background .15s; }
@@ -516,8 +531,11 @@
     <li><a href="#speaking" data-i18n="nav_speaking">Speaking</a></li>
   </ul>
   <div class="nav-controls">
-    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" id="themeIcon"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <button type="button" class="theme-btn" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
+      <span class="theme-icons" aria-hidden="true">
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </span>
       <span id="themeLabel">Dark</span>
     </button>
     <select class="lang-select" id="langSelect" aria-label="Select language">
@@ -976,7 +994,7 @@
       <p class="about-p">I'm a Lead Content Designer currently at Birdeye, where I look after end-to-end content design for a reputation management platform. Before that I spent nearly three years at Cvent in event tech, and before that at Netcore Cloud working on a Customer Data Platform.</p>
       <p class="about-p">I've been in this field since 2017. The through-line across all of it: I've always been more interested in the system behind the words than in any individual piece of copy. Style guides, audits, tooling, frameworks. That's where I spend most of my time when I'm not writing.</p>
       <p class="about-p">On the technical side, I build things. I've shipped a Figma plugin, a Chrome extension, and an AI app on Glean, all without engineering support, all solving real problems I kept running into as a content designer. The Glean app won a category at Cvent's internal Technology AI Contest in 2024.</p>
-      <p class="about-p">I'm based in Jaipur and work remotely. Open to new roles: full-time, contract, or speaking invitations.</p>
+      <p class="about-p">I've been in the discipline long enough to see patterns repeat—and to know which levers actually move product and support metrics. People learn from how I teach, speak, and build; I reserve my time for conversations where that experience earns a seat at the table.</p>
       <div style="margin-top:2rem;">
         <p class="sk-head">Skills</p>
         <div class="sk-wrap">
@@ -1141,7 +1159,7 @@
   <div class="reveal">
     <p class="s-kicker" data-i18n="contact_kicker">Contact</p>
     <h2 id="contact-heading" data-i18n="contact_h2">Let's talk.</h2>
-    <p class="c-sub" data-i18n="contact_sub">Open to full-time roles, freelance, speaking invitations, and content design collaborations. Remote-first, based in Jaipur.</p>
+    <p class="c-sub" data-i18n="contact_sub">Years of senior content design—systems, product language, and evidence from live products. Practitioners borrow from how I frame the work through talks, audits, and tools. Message me when you want that level of rigour in the room.</p>
     <div class="c-details">
       <div class="c-row"><span aria-hidden="true">&#9993;</span><a href="mailto:rishi.g.sharma@gmail.com" aria-label="Email Rishi at rishi.g.sharma@gmail.com">rishi.g.sharma@gmail.com</a></div>
       <div class="c-row"><span aria-hidden="true">&#9742;</span><a href="tel:+919950871007" aria-label="Call Rishi at +91 9950871007">+91 9950871007</a></div>
@@ -1284,10 +1302,17 @@ window.addEventListener('beforeunload', ()=> logSession({event:'exit', timeOnSit
 // Log after 3s on page (confirms real visit)
 setTimeout(()=>logSession({event:'engaged'}), 3000);
 
-// ── BOOT SEQUENCE ──
+// ── BOOT SEQUENCE (once per browser tab session) ──
 (function(){
+  const BOOT_SESSION_KEY = 'rs_boot_seen';
   const lines = document.querySelectorAll('.boot-line');
   const boot = document.getElementById('boot');
+  if (!boot) return;
+  if (sessionStorage.getItem(BOOT_SESSION_KEY) === '1') {
+    boot.remove();
+    setTimeout(() => document.dispatchEvent(new CustomEvent('bootcomplete')), 0);
+    return;
+  }
   const msgs = [
     '<span class="ok">✓</span> Initialising session...',
     '<span class="ok">✓</span> Detecting environment... <span style="color:#555">'+navigator.platform+'</span>',
@@ -1303,6 +1328,7 @@ setTimeout(()=>logSession({event:'engaged'}), 3000);
       setTimeout(()=>{
         boot.classList.add('done');
         setTimeout(()=>{
+          try { sessionStorage.setItem(BOOT_SESSION_KEY, '1'); } catch (e) {}
           document.dispatchEvent(new CustomEvent('bootcomplete'));
           boot.remove();
         },600);
@@ -1328,6 +1354,64 @@ setTimeout(()=>logSession({event:'engaged'}), 3000);
   }
   document.addEventListener('bootcomplete', reveal, { once: true });
   setTimeout(() => { if (!wrap.classList.contains('revealed')) reveal(); }, 7000);
+})();
+
+(function initHeroPhotoScatter(){
+  const inner = document.querySelector('.hero-photo-inner');
+  const wrap = document.querySelector('.hero-photo-wrap');
+  const reveal = document.querySelector('.hero-photo-reveal');
+  const hero = document.getElementById('hero');
+  if (!inner || !wrap || !reveal || !hero) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+
+  function progressFromScroll(){
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollY < 48) return 0;
+    const rect = hero.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const line = vh * 0.52;
+    if (rect.bottom > line) return 0;
+    const range = Math.max(280, vh * 0.48);
+    const p = (line - rect.bottom) / range;
+    return Math.max(0, Math.min(1, p));
+  }
+
+  function update(){
+    ticking = false;
+    const travel = Math.min(120, window.innerWidth * 0.1 + 40);
+    const raw = progressFromScroll();
+    const eased = 1 - Math.pow(1 - raw, 1.4);
+    const rtl = document.documentElement.getAttribute('dir') === 'rtl';
+    const xm = rtl ? -1 : 1;
+
+    if (raw > 0.035) {
+      inner.classList.add('hero-photo-inner--scatter');
+      wrap.classList.add('hero-photo-wrap--floating');
+      const dist = eased * travel;
+      reveal.style.transform = 'translate3d(' + (0.4 * dist * xm) + 'px,' + (-0.5 * dist) + 'px,0) rotate(' + (7 * eased * xm) + 'deg) scale(' + (1 - eased * 0.2) + ')';
+      reveal.style.opacity = String(Math.max(0, 1 - eased * 0.92));
+      reveal.style.filter = 'blur(' + (eased * 4) + 'px)';
+    } else {
+      inner.classList.remove('hero-photo-inner--scatter');
+      wrap.classList.remove('hero-photo-wrap--floating');
+      reveal.style.transform = '';
+      reveal.style.opacity = '';
+      reveal.style.filter = '';
+    }
+  }
+
+  function onScroll(){
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
 })();
 
 // ── SCROLL REVEAL ──
@@ -1430,34 +1514,6 @@ document.addEventListener('keydown',e=>{
 });
 function handleSubmit(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Sent';b.style.background='#22a06b';b.disabled=true;}
 
-// ── DARK MODE ──
-const themeToggle = document.getElementById('themeToggle');
-const themeLabel = document.getElementById('themeLabel');
-const html = document.documentElement;
-
-function setTheme(dark) {
-  if (dark) {
-    html.setAttribute('data-theme', 'dark');
-    themeToggle.setAttribute('aria-pressed', 'true');
-    themeLabel.textContent = translations[currentLang]?.theme_light || 'Light';
-    localStorage.setItem('rs_theme', 'dark');
-  } else {
-    html.removeAttribute('data-theme');
-    themeToggle.setAttribute('aria-pressed', 'false');
-    themeLabel.textContent = translations[currentLang]?.theme_dark || 'Dark';
-    localStorage.setItem('rs_theme', 'light');
-  }
-}
-
-themeToggle.addEventListener('click', () => {
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  setTheme(!isDark);
-});
-
-// Restore preference on load
-const savedTheme = localStorage.getItem('rs_theme');
-if (savedTheme === 'dark') setTheme(true);
-
 // ── LOCALIZATION (i18n) ──
 const translations = {
   en: {
@@ -1473,9 +1529,10 @@ const translations = {
     about_kicker: 'Background', analytics_kicker: 'Data, analytics & search',
     builder_kicker: 'Built, not just written', speaking_kicker: 'Speaking & recognition',
     contact_kicker: 'Contact', contact_h2: "Let's talk.",
-    contact_sub: 'Open to full-time roles, freelance, speaking invitations, and content design collaborations. Remote-first, based in Jaipur.',
+    contact_sub: 'Years of senior content design—systems, product language, and evidence from live products. Practitioners borrow from how I frame the work through talks, audits, and tools. Message me when you want that level of rigour in the room.',
     form_name: 'Name', form_email: 'Email', form_message: 'Message', form_send: 'Send',
     footer_top: 'Top', theme_dark: 'Dark', theme_light: 'Light',
+    theme_aria_dark: 'Switch to dark mode', theme_aria_light: 'Switch to light mode',
   },
   ar: {
     skip_link: 'انتقل إلى المحتوى الرئيسي',
@@ -1490,9 +1547,10 @@ const translations = {
     about_kicker: 'الخلفية', analytics_kicker: 'البيانات والتحليلات',
     builder_kicker: 'مبني، لا مكتوب فقط', speaking_kicker: 'المحاضرات والتقدير',
     contact_kicker: 'تواصل', contact_h2: 'لنتحدث.',
-    contact_sub: 'منفتح على الأدوار الدوامة، والعمل الحر، ودعوات المحاضرات، والتعاون في تصميم المحتوى.',
+    contact_sub: 'خبرة طويلة في تصميم المحتوى على مستوى قيادي: الأنظمة، لغة المنتج، والأدلة من منتجات حيّة. يستفيد المحترفون من كيفية صياغتي للعمل عبر المحاضرات والتدقيق والأدوات. راسلني عندما تريد هذا العمق في الحوار.',
     form_name: 'الاسم', form_email: 'البريد الإلكتروني', form_message: 'الرسالة', form_send: 'إرسال',
     footer_top: 'الأعلى', theme_dark: 'داكن', theme_light: 'فاتح',
+    theme_aria_dark: 'التبديل إلى الوضع الداكن', theme_aria_light: 'التبديل إلى الوضع الفاتح',
   },
   fr: {
     skip_link: 'Aller au contenu principal',
@@ -1507,9 +1565,10 @@ const translations = {
     about_kicker: 'Parcours', analytics_kicker: 'Données, analytique et SEO',
     builder_kicker: 'Construit, pas seulement écrit', speaking_kicker: 'Conférences & distinctions',
     contact_kicker: 'Contact', contact_h2: 'Parlons-en.',
-    contact_sub: "Disponible pour des postes à temps plein, du freelance, des invitations à conférences et des collaborations en conception de contenu.",
+    contact_sub: "Référence en conception de contenu senior : systèmes, langage produit et preuves issues de produits en production. D'autres praticiens s'appuient sur la façon dont j'articule la discipline—conférences, audits, outils. Écrivez-moi lorsque vous voulez ce niveau d'exigence dans la discussion.",
     form_name: 'Nom', form_email: 'E-mail', form_message: 'Message', form_send: 'Envoyer',
     footer_top: 'Haut', theme_dark: 'Sombre', theme_light: 'Clair',
+    theme_aria_dark: 'Activer le mode sombre', theme_aria_light: 'Activer le mode clair',
   },
   de: {
     skip_link: 'Zum Hauptinhalt springen',
@@ -1524,15 +1583,77 @@ const translations = {
     about_kicker: 'Hintergrund', analytics_kicker: 'Daten, Analytik & Suche',
     builder_kicker: 'Gebaut, nicht nur geschrieben', speaking_kicker: 'Vorträge & Auszeichnungen',
     contact_kicker: 'Kontakt', contact_h2: "Lass uns reden.",
-    contact_sub: 'Offen für Vollzeitstellen, Freelance, Vortragseinladungen und Content-Design-Kollaborationen.',
+    contact_sub: 'Lange Erfahrung im Senior-Content-Design: Systeme, Produktsprache und belastbare Kennzahlen aus Live-Produkten. Andere orientieren sich an meinen Rahmenwerken, Vorträgen und Tools. Melden Sie sich, wenn Sie diese Tiefe im Gespräch brauchen.',
     form_name: 'Name', form_email: 'E-Mail', form_message: 'Nachricht', form_send: 'Senden',
     footer_top: 'Oben', theme_dark: 'Dunkel', theme_light: 'Hell',
+    theme_aria_dark: 'Zum Dunkelmodus wechseln', theme_aria_light: 'Zum Hellmodus wechseln',
   }
 };
 
 let currentLang = localStorage.getItem('rs_lang') || 'en';
+
+// ── DARK MODE (after translations + currentLang exist) ──
+const themeToggle = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+const html = document.documentElement;
+
+function setTheme(dark) {
+  const pack = translations[currentLang] || translations.en;
+  if (dark) {
+    html.setAttribute('data-theme', 'dark');
+    themeToggle.setAttribute('aria-pressed', 'true');
+    themeToggle.setAttribute('aria-label', pack.theme_aria_light || 'Switch to light mode');
+    themeLabel.textContent = pack.theme_light || 'Light';
+    themeToggle.classList.add('theme-btn--dark-on');
+    localStorage.setItem('rs_theme', 'dark');
+  } else {
+    html.removeAttribute('data-theme');
+    themeToggle.setAttribute('aria-pressed', 'false');
+    themeToggle.setAttribute('aria-label', pack.theme_aria_dark || 'Switch to dark mode');
+    themeLabel.textContent = pack.theme_dark || 'Dark';
+    themeToggle.classList.remove('theme-btn--dark-on');
+    localStorage.setItem('rs_theme', 'light');
+  }
+}
+
+themeToggle.addEventListener('click', () => {
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  setTheme(!isDark);
+});
+
+const savedTheme = localStorage.getItem('rs_theme');
+if (savedTheme === 'dark') setTheme(true);
+else setTheme(false);
+
 let heroTypeToken = 0;
 let pendingHeroHtml = null;
+
+const GOOGLE_HERO_PALETTE = ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
+
+function applyGooglePaletteToHeroEm(h1) {
+  if (!h1 || currentLang !== 'en') return;
+  const em = h1.querySelector('em');
+  if (!em) return;
+  const raw = em.textContent || '';
+  const normalized = raw.replace(/\s+/g, ' ').trim();
+  if (normalized !== 'I measure both.') return;
+  const text = raw;
+  em.classList.add('hero-em-google');
+  em.replaceChildren();
+  let colorIdx = 0;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const span = document.createElement('span');
+    span.textContent = ch;
+    if (/\s/.test(ch)) {
+      span.style.color = 'var(--text)';
+    } else {
+      span.style.color = GOOGLE_HERO_PALETTE[colorIdx % 4];
+      colorIdx++;
+    }
+    em.appendChild(span);
+  }
+}
 
 function parseHeroH1Html(html) {
   const parts = html.split(/<br\s*\/?>/i);
@@ -1548,6 +1669,7 @@ function runHeroType(html) {
   const lines = parseHeroH1Html(html);
   if (prefersReduced || !lines) {
     h1.innerHTML = html;
+    applyGooglePaletteToHeroEm(h1);
     return;
   }
   const myToken = ++heroTypeToken;
@@ -1592,6 +1714,8 @@ function runHeroType(html) {
       if (idx < l3.length) {
         t3.data += l3[idx++];
         setTimeout(tick, delay);
+      } else {
+        applyGooglePaletteToHeroEm(h1);
       }
     }
   }
@@ -1630,9 +1754,11 @@ function applyLang(lang) {
       else { el.textContent = t[key]; }
     }
   });
-  // Update theme button label based on current theme
+  // Update theme button label + icon state + aria for current language
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   themeLabel.textContent = isDark ? (t.theme_light || 'Light') : (t.theme_dark || 'Dark');
+  themeToggle.setAttribute('aria-label', isDark ? (t.theme_aria_light || 'Switch to light mode') : (t.theme_aria_dark || 'Switch to dark mode'));
+  themeToggle.classList.toggle('theme-btn--dark-on', isDark);
   localStorage.setItem('rs_lang', lang);
 }
 
