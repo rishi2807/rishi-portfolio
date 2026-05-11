@@ -1,447 +1,1520 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rishi's Prototypes · Birdeye</title>
-  <meta name="description" content="Prototypes, components, and design explorations by Rishi Sharma, Content Designer at Birdeye." />
+  <title>Rishi Sharma — Lead Content Designer</title>
+  <meta name="description" content="Lead Content Designer with 8+ years in SaaS. UX content, content systems, AI tools, and analytics. Based in Jaipur, open to remote." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f8f9fa;
-      --surface: #ffffff;
+      --white: #ffffff;
+      --off: #f8f9fa;
+      --off-2: #f1f3f4;
       --border: #dadce0;
-      --border-hover: #9aa0a6;
-      --text-primary: #212121;
-      --text-secondary: #5f6368;
-      --text-tertiary: #80868b;
-      --brand: #1957d2;
-      --brand-soft: #e8f0fe;
-      --success: #34a853;
-      --warning: #f9ab00;
-      --radius-sm: 6px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.08);
-      --shadow-md: 0 2px 8px rgba(60, 64, 67, 0.12);
+      --border-soft: #e8eaed;
+      --text: #202124;
+      --text-2: #3c4043;
+      --text-3: #5f6368;
+      --text-4: #9aa0a6;
+      --accent: #202124;
+      --punch: #1a73e8;
+      --punch-soft: #e8f0fe;
+      --punch-dark: #1557b0;
+      --g-red: #ea4335;
+      --g-yellow: #fbbc04;
+      --g-green: #34a853;
+      --serif: 'Roboto Slab', Georgia, serif;
+      --sans: 'Roboto', system-ui, sans-serif;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
-      min-height: 100vh;
+    /* ── DARK MODE TOKENS ── */
+    [data-theme="dark"] {
+      --white: #1a1a1a;
+      --off: #242424;
+      --off-2: #2c2c2c;
+      --border: #3a3a3a;
+      --border-soft: #333333;
+      --text: #e8eaed;
+      --text-2: #bdc1c6;
+      --text-3: #9aa0a6;
+      --text-4: #5f6368;
+      --accent: #e8eaed;
+      --punch: #4da3ff;
+      --punch-soft: #1a2d4a;
+      --punch-dark: #82c0ff;
+      --g-green: #34a853;
     }
+    [data-theme="dark"] nav { background: #1a1a1a; }
+    [data-theme="dark"] .modal { background: #242424; }
+    [data-theme="dark"] .gate-box { background: #242424; }
+    [data-theme="dark"] #boot { background: #0a0a0a; }
+    [data-theme="dark"] .bcard { background: #242424; }
+    [data-theme="dark"] .bcard:hover { background: #2c2c2c; }
+    [data-theme="dark"] .tcard { background: #1a1a1a; }
+    [data-theme="dark"] .tcard:hover { background: #242424; }
+    [data-theme="dark"] .recog-strip { background: #1a2d4a; }
+    [data-theme="dark"] .seo-block { background: #242424; }
+    [data-theme="dark"] .m-nums { background: #242424; }
+    [data-theme="dark"] .m-quote { background: #242424; color: var(--text-2); }
+    [data-theme="dark"] .m-quote.before { background: #2a2a2a; }
+    [data-theme="dark"] .m-quote.after { background: #1a2e23; }
+    [data-theme="dark"] .sk { background: #242424; border-color: #3a3a3a; }
+    [data-theme="dark"] .cert { background: #242424; border-color: #3a3a3a; }
+    [data-theme="dark"] .pcard { background: #1a1a1a; }
+    [data-theme="dark"] .pcard:hover { background: #242424; }
+    [data-theme="dark"] .bcontext { background: #1a1a1a; border-color: #3a3a3a; }
+    [data-theme="dark"] .gate-input { background: #2c2c2c; color: var(--text); }
+    [data-theme="dark"] .fi, [data-theme="dark"] .fta { background: #2c2c2c; color: var(--text); }
+    [data-theme="dark"] .lock-cta { background: #2c2c2c; border-color: #3a3a3a; color: var(--text-2); }
+    [data-theme="dark"] .baward { background: #1a2d4a; border-color: rgba(77,163,255,.2); }
+    [data-theme="dark"] .tcard.highlight { background: #1a2d4a; }
+    [data-theme="dark"] .pgrid { background: #3a3a3a; border-color: #3a3a3a; }
+    [data-theme="dark"] .bgrid { background: #3a3a3a; border-color: #3a3a3a; }
+    [data-theme="dark"] .tgrid { background: #3a3a3a; border-color: #3a3a3a; }
+    [data-theme="dark"] .hero-stats { border-color: #3a3a3a; }
+    [data-theme="dark"] .hstat { background: #1a1a1a; border-color: #3a3a3a; }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 32px;
-    }
+    /* ── RTL SUPPORT ── */
+    [dir="rtl"] .tl { border-left: none; border-right: 1px solid var(--border); padding-left: 0; padding-right: 1.75rem; }
+    [dir="rtl"] .tl-item::before { left: auto; right: -2.28rem; }
+    [dir="rtl"] .pcard::before { left: auto; right: 0; }
+    [dir="rtl"] .bcard::after { transform-origin: right; }
+    [dir="rtl"] .recog-inner { direction: rtl; }
+    [dir="rtl"] nav { flex-direction: row-reverse; }
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
 
-    /* Header */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 48px;
+    /* ── ACCESSIBILITY ── */
+    /* Skip link */
+    .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--punch); color: #fff; padding: .6rem 1.2rem; border-radius: 4px; font-size: .875rem; font-weight: 500; text-decoration: none; z-index: 10000; transition: top .15s; }
+    .skip-link:focus { top: 1rem; }
+    /* Focus ring — visible, high-contrast */
+    :focus-visible { outline: 3px solid var(--punch); outline-offset: 3px; border-radius: 2px; }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
     }
+    /* High contrast text on tool bars */
+    .tool-level { min-width: 80px; }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    /* ── THEME TOGGLE + LANG SWITCHER ── */
+    .nav-controls { display: flex; align-items: center; gap: .75rem; }
+    .theme-btn { background: none; border: 1px solid var(--border); border-radius: 20px; padding: .3rem .75rem; font-size: .8rem; color: var(--text-3); cursor: pointer; font-family: var(--sans); transition: all .15s; display: flex; align-items: center; gap: .4rem; line-height: 1; }
+    .theme-btn:hover { border-color: var(--punch); color: var(--punch); }
+    .theme-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .lang-select { background: none; border: 1px solid var(--border); border-radius: 20px; padding: .3rem .75rem; font-size: .8rem; color: var(--text-3); cursor: pointer; font-family: var(--sans); transition: all .15s; appearance: none; -webkit-appearance: none; padding-right: 1.5rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239aa0a6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .5rem center; }
+    .lang-select:hover { border-color: var(--punch); color: var(--punch); }
+    [data-theme="dark"] .lang-select { background-color: transparent; }
 
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      background: var(--brand);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
-    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--text); font-size: 16px; line-height: 1.6; cursor: none; overflow-x: hidden; transition: background .25s, color .25s; }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
+    /* Custom cursor */
+    .cur { width: 8px; height: 8px; background: var(--punch); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .cur-ring { width: 32px; height: 32px; border: 1px solid var(--punch); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: .4; transition: width .2s, height .2s, opacity .2s; }
 
-    .brand-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1.2;
-    }
-
-    .brand-role {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.2;
-      margin-top: 2px;
-    }
-
-    .header-meta {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
+    /* Nav */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
+    .nav-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: .01em; font-weight: 500; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: .875rem; color: var(--text-3); text-decoration: none; transition: color .15s; font-weight: 400; }
+    .nav-links a:hover { color: var(--punch); }
+    .nav-cta { font-size: .875rem; background: var(--text); color: var(--white); padding: .45rem 1.25rem; border-radius: 20px; text-decoration: none; transition: background .15s; font-weight: 500; }
+    .nav-cta:hover { background: var(--punch); }
 
     /* Hero */
-    .hero {
-      margin-bottom: 48px;
-    }
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5rem; padding-top: 58px; }
+    .avail-dot { display: inline-block; width: 7px; height: 7px; background: #22a06b; border-radius: 50%; flex-shrink: 0; animation: blink 2.5s ease-in-out infinite; }
+    h1 { font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 4.8rem); line-height: 1.1; font-weight: 400; color: var(--text); letter-spacing: -.01em; max-width: 820px; }
+    h1 em { font-style: normal; color: var(--punch); font-weight: 400; }
+    .hero-p { margin-top: 1.75rem; font-size: 1.05rem; color: var(--text-2); max-width: 540px; line-height: 1.75; font-weight: 400; }
+    .hero-acts { margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center; }
+    .btn-dark { background: var(--text); color: var(--white); padding: .8rem 1.75rem; border-radius: 2px; font-size: .875rem; font-weight: 500; text-decoration: none; transition: background .15s; }
+    .btn-dark:hover { background: var(--punch); }
+    .btn-line { font-size: .85rem; color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color .15s, border-color .15s; }
+    .btn-line:hover { color: var(--punch); border-color: var(--punch); }
 
-    .hero-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--brand);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 12px;
-    }
+    /* Hero stats — horizontal row below the headline */
+    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4rem; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+    .hstat { padding: 1.5rem 1.75rem; border-right: 1px solid var(--border); background: var(--white); }
+    .hstat:last-child { border-right: none; }
+    .hstat-num { font-family: var(--serif); font-size: 2.6rem; font-weight: 400; color: var(--text); line-height: 1; display: flex; align-items: baseline; gap: .1rem; }
+    .hstat-num sup { font-size: 1rem; color: var(--punch); font-weight: 400; line-height: 1; margin-left: 1px; }
+    .hstat-label { font-size: .875rem; color: var(--text-2); margin-top: .55rem; line-height: 1.5; font-weight: 400; }
 
-    .hero-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
+    /* Marquee */
+    .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; white-space: nowrap; padding: .65rem 0; background: var(--off); }
+    .marquee { display: inline-flex; animation: marquee 28s linear infinite; }
+    .mq-item { font-size: .875rem; color: var(--text-3); padding: 0 2rem; }
+    .mq-dot { color: var(--punch); }
 
-    .hero-subtitle {
-      font-size: 16px;
-      color: var(--text-secondary);
-      max-width: 640px;
-    }
+    /* Section base */
+    section { padding: 5.5rem 5rem; }
+    .s-kicker { font-size: .875rem; color: var(--punch); font-weight: 500; margin-bottom: .75rem; }
+    h2 { font-family: var(--serif); font-size: clamp(1.75rem, 3vw, 2.8rem); font-weight: 400; line-height: 1.2; color: var(--text); }
+    h2 em { font-style: normal; color: var(--punch); font-weight: 400; }
+    .s-rule { width: 40px; height: 1px; background: var(--punch); margin: 1.5rem 0 2.5rem; }
 
-    /* Section */
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 20px;
+    /* ── BOOT SCREEN ── */
+    #boot {
+      position: fixed; inset: 0; background: #0d0d0d; z-index: 9000;
+      display: flex; flex-direction: column; justify-content: center; padding: 4rem 5rem;
+      font-family: 'Courier New', monospace;
     }
+    #boot.done { opacity: 0; pointer-events: none; transition: opacity .5s ease .2s; }
+    .boot-line { font-size: .82rem; color: #555; line-height: 2; white-space: nowrap; overflow: hidden; }
+    .boot-line.active { color: #ccc; }
+    .boot-line.done-line { color: #555; }
+    .boot-line .ok { color: #22a06b; margin-right: .5rem; }
+    .boot-line .warn { color: #d94f1e; margin-right: .5rem; }
+    .boot-cursor { display: inline-block; width: 8px; height: 14px; background: #d94f1e; vertical-align: middle; animation: blink-cur .7s step-end infinite; }
+    @keyframes blink-cur { 50% { opacity: 0; } }
+    .boot-name { font-family: 'Courier New', monospace; font-size: .72rem; color: #333; margin-bottom: 2.5rem; letter-spacing: .1em; }
 
-    .section-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
+    /* ── GATE OVERLAY ── */
+    #gate-overlay {
+      position: fixed; inset: 0; z-index: 800;
+      background: rgba(13,13,13,.75); backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center;
     }
-
-    .section-count {
-      font-size: 13px;
-      color: var(--text-tertiary);
+    #gate-overlay.open { display: flex; }
+    .gate-box {
+      background: var(--white); width: 440px; border-radius: 4px;
+      border: 1px solid var(--border); overflow: hidden;
     }
+    .gate-top { padding: 2rem 2rem 0; }
+    .gate-lock { font-size: .875rem; color: var(--text-4); margin-bottom: .85rem; display: flex; align-items: center; gap: .5rem; }
+    .gate-lock::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #d94f1e; flex-shrink: 0; }
+    .gate-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: .6rem; }
+    .gate-sub { font-size: .875rem; color: var(--text-3); line-height: 1.6; margin-bottom: 1.5rem; }
+    .gate-tabs { display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .gate-tab { flex: 1; padding: .75rem; font-size: .875rem; text-align: center; cursor: pointer; color: var(--text-3); font-family: var(--sans); background: none; border: none; transition: all .15s; }
+    .gate-tab.active { color: var(--text); background: var(--off); font-weight: 500; }
+    .gate-body { padding: 1.5rem 2rem 2rem; }
+    .gate-panel { display: none; }
+    .gate-panel.active { display: block; }
+    .gate-input { width: 100%; padding: .75rem .9rem; border: 1px solid var(--border); border-radius: 2px; font-family: var(--sans); font-size: .9rem; color: var(--text); background: var(--off); outline: none; transition: border-color .15s; }
+    .gate-input:focus { border-color: var(--punch); }
+    .gate-btn { width: 100%; margin-top: .85rem; padding: .8rem; background: var(--text); color: var(--white); border: none; border-radius: 2px; font-family: var(--sans); font-size: .875rem; font-weight: 500; cursor: pointer; transition: background .15s; }
+    .gate-btn:hover { background: var(--punch); }
+    .gate-err { font-size: .78rem; color: #c0392b; margin-top: .5rem; display: none; }
+    .gate-ok { font-size: .78rem; color: #22a06b; margin-top: .5rem; display: none; }
+    .gate-email-note { font-size: .78rem; color: var(--text-3); line-height: 1.55; margin-bottom: .85rem; }
+    .gate-email-note a { color: var(--punch); text-decoration: none; }
+    .gate-close { position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.2rem; color: var(--text-4); cursor: pointer; }
+    .gate-close:hover { color: var(--text); }
+    .gate-box { position: relative; }
 
-    /* Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 56px;
+    /* ── CARD BLUR ── */
+    .pcard.locked .pdesc { position: relative; }
+    .pcard.locked .pnums { filter: blur(5px); user-select: none; pointer-events: none; position: relative; }
+    .pcard.locked .pnums::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(transparent, rgba(255,255,255,.95));
     }
+    .pcard.locked .pmeta { filter: blur(4px); pointer-events: none; }
+    .lock-cta { margin-top: .75rem; padding: .5rem .85rem; background: var(--off); border: 1px solid var(--border); border-radius: 2px; font-size: .75rem; color: var(--text-2); cursor: pointer; width: 100%; text-align: left; font-family: var(--sans); transition: border-color .15s, color .15s; display: flex; align-items: center; gap: .5rem; }
+    .lock-cta:hover { border-color: var(--punch); color: var(--punch); }
+    .lock-cta::before { content: '⬡'; font-size: .7rem; color: var(--punch); }
 
-    /* Card */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-    }
+    /* Portfolio */
+    #portfolio { background: var(--white); }
+    .filter-bar { display: flex; gap: .4rem; flex-wrap: wrap; margin: 2.25rem 0; }
+    .fb { padding: .4rem 1rem; border: 1px solid var(--border); background: transparent; border-radius: 8px; font-size: .875rem; color: var(--text-3); cursor: none; transition: all .15s; font-family: var(--sans); }
+    .fb:hover, .fb.active { background: var(--text); color: var(--white); border-color: var(--text); }
+    .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .pcard { background: var(--white); padding: 2rem; transition: background .15s; position: relative; overflow: hidden; }
+    .pcard:hover { background: var(--off); }
+    .pcard::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--punch); transform: scaleY(0); transform-origin: bottom; transition: transform .25s; }
+    .pcard:hover::before { transform: scaleY(1); }
+    .pcard.hidden { display: none; }
+    .ptag { display: inline-block; font-size: .875rem; color: var(--punch); background: var(--punch-soft); padding: .2rem .6rem; border-radius: 4px; margin-bottom: .85rem; }
+    .ptitle { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: .6rem; }
+    .pdesc { font-size: .85rem; color: var(--text-3); line-height: 1.65; margin-bottom: 1.1rem; }
+    .pnums { display: flex; gap: 1.5rem; padding: .8rem 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); margin-bottom: 1.1rem; }
+    .pn { }
+    .pn-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--punch); line-height: 1; }
+    .pn-label { font-size: .875rem; color: var(--text-4); margin-top: .15rem; }
+    .pmeta { display: flex; align-items: center; justify-content: space-between; font-size: .76rem; color: var(--text-4); }
+    .plink { font-size: .76rem; color: var(--text-2); text-decoration: none; transition: color .15s; }
+    .plink:hover { color: var(--punch); }
 
-    .card:hover {
-      border-color: var(--brand);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 500; display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 3rem 1rem; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--white); max-width: 760px; width: 100%; border-radius: 4px; overflow: hidden; position: relative; animation: mIn .25s ease; margin: auto; }
+    .mh { padding: 2rem 2.5rem 0; }
+    .mclose { position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; font-size: 1.3rem; color: var(--text-3); cursor: none; }
+    .mclose:hover { color: var(--punch); }
+    .mb { padding: 1.5rem 2.5rem 2.5rem; }
+    .m-tag { display: inline-block; font-size: .875rem; color: var(--punch); background: var(--punch-soft); padding: .2rem .6rem; border-radius: 4px; margin-bottom: .85rem; }
+    .m-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; color: var(--text); line-height: 1.2; margin-bottom: .6rem; }
+    .m-meta { font-size: .76rem; color: var(--text-4); margin-bottom: 1.5rem; }
+    .m-sl { font-size: .875rem; color: var(--text-4); margin: 1.4rem 0 .45rem; font-weight: 500; }
+    .mb p { font-size: .9rem; color: var(--text-2); line-height: 1.75; margin-bottom: .8rem; }
+    .mb ul { padding-left: 1.2rem; margin-bottom: .9rem; }
+    .mb li { font-size: .9rem; color: var(--text-2); line-height: 1.7; margin-bottom: .35rem; }
+    .m-nums { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.4rem 0; padding: 1.2rem; background: var(--off); border-radius: 3px; border: 1px solid var(--border-soft); }
+    .m-num { text-align: center; flex: 1; min-width: 70px; }
+    .m-num-n { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--punch); line-height: 1; }
+    .m-num-l { font-size: .875rem; color: var(--text-3); margin-top: .25rem; }
+    .m-quote { border-left: 2px solid var(--punch); padding: .7rem 1.1rem; background: var(--off); margin: 1rem 0; font-size: .9rem; color: var(--text-2); line-height: 1.65; }
+    .m-quote.before { border-color: #ccc; background: #f9f9f9; }
+    .m-quote.after { border-color: #22a06b; background: #f0faf5; }
+    .q-label { font-size: .875rem; font-weight: 500; margin-bottom: .3rem; }
+    .q-label.b { color: #999; }
+    .q-label.a { color: #22a06b; }
 
-    .card-preview {
-      aspect-ratio: 16 / 10;
-      background: linear-gradient(135deg, #e8f0fe 0%, #f1f3f4 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
+    /* About */
+    #about { background: var(--off); }
+    .agrid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 3rem; align-items: start; }
+    .about-p { color: var(--text-2); margin-bottom: 1.1rem; font-size: .95rem; line-height: 1.78; font-weight: 400; }
+    .about-p strong { color: var(--text); font-weight: 500; }
+    .sk-head { font-size: .875rem; color: var(--text-4); margin-bottom: .65rem; font-weight: 500; }
+    .sk-wrap { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .sk { font-size: .78rem; color: var(--text-2); background: var(--white); border: 1px solid var(--border); padding: .28rem .8rem; border-radius: 2px; }
+    .tl { border-left: 1px solid var(--border); padding-left: 1.75rem; }
+    .tl-item { position: relative; margin-bottom: 1.75rem; }
+    .tl-item::before { content: ''; width: 7px; height: 7px; background: var(--punch); border-radius: 50%; position: absolute; left: -2.28rem; top: .4rem; }
+    .tl-date { font-size: .73rem; color: var(--text-4); margin-bottom: .2rem; }
+    .tl-role { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); }
+    .tl-co { font-size: .83rem; color: var(--text-3); margin-top: .15rem; }
+    .cert { display: flex; align-items: center; gap: .65rem; background: var(--white); border: 1px solid var(--border); border-radius: 3px; padding: .6rem 1rem; margin-bottom: .4rem; }
+    .cert-ico { width: 26px; height: 26px; background: var(--punch-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .6rem; color: var(--punch); font-weight: 600; flex-shrink: 0; }
+    .cert-name { font-size: .83rem; color: var(--text); }
+    .cert-yr { font-size: .7rem; color: var(--text-4); }
 
-    .card-preview-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--surface);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-sm);
-      color: var(--brand);
-    }
+    /* Analytics section */
+    #analytics { background: var(--white); }
+    .an-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+    .tool-group { margin-bottom: 2rem; }
+    .tg-head { font-size: .875rem; color: var(--text-4); margin-bottom: .85rem; border-bottom: 1px solid var(--border-soft); padding-bottom: .4rem; font-weight: 500; }
+    .tool-row { display: flex; align-items: center; justify-content: space-between; padding: .65rem 0; border-bottom: 1px solid var(--border-soft); }
+    .tool-row:last-child { border-bottom: none; }
+    .tool-name { font-size: .875rem; color: var(--text); font-weight: 400; }
+    .tool-level { font-size: .75rem; color: var(--text-3); }
+    .tool-bar-wrap { width: 80px; height: 3px; background: var(--border); border-radius: 2px; }
+    .tool-bar { height: 3px; background: var(--punch); border-radius: 2px; }
+    .an-copy p { font-size: .95rem; color: var(--text-2); line-height: 1.78; font-weight: 400; margin-bottom: 1.1rem; }
+    .an-copy p strong { color: var(--text); font-weight: 500; }
+    .seo-block { background: var(--off); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; margin-top: 1.5rem; }
+    .seo-block-title { font-size: .78rem; font-weight: 500; color: var(--text); margin-bottom: .65rem; letter-spacing: .02em; }
+    .seo-block p { font-size: .85rem; color: var(--text-3); line-height: 1.7; margin-bottom: 0; }
 
-    .card-body {
-      padding: 16px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
+    /* Builder */
+    #builder { background: var(--off); }
+    #builder .s-kicker { color: var(--punch); }
+    #builder h2 { color: var(--text); }
+    #builder .s-rule { background: var(--punch); }
+    .builder-p { font-size: 1rem; color: var(--text-3); max-width: 640px; line-height: 1.75; font-weight: 400; margin-bottom: 3rem; }
+    .bgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 2.5rem; }
+    .bcard { background: var(--white); padding: 2rem; position: relative; overflow: hidden; transition: background .15s; }
+    .bcard:hover { background: var(--off-2); }
+    .bcard::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--punch); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+    .bcard:hover::after { transform: scaleX(1); }
+    .bnum { font-family: var(--serif); font-size: 2rem; color: var(--border); line-height: 1; margin-bottom: .6rem; font-weight: 400; }
+    .blabel { font-size: .875rem; color: var(--text-4); margin-bottom: .5rem; font-weight: 500; }
+    .btitle { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--text); line-height: 1.28; margin-bottom: .75rem; }
+    .baward { display: inline-flex; align-items: center; gap: .5rem; background: var(--punch-soft); border: 1px solid rgba(26,115,232,.15); border-radius: 2px; padding: .4rem .75rem; font-size: .75rem; color: var(--punch-dark); margin-bottom: .9rem; }
+    .bdesc { font-size: .875rem; color: var(--text-2); line-height: 1.7; margin-bottom: 1.25rem; }
+    .btags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.1rem; }
+    .btag { font-size: .875rem; color: var(--text-3); border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 4px; background: var(--off); }
+    .blink { font-size: .78rem; color: var(--punch); text-decoration: none; transition: color .15s; font-weight: 500; }
+    .blink:hover { color: var(--punch-dark); }
+    .bcontext { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding: 2rem; background: var(--white); border: 1px solid var(--border); border-radius: 3px; }
+    .bc-head { font-size: .875rem; color: var(--punch); margin-bottom: .6rem; font-weight: 500; }
+    .bc-text { font-size: .875rem; color: var(--text-3); line-height: 1.7; }
 
-    .card-tag-row {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
+    /* Speaking */
+    #speaking { background: var(--white); }
+    .tgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
+    .tcard { background: var(--white); padding: 1.75rem; transition: background .15s; }
+    .tcard:hover { background: var(--off); }
+    .tcard.highlight { background: var(--punch-soft); }
+    .tevent { font-size: .875rem; color: var(--punch); margin-bottom: .45rem; font-weight: 500; }
+    .ttitle { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: .6rem; }
+    .tdesc { font-size: .84rem; color: var(--text-3); line-height: 1.6; }
+    .tyear { font-size: .73rem; color: var(--text-4); margin-top: .9rem; }
+    .recog-strip { margin-top: 1px; background: var(--punch-soft); border: 1px solid rgba(26,115,232,.12); border-radius: 0 0 3px 3px; }
+    .recog-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 2rem 2.5rem; }
+    .recog-label { font-size: .875rem; color: var(--punch); margin-bottom: .45rem; font-weight: 500; }
+    .recog-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: .5rem; }
+    .recog-desc { font-size: .875rem; color: var(--text-3); line-height: 1.65; }
+    .recog-quote { font-size: .9rem; color: var(--text-2); line-height: 1.65; font-style: italic; margin-bottom: .5rem; }
+    .recog-attr { font-size: .75rem; color: var(--text-4); }
 
-    .tag {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .tag-component { background: #e8f0fe; color: #1967d2; }
-    .tag-prototype { background: #e6f4ea; color: #1e8e3e; }
-    .tag-system { background: #fef7e0; color: #b06000; }
-    .tag-wip { background: #f1f3f4; color: #5f6368; }
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      letter-spacing: -0.2px;
-    }
-
-    .card-description {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .card-date {
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
-
-    .card-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--brand);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .card-link svg {
-      transition: transform 0.15s ease;
-    }
-
-    .card:hover .card-link svg {
-      transform: translateX(2px);
-    }
-
-    /* Coming soon card */
-    .card-placeholder {
-      background: transparent;
-      border: 1px dashed var(--border);
-      cursor: default;
-    }
-
-    .card-placeholder:hover {
-      border-color: var(--border);
-      box-shadow: none;
-      transform: none;
-    }
-
-    .card-placeholder .card-preview {
-      background: transparent;
-    }
-
-    .card-placeholder .card-preview-icon {
-      background: var(--surface);
-      color: var(--text-tertiary);
-    }
+    /* Contact */
+    #contact { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .c-sub { font-size: .95rem; color: var(--text-2); margin-top: 1rem; line-height: 1.7; font-weight: 400; }
+    .c-details { margin-top: 2rem; display: flex; flex-direction: column; gap: .6rem; }
+    .c-row { display: flex; align-items: center; gap: .85rem; font-size: .875rem; color: var(--text-3); }
+    .c-row a { color: var(--text-2); text-decoration: none; transition: color .15s; }
+    .c-row a:hover { color: var(--punch); }
+    .cform { display: flex; flex-direction: column; gap: .9rem; }
+    .fg { display: flex; flex-direction: column; gap: .35rem; }
+    .fl { font-size: .875rem; color: var(--text-3); font-weight: 500; }
+    .fi, .fta { background: var(--off); border: 1px solid var(--border); border-radius: 2px; padding: .75rem .9rem; color: var(--text); font-family: var(--sans); font-size: .9rem; outline: none; transition: border-color .15s; }
+    .fi:focus, .fta:focus { border-color: var(--punch); }
+    .fta { height: 100px; resize: none; }
+    .fsub { background: var(--text); color: var(--white); border: none; padding: .75rem 1.75rem; border-radius: 20px; font-family: var(--sans); font-size: .875rem; font-weight: 500; cursor: none; transition: background .15s; align-self: flex-start; }
+    .fsub:hover { background: var(--punch); }
 
     /* Footer */
-    .footer {
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
+    footer { border-top: 1px solid var(--border); padding: 1.25rem 5rem; display: flex; align-items: center; justify-content: space-between; background: var(--white); }
+    .fl-left { font-size: .76rem; color: var(--text-4); }
+    .fl-right { display: flex; gap: 1.5rem; }
+    .fl-link { font-size: .76rem; color: var(--text-3); text-decoration: none; transition: color .15s; }
+    .fl-link:hover { color: var(--punch); }
 
-    .footer a {
-      color: var(--text-secondary);
-      text-decoration: none;
-    }
+    /* Animations */
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes mIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .footer a:hover {
-      color: var(--brand);
-    }
-
-    /* Responsive */
-    @media (max-width: 640px) {
-      .container { padding: 32px 20px; }
-      .hero-title { font-size: 26px; }
-      .grid { grid-template-columns: 1fr; }
-      .header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    @media(max-width:900px){
+      nav{padding:0 1.5rem;} section,#contact,footer{padding:4rem 1.5rem;}
+      #hero{padding:5rem 1.5rem 3.5rem;min-height:auto;}
+      .hero-stats{grid-template-columns:1fr 1fr;}
+      .hstat{border-right:none;border-bottom:1px solid var(--border);}
+      .hstat:nth-child(odd){border-right:1px solid var(--border);}
+      .hstat:last-child,.hstat:nth-last-child(2):nth-child(odd){border-bottom:none;}
+      .agrid,.an-grid,#contact,.bcontext,.recog-inner{grid-template-columns:1fr;}
+      .nav-links,.nav-cta{display:none;}
+      .pgrid{grid-template-columns:1fr;}
+      .bgrid{grid-template-columns:1fr;}
+      .tgrid{grid-template-columns:1fr 1fr;}
+      .pcard{grid-column:span 1 !important;}
     }
   </style>
 </head>
 <body>
-  <div class="container">
+<a href="#main-content" class="skip-link" data-i18n="skip_link">Skip to main content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-ring" id="curRing" aria-hidden="true"></div>
 
-    <!-- Header -->
-    <header class="header">
-      <div class="brand">
-        <div class="brand-logo">R</div>
-        <div class="brand-text">
-          <div class="brand-name">Rishi Sharma</div>
-          <div class="brand-role">Full Stack Design · Birdeye</div>
-        </div>
+<!-- BOOT SCREEN -->
+<div id="boot">
+  <p class="boot-name">RISHI SHARMA / PORTFOLIO v2025</p>
+  <p class="boot-line" id="bl0">Initialising session...</p>
+  <p class="boot-line" id="bl1">Detecting environment...</p>
+  <p class="boot-line" id="bl2">Loading content modules...</p>
+  <p class="boot-line" id="bl3">Verifying visitor context...</p>
+  <p class="boot-line" id="bl4">Logging session data...</p>
+  <p class="boot-line" id="bl5">Applying access controls...</p>
+  <p class="boot-line" id="bl6"><span class="ok">&#10003;</span>Portfolio ready. <span class="boot-cursor"></span></p>
+</div>
+
+<!-- GATE OVERLAY -->
+<div id="gate-overlay" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-box">
+    <button class="gate-close" onclick="closeGate()" aria-label="Close gate">&#10005;</button>
+    <div class="gate-top">
+      <p class="gate-lock">Restricted content</p>
+      <p class="gate-title" id="gate-title">This case study is gated.</p>
+      <p class="gate-sub">Full metrics, copy examples, and process details are available to verified visitors. Enter the access code, or request access from Rishi.</p>
+    </div>
+    <div class="gate-tabs">
+      <button class="gate-tab active" onclick="switchTab('password')">I have a code</button>
+      <button class="gate-tab" onclick="switchTab('email')">Request access</button>
+    </div>
+    <div class="gate-body">
+      <div class="gate-panel active" id="panel-password">
+        <input class="gate-input" id="gate-pw" type="password" placeholder="Enter access code" autocomplete="off" />
+        <p class="gate-err" id="pw-err">Incorrect code. Request access below.</p>
+        <button class="gate-btn" onclick="checkPassword()">Unlock</button>
       </div>
-      <div class="header-meta">Prototypes &amp; components</div>
-    </header>
+      <div class="gate-panel" id="panel-email">
+        <p class="gate-email-note">Send your email to <a href="mailto:rishi.g.sharma@gmail.com">rishi.g.sharma@gmail.com</a> with the subject <strong>"Portfolio Access"</strong> and Rishi will send you the access code. Or enter your email below and he'll reach out.</p>
+        <input class="gate-input" id="gate-email" type="email" placeholder="your@email.com" />
+        <p class="gate-err" id="email-err">Enter a valid email address.</p>
+        <p class="gate-ok" id="email-ok">Request sent. Rishi will be in touch.</p>
+        <button class="gate-btn" onclick="requestAccess()">Send request</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-eyebrow">Design lab</div>
-      <h1 class="hero-title">Content. Code. Craft.</h1>
-      <p class="hero-subtitle">A working collection of prototypes, component explorations, and design system experiments. Built with Claude Design, Cursor, and the Aero DS.</p>
-    </section>
+<nav aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" aria-label="Rishi Sharma — home">Rishi Sharma</a>
+  <ul class="nav-links" role="list">
+    <li><a href="#portfolio" data-i18n="nav_work">Work</a></li>
+    <li><a href="#builder" data-i18n="nav_builder">Builder</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#analytics" data-i18n="nav_analytics">Analytics</a></li>
+    <li><a href="#speaking" data-i18n="nav_speaking">Speaking</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" id="themeIcon"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <select class="lang-select" id="langSelect" aria-label="Select language">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+    </select>
+    <a href="#contact" class="nav-cta" data-i18n="nav_cta">Get in touch</a>
+  </div>
+</nav>
 
-    <!-- Prototypes -->
-    <div class="section-header">
-      <div class="section-title">Prototypes</div>
-      <div class="section-count">2 live</div>
+<main id="main-content">
+<section id="hero" aria-labelledby="hero-heading">
+  <h1 id="hero-heading" data-i18n="hero_h1">I design content.<br>I build tools.<br><em>I measure both.</em></h1>
+  <p class="hero-p" data-i18n="hero_p">I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.</p>
+  <div class="hero-acts">
+    <a href="#portfolio" class="btn-dark" data-i18n="hero_cta1">See my work</a>
+    <a href="#contact" class="btn-line" data-i18n="hero_cta2">Say hello</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-num">40<sup>%</sup></div>
+      <div class="hstat-label">Drop in support cases from a single content redesign</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">35<sup>%</sup></div>
+      <div class="hstat-label">Fewer clicks to complete a workflow, through IA and copy changes</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">3</div>
+      <div class="hstat-label">Internal tools built from scratch: AI app, Figma plugin, Chrome extension</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">5<sup>x</sup></div>
+      <div class="hstat-label">Conference speaker: UXDX, ContentEd, Utterly Content, DDX Dubai</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap"><div class="marquee">
+  <span class="mq-item">UX Content Design <span class="mq-dot">+</span></span>
+  <span class="mq-item">AI Experience Design <span class="mq-dot">+</span></span>
+  <span class="mq-item">Content Systems <span class="mq-dot">+</span></span>
+  <span class="mq-item">Pendo <span class="mq-dot">+</span></span>
+  <span class="mq-item">Google Analytics <span class="mq-dot">+</span></span>
+  <span class="mq-item">Figma Variables <span class="mq-dot">+</span></span>
+  <span class="mq-item">Prompt Engineering <span class="mq-dot">+</span></span>
+  <span class="mq-item">Voice &amp; Tone <span class="mq-dot">+</span></span>
+  <span class="mq-item">SEO &amp; AEO <span class="mq-dot">+</span></span>
+  <span class="mq-item">Mixpanel <span class="mq-dot">+</span></span>
+  <span class="mq-item">A/B Testing <span class="mq-dot">+</span></span>
+  <span class="mq-item">Readability Audits <span class="mq-dot">+</span></span>
+  <span class="mq-item">Customer Data Platforms <span class="mq-dot">+</span></span>
+  <span class="mq-item">UX Content Design <span class="mq-dot">+</span></span>
+  <span class="mq-item">AI Experience Design <span class="mq-dot">+</span></span>
+  <span class="mq-item">Content Systems <span class="mq-dot">+</span></span>
+  <span class="mq-item">Pendo <span class="mq-dot">+</span></span>
+  <span class="mq-item">Google Analytics <span class="mq-dot">+</span></span>
+  <span class="mq-item">Figma Variables <span class="mq-dot">+</span></span>
+  <span class="mq-item">Prompt Engineering <span class="mq-dot">+</span></span>
+  <span class="mq-item">Voice &amp; Tone <span class="mq-dot">+</span></span>
+  <span class="mq-item">SEO &amp; AEO <span class="mq-dot">+</span></span>
+  <span class="mq-item">Mixpanel <span class="mq-dot">+</span></span>
+  <span class="mq-item">A/B Testing <span class="mq-dot">+</span></span>
+  <span class="mq-item">Readability Audits <span class="mq-dot">+</span></span>
+  <span class="mq-item">Customer Data Platforms <span class="mq-dot">+</span></span>
+</div></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" aria-labelledby="portfolio-heading">
+  <p class="s-kicker reveal" data-i18n="portfolio_kicker">Selected work</p>
+  <h2 class="reveal" id="portfolio-heading">Projects with a point.</h2>
+  <div class="s-rule reveal" aria-hidden="true"></div>
+  <div class="filter-bar reveal" role="group" aria-label="Filter portfolio by category">
+    <button class="fb active" data-filter="all" aria-pressed="true" data-i18n="filter_all">All</button>
+    <button class="fb" data-filter="ux-writing" aria-pressed="false" data-i18n="filter_ux">UX Writing</button>
+    <button class="fb" data-filter="ai" aria-pressed="false" data-i18n="filter_ai">AI &amp; Tools</button>
+    <button class="fb" data-filter="systems" aria-pressed="false" data-i18n="filter_systems">Content Systems</button>
+    <button class="fb" data-filter="research" aria-pressed="false" data-i18n="filter_research">Research</button>
+    <button class="fb" data-filter="onboarding" aria-pressed="false" data-i18n="filter_onboarding">Onboarding</button>
+  </div>
+  <div class="pgrid reveal" role="list" aria-label="Portfolio projects">
+
+    <div class="pcard locked" data-tags="ux-writing research">
+      <span class="ptag">UX Writing &middot; Cvent</span>
+      <div class="ptitle">Workflow Hub: Meeting Management Redesign</div>
+      <p class="pdesc">Admin users couldn't understand how their workflow components connected. Siloed UI, jargon-heavy labels, and no visual map of dependencies drove thousands of support cases annually.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">40%</div><div class="pn-label">Support cases down</div></div>
+        <div class="pn"><div class="pn-num">35%</div><div class="pn-label">Fewer nav clicks</div></div>
+        <div class="pn"><div class="pn-num">+12%</div><div class="pn-label">SUS score up</div></div>
+      </div>
+      <button class="lock-cta" onclick="openGate('modal-workflow')">Unlock full case study &rarr;</button>
     </div>
 
-    <div class="grid">
-
-      <!-- Billing and usage -->
-      <a class="card" href="billing-and-usage/">
-        <div class="card-preview">
-          <div class="card-preview-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="20" x2="12" y2="10"></line>
-              <line x1="18" y1="20" x2="18" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="16"></line>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-tag-row">
-            <span class="tag tag-prototype">Prototype</span>
-          </div>
-          <div class="card-title">Billing and usage</div>
-          <div class="card-description">Credit allocation, usage tracking, and overage handling for BirdAI across business accounts.</div>
-          <div class="card-footer">
-            <span class="card-date">Updated Apr 2026</span>
-            <span class="card-link">
-              View
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Input components -->
-      <a class="card" href="ds-input-components.html">
-        <div class="card-preview">
-          <div class="card-preview-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect>
-              <line x1="7" y1="12" x2="11" y2="12"></line>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-tag-row">
-            <span class="tag tag-component">Component</span>
-            <span class="tag tag-system">Aero DS</span>
-          </div>
-          <div class="card-title">Input components</div>
-          <div class="card-description">Nine states of the standard text field: empty, focus, filled, error, success, disabled, and more.</div>
-          <div class="card-footer">
-            <span class="card-date">Updated Apr 2026</span>
-            <span class="card-link">
-              View
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Placeholder: coming soon -->
-      <div class="card card-placeholder">
-        <div class="card-preview">
-          <div class="card-preview-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-tag-row">
-            <span class="tag tag-wip">In progress</span>
-          </div>
-          <div class="card-title">Next up</div>
-          <div class="card-description">Another end-to-end prototype showing an interactive, multi-state flow. Coming soon.</div>
-          <div class="card-footer">
-            <span class="card-date">&nbsp;</span>
-            <span class="card-link" style="color: var(--text-tertiary);">Soon</span>
-          </div>
-        </div>
+    <div class="pcard locked" data-tags="systems">
+      <span class="ptag">Content Systems &middot; Cvent</span>
+      <div class="ptitle">Carina Editorial Components Framework</div>
+      <p class="pdesc">No consistent standard for tooltips, modals, error messages, or CTAs across 40+ UI components. Different writers, different choices, same product. I built the reference that fixed it.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">40+</div><div class="pn-label">Components covered</div></div>
+        <div class="pn"><div class="pn-num">33%</div><div class="pn-label">Fewer review rounds</div></div>
+        <div class="pn"><div class="pn-num">50%</div><div class="pn-label">Less version docs</div></div>
       </div>
-
+      <button class="lock-cta" onclick="openGate('modal-styleguide')">Unlock full case study &rarr;</button>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div>Built with Claude Design + Cursor</div>
-      <div><a href="https://github.com/rishisharma-tech" target="_blank" rel="noopener">GitHub</a></div>
-    </footer>
+    <div class="pcard" data-tags="research systems">
+      <span class="ptag">Research &middot; Cvent</span>
+      <div class="ptitle">Content Audit with Flesch-Kincaid Scoring</div>
+      <p class="pdesc">Content decisions at Cvent were based on gut feel. I built a 10-dimension audit framework with Flesch-Kincaid readability scoring at the centre, so we could argue with data instead of opinion.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">10</div><div class="pn-label">Audit dimensions</div></div>
+        <div class="pn"><div class="pn-num">2</div><div class="pn-label">Audit modes</div></div>
+        <div class="pn"><div class="pn-num">FK</div><div class="pn-label">Grade scoring</div></div>
+      </div>
+      <div class="pmeta"><span>Cvent, 2024</span><a href="#" class="plink" onclick="openModal('modal-audit');return false;">Read more &#8599;</a></div>
+    </div>
+
+    <div class="pcard" data-tags="ux-writing systems">
+      <span class="ptag">UX Writing &middot; Cvent</span>
+      <div class="ptitle">Cutting Subordinating Conjunctions Across the Product</div>
+      <p class="pdesc">Sentences starting with "Because," "While," "Once" were everywhere. Users skimmed and missed the key action. I ran training, updated the style guide, and audited the product, with real before/afters to prove the change was worth it.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">3</div><div class="pn-label">Methods: guide, training, audit</div></div>
+        <div class="pn"><div class="pn-num">4</div><div class="pn-label">Impact areas</div></div>
+        <div class="pn"><div class="pn-num">+</div><div class="pn-label">L10N speed</div></div>
+      </div>
+      <div class="pmeta"><span>Cvent, 2023</span><a href="#" class="plink" onclick="openModal('modal-conjunctions');return false;">Read more &#8599;</a></div>
+    </div>
+
+    <div class="pcard" data-tags="systems research">
+      <span class="ptag">Strategy &middot; Cvent</span>
+      <div class="ptitle">Cross-Functional Collaboration Framework (Outside Roles)</div>
+      <p class="pdesc">Content design was always the last team called. I ran discovery with non-UX teams, mapped the gaps, and built a framework that changed when and how content designers got involved.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">3</div><div class="pn-label">Phases</div></div>
+        <div class="pn"><div class="pn-num">4+</div><div class="pn-label">Teams involved</div></div>
+        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Scalable model</div></div>
+      </div>
+      <div class="pmeta"><span>Cvent, 2023</span><a href="#" class="plink" onclick="openModal('modal-outside');return false;">Read more &#8599;</a></div>
+    </div>
+
+    <div class="pcard" data-tags="ai systems">
+      <span class="ptag">AI &amp; Systems &middot; Birdeye</span>
+      <div class="ptitle">AI-Powered Style Guide and Error Framework</div>
+      <p class="pdesc">Content standards for a product with reviews, listings, surveys, social, and messaging all living under one roof. Built an AI-powered style guide with error frameworks and messaging patterns so quality doesn't depend on one person.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">AI</div><div class="pn-label">Powered system</div></div>
+        <div class="pn"><div class="pn-num">5+</div><div class="pn-label">Product surfaces</div></div>
+        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Source of truth</div></div>
+      </div>
+      <div class="pmeta"><span>Birdeye, 2025</span><a href="#" class="plink" onclick="openModal('modal-aistyle');return false;">Read more &#8599;</a></div>
+    </div>
+
+    <div class="pcard locked" data-tags="ux-writing onboarding">
+      <span class="ptag">Onboarding &middot; Cvent</span>
+      <div class="ptitle">Phoenix: Venue Sourcing Onboarding Redesign</div>
+      <p class="pdesc">Five different planner types. One new platform. Zero consistent onboarding. I designed persona-segmented flows in Pendo with zero engineering dependency, with guided walkthroughs, tooltips, and in-app training for each user type.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">5</div><div class="pn-label">Persona segments</div></div>
+        <div class="pn"><div class="pn-num">0</div><div class="pn-label">Dev dependency</div></div>
+        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Feature adoption</div></div>
+      </div>
+      <button class="lock-cta" onclick="openGate('modal-phoenix')">Unlock full case study &rarr;</button>
+    </div>
+
+    <div class="pcard" data-tags="ux-writing research">
+      <span class="ptag">Content Research &middot; Cvent</span>
+      <div class="ptitle">Meeting Space Calculator: Unit Standardisation</div>
+      <p class="pdesc">"SF," "sq ft," "ft2": all used interchangeably for the same thing in the same product. International users had no way to switch to metric. I ran content research, picked a standard, and wrote the toggle logic and layout-specific tooltips.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Abbrev. standard</div></div>
+        <div class="pn"><div class="pn-num">2</div><div class="pn-label">Unit systems</div></div>
+        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Global reach</div></div>
+      </div>
+      <div class="pmeta"><span>Cvent, 2024</span><a href="#" class="plink" onclick="openModal('modal-calculator');return false;">Read more &#8599;</a></div>
+    </div>
+
+    <div class="pcard locked" data-tags="ux-writing systems">
+      <span class="ptag">UX Writing &middot; Cvent</span>
+      <div class="ptitle">SPP Reporting: Fixing Financial Terminology for Pharma Clients</div>
+      <p class="pdesc">Pharma event managers needed reliable Spend Per Person reporting for HCP compliance. Inconsistent labels, broken configuration copy, and no cross-event reporting made it unusable. I fixed the language, rewrote the admin setup, and added self-service guidance.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Consistent nomenclature</div></div>
+        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Compliance reporting</div></div>
+        <div class="pn"><div class="pn-num">-</div><div class="pn-label">Config support cases</div></div>
+      </div>
+      <button class="lock-cta" onclick="openGate('modal-spp')">Unlock full case study &rarr;</button>
+    </div>
+
+    <div class="pcard" data-tags="research systems ai">
+      <span class="ptag" style="background:#e8f0fe;color:#1557b0;">Meta &middot; This Site</span>
+      <div class="ptitle">Building This Portfolio: A Full Case Study</div>
+      <p class="pdesc">This website is itself a project. From research and audience strategy to UX, content, visitor tracking, gated access, a terminal boot sequence, and a custom Figma-to-code workflow — here's how it was built and why every decision was made.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">5</div><div class="pn-label">Technical features</div></div>
+        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Day to first version</div></div>
+        <div class="pn"><div class="pn-num">AI</div><div class="pn-label">Assisted build</div></div>
+      </div>
+      <div class="pmeta"><span>2025</span><a href="#" class="plink" onclick="openModal('modal-thissite');return false;">Read the story &#8599;</a></div>
+    </div>
+
+    <div class="pcard" data-tags="research systems">
+      <span class="ptag">Strategy &middot; Cvent</span>
+      <div class="ptitle">Cross-Team Product Workshops</div>
+      <p class="pdesc">Content designers writing for products they'd never clicked through. Localization translating without workflow context. I ran a structured 1-hour format that put both teams inside the actual product. Walkthrough, then feedback, every session.</p>
+      <div class="pnums">
+        <div class="pn"><div class="pn-num">1hr</div><div class="pn-label">Per session</div></div>
+        <div class="pn"><div class="pn-num">2</div><div class="pn-label">Teams: CD + L10N</div></div>
+        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Content quality</div></div>
+      </div>
+      <div class="pmeta"><span>Cvent, 2023</span><a href="#" class="plink" onclick="openModal('modal-workshops');return false;">Read more &#8599;</a></div>
+    </div>
 
   </div>
+</section>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-workflow" role="dialog" aria-modal="true" aria-labelledby="modal-workflow-title" onclick="if(event.target===this)closeModal('modal-workflow')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-workflow')" aria-label="Close case study">&#10005;</button><span class="m-tag">UX Writing &middot; Cvent</span><div class="m-title" id="modal-workflow-title">Workflow Hub: Meeting Management Redesign</div><div class="m-meta">Lead Content Designer &middot; A/B Testing via Maze &middot; Figma Variables &middot; 2024</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Cvent's Meeting Management platform split its workflow components across separate, siloed pages. Admins setting up Auto Event Creation, Budget Policies, and other automations couldn't see how those pieces connected. They'd change one setting and break something else, then file a support ticket when they couldn't figure out why.</p>
+      <ul><li>No visual map of component relationships or dependencies</li><li>Labels like "Triggers" meant nothing to users. The terminology was engineering shorthand, not user language.</li><li>Error states gave no guidance on what to fix or what would break downstream</li></ul>
+      <p class="m-sl">What I did</p>
+      <p>I introduced a centralised Workflow Hub, consolidating all components under one interface. Renamed "Triggers" to "Workflow Automations" and wrote consistent labels and tooltips that explained each component's role in context.</p>
+      <p>I created a Workflow Map showing how settings in one area affected others. This let users make changes with confidence instead of guessing.</p>
+      <p>Content was A/B tested via Maze: two versions with different label language and step sequencing. The version with better task completion and navigation scores shipped.</p>
+      <p>Figma Variables managed content states across light/dark mode and active/disabled states. What used to take hours across dozens of screens took seconds, and dev handoff was cleaner because tokens were standardised.</p>
+      <p class="m-sl">Copy examples</p>
+      <div class="m-quote">Dashboard heading: "Your Workflow at a Glance — see and manage your event automation process."</div>
+      <div class="m-quote">Inline guidance: "Changes here affect notifications sent during the Event Planning phase. Check your notification preferences before saving."</div>
+      <div class="m-quote">Error message: "This trigger conflicts with your Notification settings. Update your Notification rules to continue."</div>
+      <div class="m-nums">
+        <div class="m-num"><div class="m-num-n">40%</div><div class="m-num-l">Fewer support cases</div></div>
+        <div class="m-num"><div class="m-num-n">35%</div><div class="m-num-l">Fewer nav clicks</div></div>
+        <div class="m-num"><div class="m-num-n">+12%</div><div class="m-num-l">SUS score</div></div>
+      </div>
+      <div class="m-quote">"I can finally see how my entire workflow comes together."</div>
+      <div class="m-quote">"The inline tips saved me so much time — I didn't need to contact support."</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-styleguide" onclick="if(event.target===this)closeModal('modal-styleguide')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-styleguide')">&#10005;</button><span class="m-tag">Content Systems &middot; Cvent</span><div class="m-title">Carina Editorial Components Framework</div><div class="m-meta">Lead Content Designer &middot; 40+ components &middot; 2024</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Same component, five different writers, five different choices. One tooltip said "This helps you..." Another said "Use this to..." A third skipped the explanation entirely. No one was wrong. There just wasn't a standard.</p>
+      <p class="m-sl">What I built</p>
+      <p>A component-by-component style guide covering every major UI pattern: accordion, avatar, badge, button, card, checkbox, date picker, dropdown, flyout, form, icon, modal, multi-select, navigation, pagination, progress indicator, slider, table, textbox, and more.</p>
+      <p>For each component:</p>
+      <ul>
+        <li>Tone: which register fits (e.g. friendly for empty states, direct for errors)</li>
+        <li>Character and word limits, so labels don't break layouts</li>
+        <li>Do's and Don'ts with concrete examples, not vague principles</li>
+        <li>A11Y: ARIA labels, alt text patterns, what screen readers need</li>
+        <li>L10N: what breaks in translation, symbols to avoid, text expansion allowances</li>
+        <li>CTA standards: action-verb-first, character limits, no "Click here"</li>
+      </ul>
+      <div class="m-nums">
+        <div class="m-num"><div class="m-num-n">40+</div><div class="m-num-l">Components</div></div>
+        <div class="m-num"><div class="m-num-n">33%</div><div class="m-num-l">Fewer reviews</div></div>
+        <div class="m-num"><div class="m-num-n">50%</div><div class="m-num-l">Less version docs</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-audit" onclick="if(event.target===this)closeModal('modal-audit')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-audit')">&#10005;</button><span class="m-tag">Research &middot; Cvent</span><div class="m-title">Content Audit with Flesch-Kincaid Scoring</div><div class="m-meta">Lead Content Designer &middot; Full + Rolling audit model &middot; 2024</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Content decisions were made by whoever spoke loudest in the room. No data, no framework, no way to prioritise. I wanted content strategy at Cvent to be defensible, backed by numbers, not preference.</p>
+      <p class="m-sl">The approach</p>
+      <p>Two audit modes: a full audit for a complete content inventory, and a rolling audit for ongoing quality maintenance. Standards didn't slip between reviews.</p>
+      <p>Flesch-Kincaid scoring sat at the centre. Every piece of product content was scored against the FK readability formula. Target range was 60-80 (7th-9th grade), readable for global enterprise users without being oversimplified.</p>
+      <p>The 10-dimension scoring model covered: strategy alignment, usefulness, accuracy, clarity, accessibility, readability, inclusivity, findability, engagement, and action quality.</p>
+      <p>The framework became repeatable. New content gets audited against the same standard, making quality measurable over time rather than a subjective call.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-conjunctions" onclick="if(event.target===this)closeModal('modal-conjunctions')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-conjunctions')">&#10005;</button><span class="m-tag">UX Writing &middot; Cvent</span><div class="m-title">Cutting Subordinating Conjunctions Across the Product</div><div class="m-meta">Lead Content Designer &middot; Style guide + training + audit &middot; 2023</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Across Cvent's product, sentences regularly started with "Because," "While," "Although," and "Once." These constructions bury the action. Users scanning a notification or error message miss the thing they actually need to do.</p>
+      <p class="m-sl">What changed</p>
+      <p>Updated the style guide with a clear rule and restructuring alternatives. Ran workshops where writers rewrote real examples in real time. Audited existing product content and revised alongside the team.</p>
+      <p class="m-sl">Real examples from the product</p>
+      <div class="m-quote before"><div class="q-label b">Before</div>Your virtual vendor card request for GBP 400 has been submitted. Once approved, [Mastercard] will share the card details with (abc@vendor.com), via a secure email.</div>
+      <div class="m-quote after"><div class="q-label a">After</div>Your virtual vendor card request for GBP 400 has been submitted. You will receive your card details at abc@vendor.com upon approval.</div>
+      <div class="m-quote before"><div class="q-label b">Before</div>While the report is being generated, you can continue browsing other sections.</div>
+      <div class="m-quote after"><div class="q-label a">After</div>Generate the report while browsing other sections.</div>
+      <div class="m-quote before"><div class="q-label b">Before</div>Because you missed the deadline, the registration is closed.</div>
+      <div class="m-quote after"><div class="q-label a">After</div>The registration is closed.</div>
+      <p class="m-sl">Impact</p>
+      <ul>
+        <li>Faster scannability. The outcome appears before the condition.</li>
+        <li>Shorter strings improve localization accuracy and speed</li>
+        <li>More consistent, direct brand voice across all surfaces</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-outside" onclick="if(event.target===this)closeModal('modal-outside')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-outside')">&#10005;</button><span class="m-tag">Strategy &middot; Cvent</span><div class="m-title">Cross-Functional Collaboration Framework</div><div class="m-meta">Lead Content Designer &middot; Eng, Product, Support, Marketing &middot; 2023</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Content design was always downstream. By the time the copy request arrived, the IA was locked, the flows were built, and the only option was to write around a broken structure. I wanted to change when content designers entered the process.</p>
+      <p class="m-sl">What I did</p>
+      <p>Discovery: talked to engineering, product, support, and marketing to map every existing touchpoint and every gap where content design wasn't involved but should have been.</p>
+      <p>From there I built a documented collaboration model showing when and how content designers engage across the product lifecycle: ideation, design, build, ship, post-launch.</p>
+      <p>Implementation ran as structured 1-hour sessions with stakeholders. Each covered role overviews, touchpoint mapping, open Q&amp;A, and agreed next steps.</p>
+      <p class="m-sl">Result</p>
+      <ul>
+        <li>Earlier content involvement meant fewer structural rewrites late in the sprint</li>
+        <li>Teams outside UX understood what content design actually does and when to bring us in</li>
+        <li>The framework scaled as new teams joined without needing to be rebuilt each time</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-aistyle" onclick="if(event.target===this)closeModal('modal-aistyle')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-aistyle')">&#10005;</button><span class="m-tag">AI &amp; Systems &middot; Birdeye</span><div class="m-title">AI-Powered Style Guide and Error Framework</div><div class="m-meta">Lead Content Designer &middot; All Birdeye product surfaces &middot; 2025</div></div>
+    <div class="mb">
+      <p class="m-sl">The context</p>
+      <p>Birdeye's platform spans reviews, listings, surveys, social media, and messaging. Getting consistent content across all of those, written by different designers across different sprints, required a system, not a document.</p>
+      <p class="m-sl">What I built</p>
+      <ul>
+        <li>Error message frameworks: empathetic, actionable patterns for validation errors, permission errors, network failures, and empty states, with templates for each</li>
+        <li>Messaging patterns: reusable templates for confirmations, onboarding nudges, tooltips, and notifications</li>
+        <li>Voice and tone guidance: context-sensitive rules for different surfaces and user emotional states</li>
+        <li>AI agent frameworks: goals, triggers, tasks, and output standards for Birdeye's AI automation features, so automated actions feel transparent rather than robotic</li>
+      </ul>
+      <p>The system uses AI to surface guidance contextually. Writers get relevant standards in context, not buried in a document they have to search through.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-phoenix" onclick="if(event.target===this)closeModal('modal-phoenix')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-phoenix')">&#10005;</button><span class="m-tag">Onboarding &middot; Cvent</span><div class="m-title">Phoenix: Venue Sourcing Onboarding Redesign</div><div class="m-meta">Lead Content Designer &middot; Pendo &middot; 2024</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Phoenix was a full redesign of Cvent's venue sourcing experience. More features, a different UI structure, and five completely different user types, each migrating from a different starting point. User feedback via Pendo told the story directly:</p>
+      <div class="m-quote">"New version is very user UNFRIENDLY."</div>
+      <div class="m-quote">"I couldn't find my new quote." / "Can't find my events." / "I couldn't find how to export the bid reports."</div>
+      <p class="m-sl">Five different users, five different approaches</p>
+      <ul>
+        <li>First-time free planners: full walkthrough from scratch</li>
+        <li>Existing free planners (migrated): quick-start tooltips showing what moved where</li>
+        <li>New enterprise planners: feature overviews based on access level</li>
+        <li>Existing enterprise planners (Phoenix default): migration-focused orientation</li>
+        <li>Existing enterprise planners (Phoenix not default): conversion-focused nudges toward adopting Phoenix</li>
+      </ul>
+      <p class="m-sl">How I built it</p>
+      <p>All onboarding ran through Pendo. No engineering tickets, no sprint dependency. Interactive tooltips, step-by-step walkthroughs, and in-app training videos at key decision points. Content covered the full sourcing journey: RFP creation, venue shortlisting, bid comparison, post-award contract management, and budget tracking.</p>
+      <div class="m-nums">
+        <div class="m-num"><div class="m-num-n">5</div><div class="m-num-l">Persona segments</div></div>
+        <div class="m-num"><div class="m-num-n">0</div><div class="m-num-l">Dev dependency</div></div>
+        <div class="m-num"><div class="m-num-n">+</div><div class="m-num-l">Feature adoption</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-calculator" onclick="if(event.target===this)closeModal('modal-calculator')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-calculator')">&#10005;</button><span class="m-tag">Content Research &middot; Cvent</span><div class="m-title">Meeting Space Calculator: Unit Standardisation</div><div class="m-meta">Lead Content Designer &middot; Global UI &middot; 2024</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>"SF," "sq ft," "ft2": three abbreviations for the same thing, in the same product, sometimes on the same page. International users had no metric option. Layout-specific space requirements were unexplained, which led to consistent calculation errors.</p>
+      <p class="m-sl">Research and decisions</p>
+      <p>"sq. ft." was chosen over "SF" (informal, unclear) and "ft2" (too technical). Used consistently across all UI elements, tooltips, and documentation.</p>
+      <div class="m-quote before"><div class="q-label b">Before</div>Total Area: 3000 SF</div>
+      <div class="m-quote after"><div class="q-label a">After</div>Total Area: 3,000 sq. ft. required for this setup.</div>
+      <p>A toggle was introduced for switching between sq. ft. and sq. m, with location-based defaults. One detail worth noting: the Metric system doesn't use periods in abbreviations, so "sq. m" not "sq. m." A standard Cvent wasn't following before this work.</p>
+      <div class="m-quote after"><div class="q-label a">Toggle tooltip</div>Click to switch between square feet (sq. ft.) and square meters (sq. m).</div>
+      <p>Layout-specific tooltips were added to explain why space requirements vary by seating type.</p>
+      <div class="m-quote after"><div class="q-label a">Tooltip</div>Banquet seating requires 15 sq. ft. per person. Classroom seating requires 20 sq. ft. per person due to table space.</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-spp" onclick="if(event.target===this)closeModal('modal-spp')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-spp')">&#10005;</button><span class="m-tag">UX Writing &middot; Cvent</span><div class="m-title">SPP Reporting: Financial Terminology for Pharma</div><div class="m-meta">Lead Content Designer &middot; Compliance reporting &middot; 2024</div></div>
+    <div class="mb">
+      <p class="m-sl">The context</p>
+      <p>Pharma event managers track healthcare professional (HCP) expenses across events for regulatory compliance. The SPP (Spend Per Person) feature in Cvent's budget tool was supposed to handle this, but inconsistent labels, unclear admin setup, and no cross-event reporting made it unreliable for compliance use.</p>
+      <p class="m-sl">What I did</p>
+      <p>Terminology standardisation: "Spend Per Person" and "SPP" were used inconsistently across labels, descriptions, headers, and config screens. I mapped every instance and established a single consistent standard.</p>
+      <p>The setup page for SPP configuration was confusing two distinct workflows. I defined and rewrote them clearly:</p>
+      <div class="m-quote">Basic Configuration: Define spend per person tag to identify registrants for cost association of a budget item and to filter spend per person reports.</div>
+      <div class="m-quote">Tag Configuration: Create spend per person tag to identify specific registrants for cost association of budget items and filter reports.</div>
+      <p>Community guidance articles were written so pharma clients could answer their own SPP questions, reducing support load and giving compliance teams a reference they could point to.</p>
+      <p class="m-sl">The lesson</p>
+      <p>In regulated industries, inconsistent terminology isn't just confusing. It creates compliance risk. This project aligned with Cvent's 2024 customer-centricity goal: making the product work better for the users who depend on it most.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-workshops" onclick="if(event.target===this)closeModal('modal-workshops')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-workshops')">&#10005;</button><span class="m-tag">Strategy &middot; Cvent</span><div class="m-title">Cross-Team Product Workshops</div><div class="m-meta">Lead Content Designer &middot; Content Design + Localization &middot; 2023</div></div>
+    <div class="mb">
+      <p class="m-sl">The problem</p>
+      <p>Writers were writing for products they'd never clicked through end-to-end. Localization teams were translating strings without understanding the workflow they lived in. Quality suffered because context was missing.</p>
+      <p class="m-sl">The format</p>
+      <ul>
+        <li>10-15 min: Workflow overview, what it does, who uses it, what matters</li>
+        <li>30 min: Hands-on walkthrough of the actual product, not slides, the real interface</li>
+        <li>15 min: Open feedback, what's unclear in the flow, what's off in the copy</li>
+      </ul>
+      <p>Sessions ran on a regular schedule, attended by both teams. No slides, no theory. Just clicking through the product together and talking through what we found.</p>
+      <p class="m-sl">What it changed</p>
+      <ul>
+        <li>Writers made fewer assumptions about how features actually work</li>
+        <li>Localization teams could flag translation risks earlier, before strings were locked</li>
+        <li>Both teams built shared context that made collaboration faster in future sprints</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-heading">
+  <p class="s-kicker reveal" data-i18n="about_kicker">Background</p>
+  <h2 class="reveal" id="about-heading">A bit about me.</h2>
+  <div class="s-rule reveal"></div>
+  <div class="agrid">
+    <div class="reveal">
+      <p class="about-p">I'm a Lead Content Designer currently at Birdeye, where I look after end-to-end content design for a reputation management platform. Before that I spent nearly three years at Cvent in event tech, and before that at Netcore Cloud working on a Customer Data Platform.</p>
+      <p class="about-p">I've been in this field since 2017. The through-line across all of it: I've always been more interested in the system behind the words than in any individual piece of copy. Style guides, audits, tooling, frameworks. That's where I spend most of my time when I'm not writing.</p>
+      <p class="about-p">On the technical side, I build things. I've shipped a Figma plugin, a Chrome extension, and an AI app on Glean, all without engineering support, all solving real problems I kept running into as a content designer. The Glean app won a category at Cvent's internal Technology AI Contest in 2024.</p>
+      <p class="about-p">I'm based in Jaipur and work remotely. Open to new roles: full-time, contract, or speaking invitations.</p>
+      <div style="margin-top:2rem;">
+        <p class="sk-head">Skills</p>
+        <div class="sk-wrap">
+          <span class="sk">UX Content Design</span><span class="sk">Prompt Engineering</span><span class="sk">Content Strategy</span><span class="sk">AI Experience Design</span><span class="sk">Information Architecture</span><span class="sk">HTML &amp; CSS</span><span class="sk">Voice &amp; Tone</span><span class="sk">Error Frameworks</span><span class="sk">Figma Advanced</span><span class="sk">A/B Testing</span><span class="sk">Flesch-Kincaid</span><span class="sk">Localization</span><span class="sk">Accessibility</span><span class="sk">SEO</span><span class="sk">AEO</span><span class="sk">Pendo</span><span class="sk">Google Analytics</span><span class="sk">Mixpanel</span><span class="sk">Gainsight</span><span class="sk">CDPs</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="sk-head" style="margin-bottom:1.4rem;">Work history</p>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-date">Jul 2025 — present</div><div class="tl-role">Lead Content Designer</div><div class="tl-co">Birdeye Software, Remote</div></div>
+        <div class="tl-item"><div class="tl-date">Sep 2022 — Jun 2025</div><div class="tl-role">Lead Content Designer</div><div class="tl-co">Cvent, Gurgaon</div></div>
+        <div class="tl-item"><div class="tl-date">Dec 2021 — Sep 2022</div><div class="tl-role">Senior UX Writer</div><div class="tl-co">Netcore Cloud, Mumbai</div></div>
+        <div class="tl-item"><div class="tl-date">Mar 2019 — Dec 2021</div><div class="tl-role">Team Leader, Media &amp; Marketing (UX)</div><div class="tl-co">Innovana Thinklabs, Jaipur</div></div>
+        <div class="tl-item"><div class="tl-date">Mar 2017 — Feb 2019</div><div class="tl-role">Technical Content Writer (UX)</div><div class="tl-co">Tweaking Technologies, Jaipur</div></div>
+      </div>
+      <p class="sk-head" style="margin-top:2.25rem;margin-bottom:.9rem;">Certifications</p>
+      <div class="cert"><div class="cert-ico">HFI</div><div><div class="cert-name">HFI Certified UX Analyst (CXA)</div><div class="cert-yr">Feb 2025</div></div></div>
+      <div class="cert"><div class="cert-ico" style="font-size:.55rem;">DT</div><div><div class="cert-name">Design Thinking Practitioner</div><div class="cert-yr">Nov 2023</div></div></div>
+      <div class="cert"><div class="cert-ico" style="font-size:.55rem;">SVC</div><div><div class="cert-name">HFI Service Design Thinking</div><div class="cert-yr">Nov 2022</div></div></div>
+      <div class="cert"><div class="cert-ico" style="font-size:.55rem;">G</div><div><div class="cert-name">Google UX Design</div><div class="cert-yr">Apr 2022</div></div></div>
+      <div class="cert"><div class="cert-ico" style="font-size:.5rem;">DA</div><div><div class="cert-name">Data Analytics</div><div class="cert-yr">Jan 2025</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYTICS + SEO/AEO -->
+<section id="analytics" aria-labelledby="analytics-heading">
+  <p class="s-kicker reveal" data-i18n="analytics_kicker">Data, analytics &amp; search</p>
+  <h2 class="reveal" id="analytics-heading">Content decisions<br>should come with <em>evidence.</em></h2>
+  <div class="s-rule reveal"></div>
+  <div class="an-grid">
+    <div class="reveal">
+      <div class="tool-group">
+        <p class="tg-head">Product Analytics</p>
+        <div class="tool-row"><span class="tool-name">Pendo</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap" role="img" aria-label="Pendo proficiency: Advanced, 90%"><div class="tool-bar" style="width:90%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Google Analytics</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap" role="img" aria-label="Google Analytics proficiency: Advanced, 88%"><div class="tool-bar" style="width:88%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Mixpanel</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Mixpanel proficiency: Intermediate, 65%"><div class="tool-bar" style="width:65%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Gainsight</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Gainsight proficiency: Intermediate, 60%"><div class="tool-bar" style="width:60%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Alida</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Alida proficiency: Intermediate, 65%"><div class="tool-bar" style="width:65%;"></div></div></div></div>
+      </div>
+      <div class="tool-group">
+        <p class="tg-head">Testing &amp; Research</p>
+        <div class="tool-row"><span class="tool-name">Maze (A/B Testing)</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Flesch-Kincaid Readability</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:90%;"></div></div></div></div>
+      </div>
+      <div class="tool-group">
+        <p class="tg-head">Customer Data Platforms</p>
+        <div class="tool-row"><span class="tool-name">Netcore CDP</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">CDP content architecture</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:82%;"></div></div></div></div>
+      </div>
+    </div>
+    <div class="an-copy reveal">
+      <p>At Netcore, I led content design for a Customer Data Platform from day one. That meant learning how CDPs ingest, segment, and activate user data, and writing for marketers and product managers who needed to understand complex pipeline behaviour through clear UI copy.</p>
+      <p>At Cvent, I used Pendo to build onboarding flows, run A/B tests on in-app messaging, and analyse tooltip engagement data. At Birdeye, Google Analytics and product analytics tools inform which content patterns to prioritise and which to fix.</p>
+      <p>I've also worked with Alida for user feedback collection and synthesis, and used Gainsight for customer health signals that inform content strategy across the product lifecycle.</p>
+      <div class="seo-block">
+        <p class="seo-block-title">SEO and AEO</p>
+        <p>I've done SEO work across multiple products: keyword research, on-page optimisation, technical audits, and content structuring for search. More recently I've been working with AEO (Answer Engine Optimisation), structuring content so it gets cited by AI assistants like ChatGPT, Gemini, and Perplexity.</p>
+        <p style="margin-top:.65rem;">Where SEO is about ranking in search results, AEO is about being the answer. That means writing in direct, factual prose, using structured data, clear question-and-answer patterns, and making content unambiguous enough for an LLM to cite with confidence. It's a content design problem as much as a technical one, and it's where I spend time now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILDER -->
+<section id="builder" aria-labelledby="builder-heading">
+  <p class="s-kicker reveal" data-i18n="builder_kicker">Built, not just written</p>
+  <h2 class="reveal" id="builder-heading" style="color:#fff;">Three tools.<br><em>Zero engineering support.</em></h2>
+  <div class="s-rule reveal"></div>
+  <p class="builder-p reveal">I got tired of waiting for engineering bandwidth to fix content tooling problems. So I learned enough to build the tools myself. These three are in use. One of them won a company-wide AI contest.</p>
+  <div class="bgrid reveal">
+    <div class="bcard">
+      <div class="bnum">01</div>
+      <div class="blabel">AI App &middot; Cvent &middot; 2024</div>
+      <div class="btitle">Glean AI App for UX Content Review</div>
+      <div class="baward">&#127942; Won at Cvent's India Technology AI Contest, 2024</div>
+      <p class="bdesc">Product teams kept pinging the content team with copy questions: "What's the right label?" "How do I word this error?" I built a Glean app that answered those questions instantly, using Cvent's own content standards as the knowledge base. The app competed against entries from product and engineering, and won a category.</p>
+      <div class="btags"><span class="btag">Glean</span><span class="btag">Prompt Engineering</span><span class="btag">Knowledge Base</span><span class="btag">No Dev Needed</span></div>
+      <a href="#contact" class="blink">Ask me about this &#8599;</a>
+    </div>
+    <div class="bcard">
+      <div class="bnum">02</div>
+      <div class="blabel">Figma Plugin &middot; Birdeye &middot; 2025</div>
+      <div class="btitle">Real-Time UX Content Validation Plugin</div>
+      <div class="baward">&#127942; Employee of the Month at Birdeye within 6 months</div>
+      <p class="bdesc">Content reviews were happening too late, at handoff, not at creation. Designers shipped screens with wrong CTAs, off-brand labels, and character limit violations that only got caught in review. I built a Figma plugin that checks copy in real time, inside the design file, before anything gets handed off.</p>
+      <div class="btags"><span class="btag">Figma Plugin API</span><span class="btag">JavaScript</span><span class="btag">Style Guide Rules</span><span class="btag">Real-Time</span></div>
+      <a href="#contact" class="blink">More detail available on request &#8599;</a>
+    </div>
+    <div class="bcard">
+      <div class="bnum">03</div>
+      <div class="blabel">Chrome Extension &middot; Birdeye &middot; 2025</div>
+      <div class="btitle">Live Environment Content Auditing Extension</div>
+      <p class="bdesc">Content audits used to mean spreadsheets, screenshots, and cross-referencing across tabs. I built a Chrome extension that audits the live product directly, scanning for jargon, inconsistency, missing error states, and truncation issues in the actual interface, not a simulation of it.</p>
+      <div class="btags"><span class="btag">Chrome Extension API</span><span class="btag">JavaScript</span><span class="btag">DOM Inspection</span><span class="btag">Live Audit</span></div>
+      <a href="#contact" class="blink">More detail available on request &#8599;</a>
+    </div>
+  </div>
+  <div class="bcontext reveal">
+    <div>
+      <p class="bc-head">Why I built these</p>
+      <p class="bc-text">Content tooling usually gets deprioritised. It's not a user feature, it doesn't ship a metric, and engineering has more pressing things to build. So I built around it. These tools work. They're used in production. And they've made the content design function less dependent on other teams' capacity.</p>
+    </div>
+    <div>
+      <p class="bc-head">In their words</p>
+      <p class="bc-text" style="font-style:italic;">"Rishi's Glean app for UX copy review was nominated and won in a category in an AI contest in India office. A celebratory moment for the UXCD team."</p>
+      <p class="bc-text" style="margin-top:.6rem;font-style:normal;">Ajay Kumar, shared in Cvent's #ux-global Slack channel, 2024.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKING -->
+<section id="speaking" aria-labelledby="speaking-heading">
+  <p class="s-kicker reveal" data-i18n="speaking_kicker">Speaking &amp; recognition</p>
+  <h2 class="reveal" id="speaking-heading">On stage too.</h2>
+  <div class="s-rule reveal"></div>
+  <div class="tgrid reveal">
+    <div class="tcard">
+      <div class="tevent">UXDX USA &middot; Virtual</div>
+      <div class="ttitle">Content Designing for Product Designers</div>
+      <p class="tdesc">No design is complete without content. I made the case to product designers that writing for UX is a core design skill, not a handoff step, and showed them how to work content into their process.</p>
+      <div class="tyear">2024 &middot; Speaker</div>
+    </div>
+    <div class="tcard">
+      <div class="tevent">ContentEd 2024</div>
+      <div class="ttitle">Prompt Engineering: Leaning on AI for Content Requirements</div>
+      <p class="tdesc">A practical session on AI and LLMs for content professionals. How prompt engineering works, how to apply it to content design, and what frameworks actually produce useful results.</p>
+      <div class="tyear">2024 &middot; Session Leader</div>
+    </div>
+    <div class="tcard">
+      <div class="tevent">Utterly Content Global '24</div>
+      <div class="ttitle">Beyond Words: AI-Driven Content Design</div>
+      <p class="tdesc">How to use AI and prompt engineering to build better user journeys, without losing the human judgment that makes content design matter in the first place.</p>
+      <div class="tyear">2024 &middot; Presenter</div>
+    </div>
+    <div class="tcard">
+      <div class="tevent">DDX 2024 &middot; Dubai</div>
+      <div class="ttitle">AI, UX and Global Design Strategy</div>
+      <p class="tdesc">Represented Cvent at a global design conference. Sessions covered ethical AI in product design, cross-cultural UX, and what it takes to design for regional audiences with very different expectations.</p>
+      <div class="tyear">2024 &middot; Industry Representative</div>
+    </div>
+  </div>
+  <div class="recog-strip reveal">
+    <div class="recog-inner">
+      <div class="recog-left">
+        <p class="recog-label">Recognition</p>
+        <p class="recog-title">Employee of the Month, Birdeye</p>
+        <p class="recog-desc">Awarded within the first 6 months for delivery, cross-functional contribution, and the impact of the content design and tooling work on product quality.</p>
+      </div>
+      <div class="recog-right">
+        <p class="recog-label">In their words</p>
+        <p class="recog-quote">"Rishi's Glean app for UX copy review was nominated and won in a category in an AI contest in India office. A celebratory moment for the UXCD team."</p>
+        <p class="recog-attr">Ajay Kumar, Cvent #ux-global, 2024</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" aria-labelledby="contact-heading">
+  <div class="reveal">
+    <p class="s-kicker" data-i18n="contact_kicker">Contact</p>
+    <h2 id="contact-heading" data-i18n="contact_h2">Let's talk.</h2>
+    <p class="c-sub" data-i18n="contact_sub">Open to full-time roles, freelance, speaking invitations, and content design collaborations. Remote-first, based in Jaipur.</p>
+    <div class="c-details">
+      <div class="c-row"><span aria-hidden="true">&#9993;</span><a href="mailto:rishi.g.sharma@gmail.com" aria-label="Email Rishi at rishi.g.sharma@gmail.com">rishi.g.sharma@gmail.com</a></div>
+      <div class="c-row"><span aria-hidden="true">&#9742;</span><a href="tel:+919950871007" aria-label="Call Rishi at +91 9950871007">+91 9950871007</a></div>
+      <div class="c-row"><span aria-hidden="true">in</span><a href="https://www.linkedin.com/in/rishisharma6/" target="_blank" rel="noopener" aria-label="Rishi's LinkedIn profile (opens in new tab)">linkedin.com/in/rishisharma6</a></div>
+    </div>
+  </div>
+  <form class="cform reveal" onsubmit="handleSubmit(event)" aria-label="Contact form" novalidate>
+    <div class="fg"><label class="fl" for="fname" data-i18n="form_name">Name</label><input class="fi" id="fname" name="name" type="text" placeholder="Your name" autocomplete="name" required aria-required="true" /></div>
+    <div class="fg"><label class="fl" for="femail" data-i18n="form_email">Email</label><input class="fi" id="femail" name="email" type="email" placeholder="your@email.com" autocomplete="email" required aria-required="true" /></div>
+    <div class="fg"><label class="fl" for="fmsg" data-i18n="form_message">Message</label><textarea class="fta" id="fmsg" name="message" placeholder="What's on your mind?" required aria-required="true"></textarea></div>
+    <button class="fsub" type="submit" id="fsub" data-i18n="form_send">Send</button>
+  </form>
+</section>
+</main>
+
+<footer role="contentinfo">
+  <span class="fl-left">Rishi Sharma, 2025</span>
+  <div class="fl-right">
+    <a href="#hero" class="fl-link" data-i18n="footer_top">Top</a>
+    <a href="https://www.linkedin.com/in/rishisharma6/" class="fl-link" target="_blank" rel="noopener" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+    <a href="mailto:rishi.g.sharma@gmail.com" class="fl-link">Email</a>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal-thissite" onclick="if(event.target===this)closeModal('modal-thissite')">
+  <div class="modal">
+    <div class="mh"><button class="mclose" onclick="closeModal('modal-thissite')">&#10005;</button><span class="m-tag" style="background:#e8f0fe;color:#1557b0;">Meta Case Study &middot; 2025</span><div class="m-title">Building This Portfolio Website</div><div class="m-meta">Lead Content Designer &middot; Solo build &middot; AI-assisted &middot; 2025</div></div>
+    <div class="mb">
+      <p class="m-sl">Why this is a case study</p>
+      <p>Most portfolios describe work. This one is work. Building it required the same skills I use professionally: audience research, content strategy, UX decisions, technical implementation, and measurement. The difference is the client was me, which meant no stakeholder to blame when something was wrong.</p>
+
+      <p class="m-sl">Audience and strategy</p>
+      <p>The site targets three audiences: hiring managers in product-led SaaS companies, design leads evaluating senior content design candidates, and peers in the content design and UX writing community. Each has different intent. Hiring managers need to see outcomes fast. Design leads need to see process depth. Peers need to see something technically interesting enough to share.</p>
+      <p>The decision to gate some case studies was strategic, not just protective. A gated portfolio signals that the work inside is worth protecting. It also qualifies visitors — someone who requests access is more engaged than someone who skims and bounces.</p>
+
+      <p class="m-sl">Content decisions</p>
+      <p>The headline went through several iterations. "Content that makes products click" tested too marketing-adjacent. "UX content that ships, scales, sticks" tested better with a product audience but still relied on alliteration as a crutch. The final version — "I design content. I build tools. I measure both." — uses three short declarative sentences that each add new information. It doesn't require the reader to decode a tagline.</p>
+      <p>Every case study modal was written to follow a consistent structure: problem first, then what changed, then what the outcome was. No preamble. No "in this project, I..." openers.</p>
+
+      <p class="m-sl">UX and design</p>
+      <p>The font pairing (Roboto Slab for display, Roboto for body) was chosen to signal technical credibility without looking like a developer's portfolio. Google's type system is familiar, high-contrast, and reads well at all weights.</p>
+      <p>The hero stat cards solve a common portfolio problem: visitors don't read bios, they scan numbers. Four metrics with source context replace three paragraphs of self-description. The horizontal layout anchors the stats to the hero copy rather than floating them as a separate element.</p>
+      <p>The speaking section used an auto-fill grid that left a broken partial row when the 5th card didn't complete the 4-column layout. Fixed by switching to a fixed 4-column grid and moving recognition content into a full-width contextual strip below — it gives the content more room and looks intentional rather than accidental.</p>
+
+      <p class="m-sl">Technical features</p>
+      <ul>
+        <li>Terminal boot sequence: a typewriter-style animation on first load, showing real environment data (timezone, platform) to signal technical awareness. Fades out after 3 seconds.</li>
+        <li>Progressive blur + gate: four case studies are partially visible and require a password or email to unlock. Captures visitor intent before they access sensitive work.</li>
+        <li>Session fingerprinting: silently captures browser data, referrer, timezone, sections viewed, and time on site. Logs to a Google Sheet via Apps Script on exit.</li>
+        <li>Email capture with context: every gate request logs the email, timestamp, which case study was requested, and device type.</li>
+        <li>Console easter egg: a styled message waits for anyone who opens DevTools — common behaviour among engineers and technical designers who are the most valuable audience.</li>
+      </ul>
+
+      <p class="m-sl">AEO and discoverability</p>
+      <p>The site is structured for Answer Engine Optimisation. Each section opens with a direct, factual statement. The meta description targets the specific query a recruiter or hiring manager would run. Schema markup is the next addition — structured data for a Person entity with sameAs links to LinkedIn and conference appearances.</p>
+
+      <p class="m-sl">What I'd do differently</p>
+      <p>Build the Google Apps Script logging endpoint first, before the site went live. Right now the visitor data collection is wired but the endpoint is a placeholder. Every visitor before that's live is untracked. The measurement infrastructure should always precede the traffic, not follow it.</p>
+
+      <div class="m-nums">
+        <div class="m-num"><div class="m-num-n">5</div><div class="m-num-l">Technical features built in</div></div>
+        <div class="m-num"><div class="m-num-n">11</div><div class="m-num-l">Case studies documented</div></div>
+        <div class="m-num"><div class="m-num-n">1</div><div class="m-num-l">Day to first working version</div></div>
+        <div class="m-num"><div class="m-num-n">0</div><div class="m-num-l">External templates used</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONSOLE EASTER EGG ──
+(function(){
+  const s=[
+    '%c RISHI SHARMA / PORTFOLIO ',
+    'background:#0d0d0d;color:#d94f1e;font-size:14px;font-weight:bold;padding:6px 12px;'
+  ];
+  const l=[
+    '%cHey — you opened the console. Good instinct.',
+    'color:#888;font-size:12px;'
+  ];
+  const m=[
+    '%cIf you\'re a developer, designer, or just curious about how this was built,\nI\'d love to hear from you.',
+    'color:#555;font-size:12px;line-height:1.6;'
+  ];
+  const c=[
+    '%c rishi.g.sharma@gmail.com ',
+    'background:#d94f1e;color:#fff;font-size:11px;padding:3px 8px;border-radius:2px;'
+  ];
+  console.log(...s);
+  console.log('');
+  console.log(...l);
+  console.log(...m);
+  console.log('');
+  console.log(...c);
+  console.log('');
+})();
+
+// ── SESSION FINGERPRINT + LOGGING ──
+const SESSION = {
+  ts: new Date().toISOString(),
+  ref: document.referrer || 'direct',
+  ua: navigator.userAgent,
+  lang: navigator.language,
+  tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  screen: `${screen.width}x${screen.height}`,
+  viewport: `${window.innerWidth}x${window.innerHeight}`,
+  path: location.pathname,
+  sections: [],
+  email: null
+};
+
+// Track which sections get viewed
+const secObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      if(id && !SESSION.sections.includes(id)) SESSION.sections.push(id);
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('section[id]').forEach(s=>secObs.observe(s));
+
+function logSession(extra={}){
+  const data = Object.assign({}, SESSION, extra);
+  // Log to Google Sheets via a public Apps Script endpoint
+  // Replace the URL below with your own deployed Apps Script web app URL
+  const ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_APPS_SCRIPT_ID/exec';
+  fetch(ENDPOINT, {
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(data)
+  }).catch(()=>{});
+  // Also log locally so you can see it in your own console
+  console.log('%c[Session logged]','color:#22a06b;font-size:11px;', data);
+}
+
+// Log on page unload
+window.addEventListener('beforeunload', ()=> logSession({event:'exit', timeOnSite: Math.round((Date.now()-new Date(SESSION.ts).getTime())/1000)+'s'}));
+// Log after 3s on page (confirms real visit)
+setTimeout(()=>logSession({event:'engaged'}), 3000);
+
+// ── BOOT SEQUENCE ──
+(function(){
+  const lines = document.querySelectorAll('.boot-line');
+  const boot = document.getElementById('boot');
+  const msgs = [
+    '<span class="ok">✓</span> Initialising session...',
+    '<span class="ok">✓</span> Detecting environment... <span style="color:#555">'+navigator.platform+'</span>',
+    '<span class="ok">✓</span> Loading content modules... <span style="color:#555">10 projects</span>',
+    '<span class="ok">✓</span> Verifying visitor context... <span style="color:#555">'+Intl.DateTimeFormat().resolvedOptions().timeZone+'</span>',
+    '<span class="ok">✓</span> Logging session data...',
+    '<span class="ok">✓</span> Applying access controls... <span style="color:#555">4 gated</span>',
+    '<span class="ok">✓</span> Portfolio ready. <span class="boot-cursor"></span>'
+  ];
+  let i=0;
+  function nextLine(){
+    if(i >= lines.length){ 
+      setTimeout(()=>{ boot.classList.add('done'); setTimeout(()=>boot.remove(),600); },800);
+      return;
+    }
+    lines[i].innerHTML = msgs[i];
+    lines[i].classList.add('active');
+    if(i>0) lines[i-1].classList.remove('active');
+    i++;
+    setTimeout(nextLine, i===1?600: i===4?500: i===7?800: 320);
+  }
+  setTimeout(nextLine, 300);
+})();
+
+// ── CURSOR ──
+const cur=document.getElementById('cur'), ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.pcard,.tcard,.bcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='44px';ring.style.height='44px';ring.style.opacity='.6';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.opacity='.4';});
+});
+
+// ── SCROLL REVEAL ──
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── PORTFOLIO FILTER + LAST ROW FIX ──
+function fixLastRow(){
+  const cols = 3;
+  const visible = [...document.querySelectorAll('.pgrid .pcard:not(.hidden)')];
+  visible.forEach(c=>c.style.gridColumn='');
+  const rem = visible.length % cols;
+  if(rem === 1) visible[visible.length-1].style.gridColumn='span 3';
+  if(rem === 2) visible[visible.length-2].style.gridColumn='span 2';
+}
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.pcard').forEach(c=>c.classList.toggle('hidden',f!=='all'&&!c.dataset.tags.includes(f)));
+    fixLastRow();
+  });
+});
+fixLastRow();
+
+// ── GATE SYSTEM ──
+const CORRECT_PASSWORD = 'rishi2025'; // Change this to your chosen password
+let pendingModal = null;
+let gateUnlocked = sessionStorage.getItem('rs_access') === '1';
+
+function openGate(modalId){
+  if(gateUnlocked){ openModal(modalId); return; }
+  pendingModal = modalId;
+  document.getElementById('gate-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  logSession({event:'gate_triggered', target: modalId});
+}
+
+function closeGate(){
+  document.getElementById('gate-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('gate-pw').value='';
+  document.getElementById('pw-err').style.display='none';
+  document.getElementById('gate-email').value='';
+  document.getElementById('email-err').style.display='none';
+  document.getElementById('email-ok').style.display='none';
+}
+
+function switchTab(tab){
+  document.querySelectorAll('.gate-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.gate-panel').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+function checkPassword(){
+  const val = document.getElementById('gate-pw').value.trim();
+  if(val === CORRECT_PASSWORD){
+    sessionStorage.setItem('rs_access','1');
+    gateUnlocked = true;
+    closeGate();
+    if(pendingModal) openModal(pendingModal);
+    // Unlock all cards visually
+    document.querySelectorAll('.pcard.locked').forEach(c=>c.classList.remove('locked'));
+    logSession({event:'gate_unlocked', method:'password'});
+  } else {
+    const err = document.getElementById('pw-err');
+    err.style.display='block';
+    document.getElementById('gate-pw').style.borderColor='#c0392b';
+    setTimeout(()=>{ err.style.display='none'; document.getElementById('gate-pw').style.borderColor=''; },3000);
+  }
+}
+
+function requestAccess(){
+  const email = document.getElementById('gate-email').value.trim();
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!valid){
+    document.getElementById('email-err').style.display='block';
+    return;
+  }
+  document.getElementById('email-err').style.display='none';
+  document.getElementById('email-ok').style.display='block';
+  SESSION.email = email;
+  logSession({event:'access_requested', email: email, target: pendingModal});
+  // Disable button after send
+  event.target.disabled = true;
+  event.target.textContent = 'Request sent';
+  event.target.style.background = '#22a06b';
+}
+
+// ── STANDARD CASE STUDY MODALS ──
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-overlay.open').forEach(m=>closeModal(m.id));
+    closeGate();
+  }
+});
+function handleSubmit(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Sent';b.style.background='#22a06b';b.disabled=true;}
+
+// ── DARK MODE ──
+const themeToggle = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+const html = document.documentElement;
+
+function setTheme(dark) {
+  if (dark) {
+    html.setAttribute('data-theme', 'dark');
+    themeToggle.setAttribute('aria-pressed', 'true');
+    themeLabel.textContent = translations[currentLang]?.theme_light || 'Light';
+    localStorage.setItem('rs_theme', 'dark');
+  } else {
+    html.removeAttribute('data-theme');
+    themeToggle.setAttribute('aria-pressed', 'false');
+    themeLabel.textContent = translations[currentLang]?.theme_dark || 'Dark';
+    localStorage.setItem('rs_theme', 'light');
+  }
+}
+
+themeToggle.addEventListener('click', () => {
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  setTheme(!isDark);
+});
+
+// Restore preference on load
+const savedTheme = localStorage.getItem('rs_theme');
+if (savedTheme === 'dark') setTheme(true);
+
+// ── LOCALIZATION (i18n) ──
+const translations = {
+  en: {
+    skip_link: 'Skip to main content',
+    nav_work: 'Work', nav_builder: 'Builder', nav_about: 'About',
+    nav_analytics: 'Analytics', nav_speaking: 'Speaking', nav_cta: 'Get in touch',
+    hero_h1: 'I design content.<br>I build tools.<br><em>I measure both.</em>',
+    hero_p: "I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.",
+    hero_cta1: 'See my work', hero_cta2: 'Say hello',
+    portfolio_kicker: 'Selected work',
+    filter_all: 'All', filter_ux: 'UX Writing', filter_ai: 'AI & Tools',
+    filter_systems: 'Content Systems', filter_research: 'Research', filter_onboarding: 'Onboarding',
+    about_kicker: 'Background', analytics_kicker: 'Data, analytics & search',
+    builder_kicker: 'Built, not just written', speaking_kicker: 'Speaking & recognition',
+    contact_kicker: 'Contact', contact_h2: "Let's talk.",
+    contact_sub: 'Open to full-time roles, freelance, speaking invitations, and content design collaborations. Remote-first, based in Jaipur.',
+    form_name: 'Name', form_email: 'Email', form_message: 'Message', form_send: 'Send',
+    footer_top: 'Top', theme_dark: 'Dark', theme_light: 'Light',
+  },
+  ar: {
+    skip_link: 'انتقل إلى المحتوى الرئيسي',
+    nav_work: 'الأعمال', nav_builder: 'الأدوات', nav_about: 'عني',
+    nav_analytics: 'التحليلات', nav_speaking: 'المحاضرات', nav_cta: 'تواصل معي',
+    hero_h1: 'أصمم المحتوى.<br>أبني الأدوات.<br><em>وأقيس كليهما.</em>',
+    hero_p: 'مصمم محتوى رئيسي بخبرة 8 سنوات في SaaS وتقنية الفعاليات ومنصات بيانات العملاء. أكتب نصوص المنتج وأبني أنظمة المحتوى وأُجري تدقيقات مستندة إلى البيانات.',
+    hero_cta1: 'اطّلع على أعمالي', hero_cta2: 'تحدّث معي',
+    portfolio_kicker: 'أعمال مختارة',
+    filter_all: 'الكل', filter_ux: 'كتابة UX', filter_ai: 'الذكاء الاصطناعي',
+    filter_systems: 'أنظمة المحتوى', filter_research: 'البحث', filter_onboarding: 'الإعداد',
+    about_kicker: 'الخلفية', analytics_kicker: 'البيانات والتحليلات',
+    builder_kicker: 'مبني، لا مكتوب فقط', speaking_kicker: 'المحاضرات والتقدير',
+    contact_kicker: 'تواصل', contact_h2: 'لنتحدث.',
+    contact_sub: 'منفتح على الأدوار الدوامة، والعمل الحر، ودعوات المحاضرات، والتعاون في تصميم المحتوى.',
+    form_name: 'الاسم', form_email: 'البريد الإلكتروني', form_message: 'الرسالة', form_send: 'إرسال',
+    footer_top: 'الأعلى', theme_dark: 'داكن', theme_light: 'فاتح',
+  },
+  fr: {
+    skip_link: 'Aller au contenu principal',
+    nav_work: 'Travaux', nav_builder: 'Outils', nav_about: 'À propos',
+    nav_analytics: 'Analytique', nav_speaking: 'Conférences', nav_cta: 'Contacter',
+    hero_h1: 'Je conçois le contenu.<br>Je construis des outils.<br><em>Je mesure les deux.</em>',
+    hero_p: "Concepteur de contenu principal avec 8 ans d'expérience en SaaS, technologie événementielle et CDP. J'écris les textes produit, construis des systèmes de contenu et réalise des audits basés sur les données.",
+    hero_cta1: 'Voir mes travaux', hero_cta2: 'Me contacter',
+    portfolio_kicker: 'Travaux sélectionnés',
+    filter_all: 'Tout', filter_ux: 'UX Writing', filter_ai: 'IA & Outils',
+    filter_systems: 'Systèmes de contenu', filter_research: 'Recherche', filter_onboarding: 'Onboarding',
+    about_kicker: 'Parcours', analytics_kicker: 'Données, analytique et SEO',
+    builder_kicker: 'Construit, pas seulement écrit', speaking_kicker: 'Conférences & distinctions',
+    contact_kicker: 'Contact', contact_h2: 'Parlons-en.',
+    contact_sub: "Disponible pour des postes à temps plein, du freelance, des invitations à conférences et des collaborations en conception de contenu.",
+    form_name: 'Nom', form_email: 'E-mail', form_message: 'Message', form_send: 'Envoyer',
+    footer_top: 'Haut', theme_dark: 'Sombre', theme_light: 'Clair',
+  },
+  de: {
+    skip_link: 'Zum Hauptinhalt springen',
+    nav_work: 'Arbeiten', nav_builder: 'Tools', nav_about: 'Über mich',
+    nav_analytics: 'Analytik', nav_speaking: 'Vorträge', nav_cta: 'Kontakt',
+    hero_h1: 'Ich gestalte Inhalte.<br>Ich baue Tools.<br><em>Ich messe beides.</em>',
+    hero_p: 'Lead Content Designer mit 8 Jahren Erfahrung in SaaS, Event-Tech und CDPs. Ich schreibe Produkttexte, baue Content-Systeme und führe datengestützte Audits durch.',
+    hero_cta1: 'Meine Arbeiten', hero_cta2: 'Hallo sagen',
+    portfolio_kicker: 'Ausgewählte Projekte',
+    filter_all: 'Alle', filter_ux: 'UX Writing', filter_ai: 'KI & Tools',
+    filter_systems: 'Content-Systeme', filter_research: 'Forschung', filter_onboarding: 'Onboarding',
+    about_kicker: 'Hintergrund', analytics_kicker: 'Daten, Analytik & Suche',
+    builder_kicker: 'Gebaut, nicht nur geschrieben', speaking_kicker: 'Vorträge & Auszeichnungen',
+    contact_kicker: 'Kontakt', contact_h2: "Lass uns reden.",
+    contact_sub: 'Offen für Vollzeitstellen, Freelance, Vortragseinladungen und Content-Design-Kollaborationen.',
+    form_name: 'Name', form_email: 'E-Mail', form_message: 'Nachricht', form_send: 'Senden',
+    footer_top: 'Oben', theme_dark: 'Dunkel', theme_light: 'Hell',
+  }
+};
+
+let currentLang = localStorage.getItem('rs_lang') || 'en';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+  if (!t) return;
+  // RTL for Arabic
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  // Update all i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      if (key === 'hero_h1') { el.innerHTML = t[key]; }
+      else { el.textContent = t[key]; }
+    }
+  });
+  // Update theme button label based on current theme
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  themeLabel.textContent = isDark ? (t.theme_light || 'Light') : (t.theme_dark || 'Dark');
+  localStorage.setItem('rs_lang', lang);
+}
+
+document.getElementById('langSelect').addEventListener('change', (e) => {
+  applyLang(e.target.value);
+});
+
+// Set dropdown to saved lang and apply
+document.getElementById('langSelect').value = currentLang;
+applyLang(currentLang);
+
+// ── ACCESSIBILITY: Filter button aria-pressed ──
+document.querySelectorAll('.fb').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fb').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+  });
+});
+
+// ── ACCESSIBILITY: Trap focus in modals ──
+function trapFocus(modal) {
+  const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  modal.addEventListener('keydown', function handler(e) {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+}
+document.querySelectorAll('.modal-overlay, #gate-overlay').forEach(trapFocus);
+
+// Return focus to trigger after modal close
+let lastFocused = null;
+const origOpenModal = window.openModal;
+window.openModal = function(id) {
+  lastFocused = document.activeElement;
+  origOpenModal(id);
+  const modal = document.getElementById(id);
+  const firstFocusable = modal.querySelector('button, [href], input');
+  if (firstFocusable) setTimeout(() => firstFocusable.focus(), 50);
+};
+const origCloseModal = window.closeModal;
+window.closeModal = function(id) {
+  origCloseModal(id);
+  if (lastFocused) lastFocused.focus();
+};
+</script>
 </body>
 </html>
