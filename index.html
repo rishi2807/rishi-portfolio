@@ -17,7 +17,7 @@
 </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -87,13 +87,35 @@
     [data-theme="dark"] .hstat { background: #1a1a1a; border-color: #3a3a3a; }
 
     /* ── RTL SUPPORT ── */
+    :lang(ar) h1, :lang(ar) h2, html[lang="ar"] h1, html[lang="ar"] h2 {
+      font-family: 'Noto Naskh Arabic', var(--serif);
+    }
+    /* Keep hero layout (copy left, portrait right) stable in all locales */
+    .hero-top { direction: ltr; }
+    .hero-copy[dir="rtl"] { text-align: right; }
+    .hero-copy[dir="rtl"] .hero-acts { flex-direction: row-reverse; }
+    /* Stats: numbers stay Western order; labels follow locale when page is RTL */
+    .hero-stats { direction: ltr; }
+    .hstat-num { unicode-bidi: isolate; }
+    [dir="rtl"] .hstat-label { direction: rtl; text-align: right; unicode-bidi: isolate; }
+    /* English body stays LTR in Arabic shell (nav/Chrome RTL) */
+    [dir="rtl"] .content-en {
+      direction: ltr;
+      unicode-bidi: isolate;
+      text-align: left;
+    }
     [dir="rtl"] .tl { border-left: none; border-right: 1px solid var(--border); padding-left: 0; padding-right: 1.75rem; }
     [dir="rtl"] .tl-item::before { left: auto; right: -2.28rem; }
     [dir="rtl"] .pcard::before { left: auto; right: 0; }
     [dir="rtl"] .bcard::after { transform-origin: right; }
-    [dir="rtl"] .recog-inner { direction: rtl; }
     [dir="rtl"] nav { flex-direction: row-reverse; }
     [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .lang-select {
+      padding-right: .75rem;
+      padding-left: 1.5rem;
+      background-position: left .5rem center;
+    }
+    section h2.reveal, section > h2 { unicode-bidi: isolate; }
 
     /* ── ACCESSIBILITY ── */
     /* Skip link */
@@ -218,10 +240,10 @@
 
     /* Hero stats — horizontal row below the headline */
     .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4rem; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
-    .hstat { padding: 1.5rem 1.75rem; border-right: 1px solid var(--border); background: var(--white); }
-    .hstat:last-child { border-right: none; }
+    .hstat { padding: 1.5rem 1.75rem; border-inline-end: 1px solid var(--border); background: var(--white); }
+    .hstat:last-child { border-inline-end: none; }
     .hstat-num { font-family: var(--serif); font-size: 2.6rem; font-weight: 400; color: var(--text); line-height: 1; display: flex; align-items: baseline; gap: .1rem; }
-    .hstat-num sup { font-size: 1rem; color: var(--punch); font-weight: 400; line-height: 1; margin-left: 1px; }
+    .hstat-num sup { font-size: 1rem; color: var(--punch); font-weight: 400; line-height: 1; margin-inline-start: 1px; }
     .hstat-label { font-size: .875rem; color: var(--text-2); margin-top: .55rem; line-height: 1.5; font-weight: 400; }
 
     /* Marquee */
@@ -314,7 +336,6 @@
     .ptitle { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: .6rem; }
     .pdesc { font-size: .85rem; color: var(--text-3); line-height: 1.65; margin-bottom: 1.1rem; }
     .pnums { display: flex; gap: 1.5rem; padding: .8rem 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); margin-bottom: 1.1rem; }
-    .pn { }
     .pn-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--punch); line-height: 1; }
     .pn-label { font-size: .875rem; color: var(--text-4); margin-top: .15rem; }
     .pmeta { display: flex; align-items: center; justify-content: space-between; font-size: .76rem; color: var(--text-4); }
@@ -438,9 +459,10 @@
     .an-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: start; }
     .tool-group { margin-bottom: 2rem; }
     .tg-head { font-size: .875rem; color: var(--text-4); margin-bottom: .85rem; border-bottom: 1px solid var(--border-soft); padding-bottom: .4rem; font-weight: 500; }
-    .tool-row { display: flex; align-items: center; justify-content: space-between; padding: .65rem 0; border-bottom: 1px solid var(--border-soft); }
+    .tool-row { display: flex; align-items: center; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--border-soft); }
     .tool-row:last-child { border-bottom: none; }
-    .tool-name { font-size: .875rem; color: var(--text); font-weight: 400; }
+    .tool-name { flex: 1; min-width: 0; font-size: .875rem; color: var(--text); font-weight: 400; }
+    .tool-row-metrics { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
     .tool-level { font-size: .75rem; color: var(--text-3); }
     .tool-bar-wrap { width: 80px; height: 3px; background: var(--border); border-radius: 2px; }
     .tool-bar { height: 3px; background: var(--punch); border-radius: 2px; }
@@ -530,8 +552,8 @@
       .hero-photo-wrap{justify-content:center;align-items:center;}
       .hero-photo-inner{height:auto;max-height:none;max-width:min(440px,96vw);aspect-ratio:819/1024;margin:0 auto;}
       .hero-stats{grid-template-columns:1fr 1fr;}
-      .hstat{border-right:none;border-bottom:1px solid var(--border);}
-      .hstat:nth-child(odd){border-right:1px solid var(--border);}
+      .hstat{border-inline-end:none;border-bottom:1px solid var(--border);}
+      .hstat:nth-child(odd){border-inline-end:1px solid var(--border);}
       .hstat:last-child,.hstat:nth-last-child(2):nth-child(odd){border-bottom:none;}
       .agrid,.an-grid,#contact,.bcontext,.recog-inner{grid-template-columns:1fr;}
       .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
@@ -621,7 +643,7 @@
 <main id="main-content">
 <section id="hero" aria-labelledby="hero-heading">
   <div class="hero-top">
-    <div class="hero-copy">
+    <div class="hero-copy" id="heroCopy" dir="ltr">
       <h1 id="hero-heading" data-i18n="hero_h1">I design content.<br>I build tools.<br><em>I measure both.</em></h1>
       <p class="hero-p" data-i18n="hero_p">I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.</p>
       <div class="hero-acts">
@@ -640,24 +662,24 @@
   <div class="hero-stats">
     <div class="hstat">
       <div class="hstat-num">40<sup>%</sup></div>
-      <div class="hstat-label">Drop in support cases from a single content redesign</div>
+      <div class="hstat-label" data-i18n="hero_stat1">Drop in support cases from a single content redesign</div>
     </div>
     <div class="hstat">
       <div class="hstat-num">35<sup>%</sup></div>
-      <div class="hstat-label">Fewer clicks to complete a workflow, through IA and copy changes</div>
+      <div class="hstat-label" data-i18n="hero_stat2">Fewer clicks to complete a workflow, through IA and copy changes</div>
     </div>
     <div class="hstat">
       <div class="hstat-num">3</div>
-      <div class="hstat-label">Internal tools built from scratch: AI app, Figma plugin, Chrome extension</div>
+      <div class="hstat-label" data-i18n="hero_stat3">Internal tools built from scratch: AI app, Figma plugin, Chrome extension</div>
     </div>
     <div class="hstat">
       <div class="hstat-num">5<sup>x</sup></div>
-      <div class="hstat-label">Conference speaker: UXDX, ContentEd, Utterly Content, DDX Dubai</div>
+      <div class="hstat-label" data-i18n="hero_stat4">Conference speaker: UXDX, ContentEd, Utterly Content, DDX Dubai</div>
     </div>
   </div>
 </section>
 
-<div class="marquee-wrap"><div class="marquee">
+<div class="marquee-wrap content-en"><div class="marquee">
   <span class="mq-item">UX Content Design <span class="mq-dot">+</span></span>
   <span class="mq-item">AI Experience Design <span class="mq-dot">+</span></span>
   <span class="mq-item">Content Systems <span class="mq-dot">+</span></span>
@@ -689,7 +711,7 @@
 <!-- PORTFOLIO -->
 <section id="portfolio" aria-labelledby="portfolio-heading">
   <p class="s-kicker reveal" data-i18n="portfolio_kicker">Selected work</p>
-  <h2 class="reveal" id="portfolio-heading">Projects with a point.</h2>
+  <h2 class="reveal" id="portfolio-heading" data-i18n-html="portfolio_h2">Projects with a point.</h2>
   <div class="s-rule reveal" aria-hidden="true"></div>
   <div class="filter-bar reveal" role="group" aria-label="Filter portfolio by category">
     <button class="fb active" data-filter="all" aria-pressed="true" data-i18n="filter_all">All</button>
@@ -699,7 +721,7 @@
     <button class="fb" data-filter="research" aria-pressed="false" data-i18n="filter_research">Research</button>
     <button class="fb" data-filter="onboarding" aria-pressed="false" data-i18n="filter_onboarding">Onboarding</button>
   </div>
-  <div class="pgrid reveal" role="list" aria-label="Portfolio projects">
+  <div class="pgrid reveal content-en" role="list" aria-label="Portfolio projects">
 
     <div class="pcard locked" data-tags="ux-writing research">
       <span class="ptag">UX Writing &middot; Cvent</span>
@@ -1057,9 +1079,9 @@
 <!-- ABOUT -->
 <section id="about" aria-labelledby="about-heading">
   <p class="s-kicker reveal" data-i18n="about_kicker">Background</p>
-  <h2 class="reveal" id="about-heading">A bit about me.</h2>
+  <h2 class="reveal" id="about-heading" data-i18n-html="about_h2">A bit about me.</h2>
   <div class="s-rule reveal"></div>
-  <div class="agrid about-grid">
+  <div class="agrid about-grid content-en">
     <div class="reveal">
       <p class="about-p">I'm a Lead Content Designer currently at Birdeye, where I look after end-to-end content design for a reputation management platform. Before that I spent nearly three years at Cvent in event tech, and before that at Netcore Cloud working on a Customer Data Platform.</p>
       <p class="about-p">I've been in this field since 2017. The through-line across all of it: I've always been more interested in the system behind the words than in any individual piece of copy. Style guides, audits, tooling, frameworks. That's where I spend most of my time when I'm not writing.</p>
@@ -1167,27 +1189,27 @@
 <!-- ANALYTICS + SEO/AEO -->
 <section id="analytics" aria-labelledby="analytics-heading">
   <p class="s-kicker reveal" data-i18n="analytics_kicker">Data, analytics &amp; search</p>
-  <h2 class="reveal" id="analytics-heading">Content decisions<br>should come with <em>evidence.</em></h2>
+  <h2 class="reveal" id="analytics-heading" data-i18n-html="analytics_h2">Content decisions<br>should come with <em>evidence.</em></h2>
   <div class="s-rule reveal"></div>
-  <div class="an-grid">
+  <div class="an-grid content-en">
     <div class="reveal">
       <div class="tool-group">
         <p class="tg-head">Product Analytics</p>
-        <div class="tool-row"><span class="tool-name">Pendo</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap" role="img" aria-label="Pendo proficiency: Advanced, 90%"><div class="tool-bar" style="width:90%;"></div></div></div></div>
-        <div class="tool-row"><span class="tool-name">Google Analytics</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap" role="img" aria-label="Google Analytics proficiency: Advanced, 88%"><div class="tool-bar" style="width:88%;"></div></div></div></div>
-        <div class="tool-row"><span class="tool-name">Mixpanel</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Mixpanel proficiency: Intermediate, 65%"><div class="tool-bar" style="width:65%;"></div></div></div></div>
-        <div class="tool-row"><span class="tool-name">Gainsight</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Gainsight proficiency: Intermediate, 60%"><div class="tool-bar" style="width:60%;"></div></div></div></div>
-        <div class="tool-row"><span class="tool-name">Alida</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Alida proficiency: Intermediate, 65%"><div class="tool-bar" style="width:65%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Pendo</span><div class="tool-row-metrics"><span class="tool-level">Advanced</span><div class="tool-bar-wrap" role="img" aria-label="Pendo proficiency: Advanced, 90%"><div class="tool-bar" style="width:90%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Google Analytics</span><div class="tool-row-metrics"><span class="tool-level">Advanced</span><div class="tool-bar-wrap" role="img" aria-label="Google Analytics proficiency: Advanced, 88%"><div class="tool-bar" style="width:88%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Mixpanel</span><div class="tool-row-metrics"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Mixpanel proficiency: Intermediate, 65%"><div class="tool-bar" style="width:65%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Gainsight</span><div class="tool-row-metrics"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Gainsight proficiency: Intermediate, 60%"><div class="tool-bar" style="width:60%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Alida</span><div class="tool-row-metrics"><span class="tool-level">Intermediate</span><div class="tool-bar-wrap" role="img" aria-label="Alida proficiency: Intermediate, 65%"><div class="tool-bar" style="width:65%;"></div></div></div></div>
       </div>
       <div class="tool-group">
         <p class="tg-head">Testing &amp; Research</p>
-        <div class="tool-row"><span class="tool-name">Maze (A/B Testing)</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%;"></div></div></div></div>
-        <div class="tool-row"><span class="tool-name">Flesch-Kincaid Readability</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:90%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Maze (A/B Testing)</span><div class="tool-row-metrics"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Flesch-Kincaid Readability</span><div class="tool-row-metrics"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:90%;"></div></div></div></div>
       </div>
       <div class="tool-group">
         <p class="tg-head">Customer Data Platforms</p>
-        <div class="tool-row"><span class="tool-name">Netcore CDP</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%;"></div></div></div></div>
-        <div class="tool-row"><span class="tool-name">CDP content architecture</span><div style="display:flex;align-items:center;gap:.75rem;"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:82%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">Netcore CDP</span><div class="tool-row-metrics"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%;"></div></div></div></div>
+        <div class="tool-row"><span class="tool-name">CDP content architecture</span><div class="tool-row-metrics"><span class="tool-level">Advanced</span><div class="tool-bar-wrap"><div class="tool-bar" style="width:82%;"></div></div></div></div>
       </div>
     </div>
     <div class="an-copy reveal">
@@ -1206,10 +1228,10 @@
 <!-- BUILDER -->
 <section id="builder" aria-labelledby="builder-heading">
   <p class="s-kicker reveal" data-i18n="builder_kicker">Built, not just written</p>
-  <h2 class="reveal" id="builder-heading" style="color:#fff;">Three tools.<br><em>Zero engineering support.</em></h2>
+  <h2 class="reveal" id="builder-heading" style="color:#fff;" data-i18n-html="builder_h2">Three tools.<br><em>Zero engineering support.</em></h2>
   <div class="s-rule reveal"></div>
-  <p class="builder-p reveal">I got tired of waiting for engineering bandwidth to fix content tooling problems. So I learned enough to build the tools myself. These three are in use. One of them won a company-wide AI contest.</p>
-  <div class="bgrid reveal">
+  <p class="builder-p reveal content-en">I got tired of waiting for engineering bandwidth to fix content tooling problems. So I learned enough to build the tools myself. These three are in use. One of them won a company-wide AI contest.</p>
+  <div class="bgrid reveal content-en">
     <div class="bcard">
       <div class="bnum">01</div>
       <div class="blabel">AI App &middot; Cvent &middot; 2024</div>
@@ -1237,7 +1259,7 @@
       <a href="#contact" class="blink">More detail available on request &#8599;</a>
     </div>
   </div>
-  <div class="bcontext reveal">
+  <div class="bcontext reveal content-en">
     <div>
       <p class="bc-head">Why I built these</p>
       <p class="bc-text">Content tooling usually gets deprioritised. It's not a user feature, it doesn't ship a metric, and engineering has more pressing things to build. So I built around it. These tools work. They're used in production. And they've made the content design function less dependent on other teams' capacity.</p>
@@ -1253,9 +1275,9 @@
 <!-- SPEAKING -->
 <section id="speaking" aria-labelledby="speaking-heading">
   <p class="s-kicker reveal" data-i18n="speaking_kicker">Speaking &amp; recognition</p>
-  <h2 class="reveal" id="speaking-heading">On stage too.</h2>
+  <h2 class="reveal" id="speaking-heading" data-i18n-html="speaking_h2">On stage too.</h2>
   <div class="s-rule reveal"></div>
-  <div class="tgrid reveal">
+  <div class="tgrid reveal content-en">
     <div class="tcard">
       <div class="tevent">UXDX USA &middot; Virtual</div>
       <div class="ttitle">Content Designing for Product Designers</div>
@@ -1282,7 +1304,7 @@
     </div>
   </div>
   <div class="recog-strip reveal">
-    <div class="recog-inner">
+    <div class="recog-inner content-en">
       <div class="recog-left">
         <p class="recog-label">Recognition</p>
         <p class="recog-title">Employee of the Month, Birdeye</p>
@@ -1666,7 +1688,16 @@ const translations = {
     hero_h1: 'I design content.<br>I build tools.<br><em>I measure both.</em>',
     hero_p: "I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.",
     hero_cta1: 'See my work', hero_cta2: 'Say hello',
+    hero_stat1: 'Drop in support cases from a single content redesign',
+    hero_stat2: 'Fewer clicks to complete a workflow, through IA and copy changes',
+    hero_stat3: 'Internal tools built from scratch: AI app, Figma plugin, Chrome extension',
+    hero_stat4: 'Conference speaker: UXDX, ContentEd, Utterly Content, DDX Dubai',
     portfolio_kicker: 'Selected work',
+    portfolio_h2: 'Projects with a point.',
+    about_h2: 'A bit about me.',
+    analytics_h2: 'Content decisions<br>should come with <em>evidence.</em>',
+    builder_h2: 'Three tools.<br><em>Zero engineering support.</em>',
+    speaking_h2: 'On stage too.',
     filter_all: 'All', filter_ux: 'UX Writing', filter_ai: 'AI & Tools',
     filter_systems: 'Content Systems', filter_research: 'Research', filter_onboarding: 'Onboarding',
     about_kicker: 'Background', analytics_kicker: 'Data, analytics & search',
@@ -1684,7 +1715,16 @@ const translations = {
     hero_h1: 'أصمم المحتوى.<br>أبني الأدوات.<br><em>وأقيس كليهما.</em>',
     hero_p: 'مصمم محتوى رئيسي بخبرة 8 سنوات في SaaS وتقنية الفعاليات ومنصات بيانات العملاء. أكتب نصوص المنتج وأبني أنظمة المحتوى وأُجري تدقيقات مستندة إلى البيانات.',
     hero_cta1: 'اطّلع على أعمالي', hero_cta2: 'تحدّث معي',
+    hero_stat1: 'انخفاض في تذاكر الدعم بعد إعادة تصميم محتوى واحدة',
+    hero_stat2: 'نقرات أقل لإتمام المسار عبر هندسة المعلومات وتحسين النصوص',
+    hero_stat3: 'أدوات داخلية مبنية من الصفر: تطبيق ذكاء اصطناعي، إضافة Figma، امتداد Chrome',
+    hero_stat4: 'متحدث في المؤتمرات: UXDX وContentEd وUtterly Content وDDX دبي',
     portfolio_kicker: 'أعمال مختارة',
+    portfolio_h2: 'مشاريع لها هدف.',
+    about_h2: 'نبذة عنّي.',
+    analytics_h2: 'قرارات المحتوى<br>يجب أن ترافقها <em>أدلة.</em>',
+    builder_h2: 'ثلاث أدوات.<br><em>بدون دعم هندسي.</em>',
+    speaking_h2: 'على المسرح أيضًا.',
     filter_all: 'الكل', filter_ux: 'كتابة UX', filter_ai: 'الذكاء الاصطناعي',
     filter_systems: 'أنظمة المحتوى', filter_research: 'البحث', filter_onboarding: 'الإعداد',
     about_kicker: 'الخلفية', analytics_kicker: 'البيانات والتحليلات',
@@ -1702,7 +1742,16 @@ const translations = {
     hero_h1: 'Je conçois le contenu.<br>Je construis des outils.<br><em>Je mesure les deux.</em>',
     hero_p: "Concepteur de contenu principal avec 8 ans d'expérience en SaaS, technologie événementielle et CDP. J'écris les textes produit, construis des systèmes de contenu et réalise des audits basés sur les données.",
     hero_cta1: 'Voir mes travaux', hero_cta2: 'Me contacter',
+    hero_stat1: 'Baisse des demandes support grâce à une refonte de contenu',
+    hero_stat2: 'Moins de clics pour un parcours, via architecture de l’information et textes',
+    hero_stat3: 'Outils internes créés de zéro : appli IA, plugin Figma, extension Chrome',
+    hero_stat4: 'Intervenant : UXDX, ContentEd, Utterly Content, DDX Dubai',
     portfolio_kicker: 'Travaux sélectionnés',
+    portfolio_h2: 'Des projets qui ont un sens.',
+    about_h2: 'Un peu sur moi.',
+    analytics_h2: 'Les décisions de contenu<br>doivent s’appuyer sur des <em>preuves.</em>',
+    builder_h2: 'Trois outils.<br><em>Sans équipe d’ingénierie.</em>',
+    speaking_h2: 'Sur scène aussi.',
     filter_all: 'Tout', filter_ux: 'UX Writing', filter_ai: 'IA & Outils',
     filter_systems: 'Systèmes de contenu', filter_research: 'Recherche', filter_onboarding: 'Onboarding',
     about_kicker: 'Parcours', analytics_kicker: 'Données, analytique et SEO',
@@ -1720,7 +1769,16 @@ const translations = {
     hero_h1: 'Ich gestalte Inhalte.<br>Ich baue Tools.<br><em>Ich messe beides.</em>',
     hero_p: 'Lead Content Designer mit 8 Jahren Erfahrung in SaaS, Event-Tech und CDPs. Ich schreibe Produkttexte, baue Content-Systeme und führe datengestützte Audits durch.',
     hero_cta1: 'Meine Arbeiten', hero_cta2: 'Hallo sagen',
+    hero_stat1: 'Weniger Supportfälle durch ein einzelnes Content-Redesign',
+    hero_stat2: 'Weniger Klicks im Workflow durch Informationsarchitektur und Texte',
+    hero_stat3: 'Drei interne Tools von Grund auf: KI-App, Figma-Plugin, Chrome-Erweiterung',
+    hero_stat4: 'Konferenz-Speaker: UXDX, ContentEd, Utterly Content, DDX Dubai',
     portfolio_kicker: 'Ausgewählte Projekte',
+    portfolio_h2: 'Projekte mit Substanz.',
+    about_h2: 'Ein bisschen über mich.',
+    analytics_h2: 'Content-Entscheidungen<br>brauchen <em>Belege.</em>',
+    builder_h2: 'Drei Tools.<br><em>Ohne Engineering-Support.</em>',
+    speaking_h2: 'Auch auf der Bühne.',
     filter_all: 'Alle', filter_ux: 'UX Writing', filter_ai: 'KI & Tools',
     filter_systems: 'Content-Systeme', filter_research: 'Forschung', filter_onboarding: 'Onboarding',
     about_kicker: 'Hintergrund', analytics_kicker: 'Daten, Analytik & Suche',
@@ -1741,7 +1799,7 @@ const themeLabel = document.getElementById('themeLabel');
 const html = document.documentElement;
 
 function setTheme(dark) {
-  const pack = translations[currentLang] || translations.en;
+  const pack = { ...translations.en, ...(translations[currentLang] || {}) };
   if (dark) {
     html.setAttribute('data-theme', 'dark');
     themeToggle.setAttribute('aria-pressed', 'true');
@@ -1886,21 +1944,27 @@ function applyLang(lang) {
   currentLang = lang;
   const t = translations[lang];
   if (!t) return;
-  // RTL for Arabic
+  const pack = { ...translations.en, ...t };
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  // Update all i18n elements
+  const heroCopy = document.getElementById('heroCopy');
+  if (heroCopy) heroCopy.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) {
-      if (key === 'hero_h1') { queueHeroType(t[key]); }
-      else { el.textContent = t[key]; }
-    }
+    if (pack[key] === undefined) return;
+    if (key === 'hero_h1') queueHeroType(pack.hero_h1);
+    else el.textContent = pack[key];
   });
-  // Update theme button label + icon state + aria for current language
+
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (pack[key] !== undefined) el.innerHTML = pack[key];
+  });
+
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  themeLabel.textContent = isDark ? (t.theme_light || 'Light') : (t.theme_dark || 'Dark');
-  themeToggle.setAttribute('aria-label', isDark ? (t.theme_aria_light || 'Switch to light mode') : (t.theme_aria_dark || 'Switch to dark mode'));
+  themeLabel.textContent = isDark ? (pack.theme_light || 'Light') : (pack.theme_dark || 'Dark');
+  themeToggle.setAttribute('aria-label', isDark ? (pack.theme_aria_light || 'Switch to light mode') : (pack.theme_aria_dark || 'Switch to dark mode'));
   themeToggle.classList.toggle('theme-btn--dark-on', isDark);
   localStorage.setItem('rs_lang', lang);
 }
