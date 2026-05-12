@@ -72,7 +72,7 @@
     [data-theme="dark"] .m-quote.before { background: #2a2a2a; }
     [data-theme="dark"] .m-quote.after { background: #1a2e23; }
     [data-theme="dark"] .sk { background: #242424; border-color: #3a3a3a; }
-    [data-theme="dark"] .cert { background: #242424; border-color: #3a3a3a; }
+    [data-theme="dark"] .cert-platform-wrap.cert-badge { background: #242424; border-color: #3a3a3a; }
     [data-theme="dark"] .pcard { background: #1a1a1a; }
     [data-theme="dark"] .pcard:hover { background: #242424; }
     [data-theme="dark"] .bcontext { background: #1a1a1a; border-color: #3a3a3a; }
@@ -362,10 +362,19 @@
     .tl-date { font-size: .73rem; color: var(--text-4); margin-bottom: .2rem; }
     .tl-role { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); }
     .tl-co { font-size: .83rem; color: var(--text-3); margin-top: .15rem; }
-    .cert { display: flex; align-items: center; gap: .65rem; background: var(--white); border: 1px solid var(--border); border-radius: 3px; padding: .6rem 1rem; margin-bottom: .4rem; }
-    .cert-ico { width: 26px; height: 26px; background: var(--punch-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .6rem; color: var(--punch); font-weight: 600; flex-shrink: 0; }
-    .cert-name { font-size: .83rem; color: var(--text); }
+    .cert { display: flex; align-items: flex-start; gap: .75rem; background: var(--white); border: 1px solid var(--border); border-radius: 3px; padding: .65rem 1rem; margin-bottom: .4rem; text-decoration: none; color: inherit; transition: border-color .15s, box-shadow .15s; }
+    .cert:hover { border-color: var(--punch); box-shadow: 0 2px 12px rgba(26, 115, 232, 0.08); }
+    .cert:focus-visible { outline: 2px solid var(--punch); outline-offset: 2px; }
+    .cert-platform-wrap { width: 40px; height: 40px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--border-soft); background: var(--off); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cert-platform-wrap.cert-badge { width: 52px; height: 52px; padding: 3px; background: var(--white); }
+    .cert-platform-img { width: 24px; height: 24px; object-fit: contain; display: block; }
+    .cert-badge .cert-platform-img { width: 100%; height: 100%; object-fit: contain; }
+    .cert-body { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: .2rem; }
+    .cert-name { font-size: .83rem; color: var(--text); font-weight: 500; line-height: 1.35; }
+    .cert-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem .75rem; }
     .cert-yr { font-size: .7rem; color: var(--text-4); }
+    .cert-verify { font-size: .65rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: var(--text-3); word-break: break-all; line-height: 1.35; }
+    .cert-pl-gwg .cert-platform-img { width: 22px; height: 22px; }
 
     /* Analytics section */
     #analytics { background: var(--white); }
@@ -1012,11 +1021,69 @@
         <div class="tl-item"><div class="tl-date">Mar 2017 — Feb 2019</div><div class="tl-role">Technical Content Writer (UX)</div><div class="tl-co">Tweaking Technologies, Jaipur</div></div>
       </div>
       <p class="sk-head" style="margin-top:2.25rem;margin-bottom:.9rem;">Certifications</p>
-      <div class="cert"><div class="cert-ico">HFI</div><div><div class="cert-name">HFI Certified UX Analyst (CXA)</div><div class="cert-yr">Feb 2025</div></div></div>
-      <div class="cert"><div class="cert-ico" style="font-size:.55rem;">DT</div><div><div class="cert-name">Design Thinking Practitioner</div><div class="cert-yr">Nov 2023</div></div></div>
-      <div class="cert"><div class="cert-ico" style="font-size:.55rem;">SVC</div><div><div class="cert-name">HFI Service Design Thinking</div><div class="cert-yr">Nov 2022</div></div></div>
-      <div class="cert"><div class="cert-ico" style="font-size:.55rem;">G</div><div><div class="cert-name">Google UX Design</div><div class="cert-yr">Apr 2022</div></div></div>
-      <div class="cert"><div class="cert-ico" style="font-size:.5rem;">DA</div><div><div class="cert-name">Data Analytics</div><div class="cert-yr">Jan 2025</div></div></div>
+      <a class="cert" href="https://www.credly.com/badges/ecfd97da-4b63-4742-8dda-00fe1b29a420/linked_in_profile" target="_blank" rel="noopener noreferrer" aria-label="Verify HFI Certified UX Analyst (CXA) on Credly (opens in new tab)">
+        <span class="cert-platform-wrap cert-badge"><img class="cert-platform-img" src="assets/cert-hfi-cxa.png" width="46" height="46" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">HFI Certified UX Analyst (CXA™)</span>
+          <span class="cert-meta"><span class="cert-yr">Feb 2025</span><span class="cert-verify">Credly · ecfd97da-4b63-4742-8dda-00fe1b29a420</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://credential.certifyme.online/verify/d85bca8212200" target="_blank" rel="noopener noreferrer" aria-label="Verify Design Thinking Practitioner credential (opens in new tab)">
+        <span class="cert-platform-wrap cert-badge"><img class="cert-platform-img" src="assets/cert-design-thinking-practitioner.png" width="46" height="46" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Design Thinking Practitioner</span>
+          <span class="cert-meta"><span class="cert-yr">Nov 2023</span><span class="cert-verify">CertifyMe · d85bca8212200</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://www.credly.com/badges/2953e8b9-577c-44a1-bb53-8b64dff927a3/linked_in_profile" target="_blank" rel="noopener noreferrer" aria-label="Verify HFI Service Design Thinking on Credly (opens in new tab)">
+        <span class="cert-platform-wrap cert-badge"><img class="cert-platform-img" src="assets/cert-hfi-service-design.png" width="46" height="46" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">HFI Service Design Thinking</span>
+          <span class="cert-meta"><span class="cert-yr">Nov 2022</span><span class="cert-verify">Credly · 2953e8b9-577c-44a1-bb53-8b64dff927a3</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://www.coursera.org/account/accomplishments/verify/TVKUK69PBLV9" target="_blank" rel="noopener noreferrer" aria-label="Verify Foundations of User Experience (UX) Design on Coursera (opens in new tab)">
+        <span class="cert-platform-wrap"><img class="cert-platform-img" src="https://www.coursera.org/favicon.ico" width="24" height="24" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Google UX Design</span>
+          <span class="cert-meta"><span class="cert-yr">Apr 2022</span><span class="cert-verify">Coursera · TVKUK69PBLV9</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://www.coursera.org/account/accomplishments/verify/ZEETSA9ZVSE8" target="_blank" rel="noopener noreferrer" aria-label="Verify Conduct UX Research and Test Early Concepts on Coursera (opens in new tab)">
+        <span class="cert-platform-wrap"><img class="cert-platform-img" src="https://www.coursera.org/favicon.ico" width="24" height="24" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Conduct UX Research and Test Early Concepts</span>
+          <span class="cert-meta"><span class="cert-yr">Nov 2022</span><span class="cert-verify">Coursera · ZEETSA9ZVSE8</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://www.coursera.org/account/accomplishments/verify/1MND7E1JAJFP" target="_blank" rel="noopener noreferrer" aria-label="Verify Build Wireframes and Low-Fidelity Prototypes on Coursera (opens in new tab)">
+        <span class="cert-platform-wrap"><img class="cert-platform-img" src="https://www.coursera.org/favicon.ico" width="24" height="24" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Build Wireframes and Low-Fidelity Prototypes</span>
+          <span class="cert-meta"><span class="cert-yr">Oct 2024</span><span class="cert-verify">Coursera · 1MND7E1JAJFP</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://www.coursera.org/account/accomplishments/verify/JQ0HM4YJFU3S" target="_blank" rel="noopener noreferrer" aria-label="Verify Foundations: Data, Data, Everywhere on Coursera (opens in new tab)">
+        <span class="cert-platform-wrap"><img class="cert-platform-img" src="https://www.coursera.org/favicon.ico" width="24" height="24" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Foundations: Data, Data, Everywhere</span>
+          <span class="cert-meta"><span class="cert-yr">Jan 2025</span><span class="cert-verify">Coursera · JQ0HM4YJFU3S</span></span>
+        </span>
+      </a>
+      <a class="cert" href="https://www.linkedin.com/learning/certificates/b52f35053c356f7ad32623c4d6e4a486ed9ad0be5e99f4aa38450a8aa1917b33" target="_blank" rel="noopener noreferrer" aria-label="Verify Technical Product Management on LinkedIn Learning (opens in new tab)">
+        <span class="cert-platform-wrap"><img class="cert-platform-img" src="https://www.linkedin.com/favicon.ico" width="24" height="24" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Technical Product Management</span>
+          <span class="cert-meta"><span class="cert-yr">Dec 2022</span><span class="cert-verify">LinkedIn Learning · b52f35053c356f7ad32623c4d6e4a486ed9ad0be5e99f4aa38450a8aa1917b33</span></span>
+        </span>
+      </a>
+      <a class="cert cert-pl-gwg" href="https://grow.google/intl/en_in/?utm_source=redirect&amp;utm_medium=redirect&amp;utm_term=gwg&amp;utm_content=apac&amp;utm_campaign=redirect" target="_blank" rel="noopener noreferrer" aria-label="Grow with Google APAC (opens in new tab)">
+        <span class="cert-platform-wrap"><img class="cert-platform-img" src="https://www.google.com/favicon.ico" width="22" height="22" alt="" loading="lazy" decoding="async" /></span>
+        <span class="cert-body">
+          <span class="cert-name">Google Digital Unlocked (Grow with Google)</span>
+          <span class="cert-meta"><span class="cert-yr">Program</span><span class="cert-verify">grow.google · APAC hub</span></span>
+        </span>
+      </a>
     </div>
   </div>
 </section>
