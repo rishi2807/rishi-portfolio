@@ -541,6 +541,242 @@
     .tl-date { font-size: .73rem; color: var(--text-4); margin-bottom: .2rem; }
     .tl-role { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); }
     .tl-co { font-size: .83rem; color: var(--text-3); margin-top: .15rem; }
+
+    /* Before all this — collapsible reveal */
+    .reckless-toggle {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      width: 100%;
+      margin-top: 1.75rem;
+      padding: .85rem 1rem;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: .88rem;
+      color: var(--text-3);
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.4;
+      transition: border-color .2s ease, background .2s ease, color .2s ease;
+    }
+    .reckless-toggle:hover, .reckless-toggle:focus-visible {
+      border-color: #b89a5e;
+      color: var(--text-2);
+      background: rgba(253, 246, 227, .45);
+      outline: none;
+    }
+    .reckless-toggle-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      font-family: ui-monospace, 'Menlo', monospace;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      color: var(--text-3);
+      transition: transform .35s cubic-bezier(.4, .2, .2, 1), border-color .2s ease, color .2s ease;
+    }
+    .reckless-toggle:hover .reckless-toggle-icon,
+    .reckless-toggle:focus-visible .reckless-toggle-icon {
+      border-color: #b89a5e;
+      color: #5c4a28;
+    }
+    .reckless-toggle[aria-expanded="true"] {
+      border-color: #b89a5e;
+      background: rgba(253, 246, 227, .35);
+      color: var(--text-2);
+    }
+    .reckless-toggle[aria-expanded="true"] .reckless-toggle-icon {
+      transform: rotate(45deg);
+      border-color: #b89a5e;
+      color: #5c4a28;
+    }
+    .reckless-toggle-text { flex: 1; }
+    .reckless-toggle-meta {
+      font-family: ui-monospace, 'Menlo', monospace;
+      font-style: normal;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      flex-shrink: 0;
+    }
+    .reckless-collapsible {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      margin-top: 0;
+      transition: grid-template-rows .55s cubic-bezier(.4, .2, .2, 1), opacity .35s ease, margin-top .4s ease;
+    }
+    .reckless-collapsible-inner { overflow: hidden; min-height: 0; padding: 16px 8px 44px; }
+    .reckless-collapsible.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 1.25rem;
+    }
+    [data-theme="dark"] .reckless-toggle:hover,
+    [data-theme="dark"] .reckless-toggle:focus-visible,
+    [data-theme="dark"] .reckless-toggle[aria-expanded="true"] { background: rgba(122, 97, 50, .12); }
+    @media (prefers-reduced-motion: reduce) {
+      .reckless-collapsible, .reckless-toggle-icon { transition: none; }
+    }
+    .reckless {
+      position: relative;
+      background: #fdf6e3;
+      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 1.9rem, rgba(184,154,94,.10) 1.9rem, rgba(184,154,94,.10) calc(1.9rem + 1px));
+      border: 1.5px dashed #b89a5e;
+      border-radius: 3px;
+      padding: 2.3rem 1.9rem 1.6rem;
+      transform: rotate(-0.8deg);
+      box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 14px 36px rgba(0,0,0,.10);
+      transition: transform .45s cubic-bezier(.4, .8, .4, 1.2), box-shadow .3s ease;
+    }
+    .reckless:hover {
+      transform: rotate(-0.3deg) translateY(-3px);
+      box-shadow: 0 2px 0 rgba(0,0,0,.05), 0 22px 48px rgba(0,0,0,.14);
+    }
+    .reckless-tape {
+      position: absolute; top: -11px;
+      width: 74px; height: 22px;
+      background: rgba(255, 234, 153, 0.62);
+      border: 1px solid rgba(184, 154, 94, 0.22);
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+      pointer-events: none;
+    }
+    .reckless-tape-l { left: 32px; transform: rotate(-5deg); }
+    .reckless-tape-r { right: 32px; transform: rotate(4deg); }
+    .reckless-stamp {
+      position: absolute;
+      top: 1.1rem; right: 1.2rem;
+      transform: rotate(8deg);
+      font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: rgba(180, 60, 60, 0.70);
+      border: 1.5px solid rgba(180, 60, 60, 0.55);
+      padding: .3rem .5rem;
+      text-transform: uppercase;
+      pointer-events: none;
+      border-radius: 2px;
+      line-height: 1;
+    }
+    .reckless-header {
+      margin-bottom: 1.4rem;
+      padding-bottom: .9rem;
+      border-bottom: 1px dashed #c9a96e;
+      max-width: calc(100% - 110px);
+    }
+    .reckless-title {
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      font-style: italic;
+      color: #5c4a28;
+      margin: 0;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+    .reckless-title-years { font-style: normal; color: #957d4a; font-size: .9rem; font-weight: 400; letter-spacing: .03em; margin-left: .15rem; }
+    .reckless-subtitle {
+      font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+      font-size: .72rem;
+      color: #8b6f3a;
+      margin: .4rem 0 0;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    [data-theme="dark"] .reckless-header { border-bottom-color: #6b5631; }
+    [data-theme="dark"] .reckless-title-years { color: #c9a96e; }
+    [data-theme="dark"] .reckless-subtitle { color: #c9a96e; }
+    .reckless-tl { border-left: 1px dashed #b89a5e; padding-left: 1.75rem; }
+    .reckless-item {
+      position: relative;
+      margin-bottom: 1.55rem;
+      font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+      transition: transform .25s ease;
+    }
+    .reckless-item:last-child { margin-bottom: 0; }
+    .reckless-item:hover { transform: translateX(3px); }
+    .reckless-item::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: #b89a5e;
+      border-radius: 50%;
+      position: absolute;
+      left: -2.28rem; top: .42rem;
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+    .reckless-item:hover::before {
+      transform: scale(1.5);
+      background: #8b6f3a;
+      box-shadow: 0 0 0 3px rgba(184,154,94,.18);
+    }
+    .reckless-date { font-size: .72rem; color: #957d4a; margin-bottom: .25rem; letter-spacing: .04em; }
+    .reckless-role { font-size: .92rem; font-weight: 700; color: #4a3a1d; line-height: 1.3; }
+    .reckless-co { font-size: .8rem; color: #7d6432; margin-top: .14rem; }
+    .reckless-quote {
+      font-family: var(--serif);
+      font-size: .85rem;
+      color: #6b5731;
+      margin-top: .55rem;
+      font-style: italic;
+      line-height: 1.5;
+      opacity: .65;
+      transition: opacity .3s ease, color .3s ease;
+    }
+    .reckless-item:hover .reckless-quote { opacity: 1; color: #4a3a1d; }
+    .reckless-footer {
+      margin-top: 1.6rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #c9a96e;
+      font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+      font-size: .72rem;
+      color: #8b6f3a;
+      text-align: right;
+      font-style: italic;
+    }
+    [data-theme="dark"] .reckless {
+      background: #2a2418;
+      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 1.9rem, rgba(184,154,94,.08) 1.9rem, rgba(184,154,94,.08) calc(1.9rem + 1px));
+      border-color: #7a6132;
+      box-shadow: 0 1px 0 rgba(0,0,0,.3), 0 14px 36px rgba(0,0,0,.45);
+    }
+    [data-theme="dark"] .reckless:hover {
+      box-shadow: 0 2px 0 rgba(0,0,0,.35), 0 22px 48px rgba(0,0,0,.55);
+    }
+    [data-theme="dark"] .reckless-tape { background: rgba(255, 234, 153, 0.18); border-color: rgba(255, 234, 153, 0.12); }
+    [data-theme="dark"] .reckless-stamp { color: rgba(235, 110, 110, 0.75); border-color: rgba(235, 110, 110, 0.55); }
+    [data-theme="dark"] .reckless-title { color: #e8d9b0; }
+    [data-theme="dark"] .reckless-tl { border-left-color: #7a6132; }
+    [data-theme="dark"] .reckless-item::before { background: #c9a96e; }
+    [data-theme="dark"] .reckless-item:hover::before { background: #e8c989; box-shadow: 0 0 0 3px rgba(201,169,110,.22); }
+    [data-theme="dark"] .reckless-date { color: #c9a96e; }
+    [data-theme="dark"] .reckless-role { color: #f0e0b4; }
+    [data-theme="dark"] .reckless-co { color: #c9aa6d; }
+    [data-theme="dark"] .reckless-quote { color: #b8a275; }
+    [data-theme="dark"] .reckless-item:hover .reckless-quote { color: #f0e0b4; }
+    [data-theme="dark"] .reckless-footer { color: #c9a96e; border-top-color: #6b5631; }
+    [dir="rtl"] .reckless-tl { border-left: none; border-right: 1px dashed #b89a5e; padding-left: 0; padding-right: 1.75rem; }
+    [dir="rtl"] .reckless-item::before { left: auto; right: -2.28rem; }
+    [dir="rtl"] .reckless-stamp { right: auto; left: 1.2rem; transform: rotate(-8deg); }
+    [dir="rtl"] .reckless-footer { text-align: left; }
+    [data-theme="dark"][dir="rtl"] .reckless-tl { border-right-color: #7a6132; }
+    @media (prefers-reduced-motion: reduce) {
+      .reckless, .reckless-item, .reckless-item::before, .reckless-quote { transition: none; }
+      .reckless:hover { transform: rotate(-0.8deg); }
+      .reckless-item:hover { transform: none; }
+      .reckless-item:hover::before { transform: none; }
+    }
+
     /* Analytics section */
     #analytics { background: var(--white); }
     .an-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: start; }
@@ -1205,11 +1441,57 @@
     <div class="reveal">
       <p class="sk-head" style="margin-bottom:1.4rem;">Work history</p>
       <div class="tl">
-        <div class="tl-item"><div class="tl-date">Jul 2025 — present</div><div class="tl-role">Lead Content Designer</div><div class="tl-co">Birdeye Software</div></div>
-        <div class="tl-item"><div class="tl-date">Sep 2022 — Jun 2025</div><div class="tl-role">Lead Content Designer</div><div class="tl-co">Cvent, Gurgaon</div></div>
-        <div class="tl-item"><div class="tl-date">Dec 2021 — Sep 2022</div><div class="tl-role">Senior UX Writer</div><div class="tl-co">Netcore Cloud, Mumbai</div></div>
-        <div class="tl-item"><div class="tl-date">Mar 2019 — Dec 2021</div><div class="tl-role">Team Leader, Media &amp; Marketing (UX)</div><div class="tl-co">Innovana Thinklabs</div></div>
-        <div class="tl-item"><div class="tl-date">Mar 2017 — Feb 2019</div><div class="tl-role">Technical Content Writer (UX)</div><div class="tl-co">Tweaking Technologies</div></div>
+        <div class="tl-item"><div class="tl-date">Jul 2025 — present</div><div class="tl-role">Lead Content Designer</div><div class="tl-co">Birdeye Software Pvt Ltd</div></div>
+        <div class="tl-item"><div class="tl-date">Sep 2022 — Jun 2025</div><div class="tl-role">Lead Content Designer</div><div class="tl-co">Cvent India Pvt Ltd</div></div>
+        <div class="tl-item"><div class="tl-date">Dec 2021 — Sep 2022</div><div class="tl-role">Senior UX Writer</div><div class="tl-co">Netcore Cloud Pvt Ltd</div></div>
+        <div class="tl-item"><div class="tl-date">Mar 2019 — Dec 2021</div><div class="tl-role">Team Leader, Media &amp; Marketing (UX)</div><div class="tl-co">Innovana Thinklabs Limited</div></div>
+        <div class="tl-item"><div class="tl-date">Mar 2017 — Feb 2019</div><div class="tl-role">Technical Content Writer (UX)</div><div class="tl-co">Tweaking Technologies Pvt Ltd</div></div>
+        <div class="tl-item"><div class="tl-date">May 2015 — Feb 2017</div><div class="tl-role">Process Expert — Technical Support</div><div class="tl-co">The Phone Support Pvt Ltd</div></div>
+      </div>
+      <button class="reckless-toggle" type="button" aria-expanded="false" aria-controls="reckless-card" onclick="toggleReckless(this)">
+        <span class="reckless-toggle-icon" aria-hidden="true">+</span>
+        <span class="reckless-toggle-text">There's a chapter before this, if you're curious.</span>
+        <span class="reckless-toggle-meta">2010–2015</span>
+      </button>
+      <div class="reckless-collapsible" id="reckless-card">
+        <div class="reckless-collapsible-inner">
+          <div class="reckless">
+            <span class="reckless-tape reckless-tape-l" aria-hidden="true"></span>
+            <span class="reckless-tape reckless-tape-r" aria-hidden="true"></span>
+            <span class="reckless-stamp" aria-hidden="true">Off the record</span>
+            <div class="reckless-header">
+              <p class="reckless-title">Brat era.<span class="reckless-title-years"> · 2010–2015</span></p>
+              <p class="reckless-subtitle">High testosterone · zero patience · no fear</p>
+            </div>
+            <div class="reckless-tl">
+              <div class="reckless-item">
+                <div class="reckless-date">Dec 2010</div>
+                <div class="reckless-role">Process Associate</div>
+                <div class="reckless-co">Genpact</div>
+                <div class="reckless-quote">Nineteen. Mid-degree. Working a night call floor before anyone said I was ready.</div>
+              </div>
+              <div class="reckless-item">
+                <div class="reckless-date">2011</div>
+                <div class="reckless-role">EDI Analyst</div>
+                <div class="reckless-co">ST Infosys</div>
+                <div class="reckless-quote">Kept their EDI pipeline alive with Python scripts no one asked me to write. Took off to Bangkok for New Year's. Never regretted it.</div>
+              </div>
+              <div class="reckless-item">
+                <div class="reckless-date">Jun 2013 – Jul 2014</div>
+                <div class="reckless-role">Process Associate</div>
+                <div class="reckless-co">Genpact</div>
+                <div class="reckless-quote">Went back. No explanations owed, none given.</div>
+              </div>
+              <div class="reckless-item">
+                <div class="reckless-date">Mar 2015</div>
+                <div class="reckless-role">Developer</div>
+                <div class="reckless-co">HCL Technologies</div>
+                <div class="reckless-quote">Joined Monday. Hated Noida by Tuesday. Out Wednesday. Cleanest call I've made in thirty-six hours.</div>
+              </div>
+            </div>
+            <div class="reckless-footer">4 jobs · 5 years · every one of them on purpose.</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="about-certs-row reveal">
@@ -1690,6 +1972,17 @@ setTimeout(()=>logSession({event:'engaged'}), 3000);
 // ── SCROLL REVEAL ──
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}}),{threshold:.07});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── RECKLESS YEARS TOGGLE ──
+function toggleReckless(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  const target = document.getElementById(btn.getAttribute('aria-controls'));
+  btn.setAttribute('aria-expanded', String(!expanded));
+  btn.querySelector('.reckless-toggle-text').textContent = expanded
+    ? "There's a chapter before this, if you're curious."
+    : "Here's how it started.";
+  target.classList.toggle('open', !expanded);
+}
 
 // ── PORTFOLIO FILTER + LAST ROW FIX ──
 function fixLastRow(){
