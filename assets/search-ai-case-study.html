@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search AI — Case Study · Rishi Sharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #202124;
+    --text-2: #3c4043;
+    --text-3: #5f6368;
+    --text-4: #9aa0a6;
+    --punch: #1a73e8;
+    --punch-soft: #e8f0fe;
+    --punch-dark: #1557b0;
+    --border: #dadce0;
+    --off: #f8f9fa;
+    --white: #ffffff;
+    --serif: 'Roboto Slab', serif;
+    --sans: 'Roboto', sans-serif;
+    --mono: 'Roboto Mono', monospace;
+    --green: #137333;
+    --green-soft: #e6f4ea;
+    --red: #c5221f;
+    --red-soft: #fce8e6;
+    --amber: #b06000;
+    --amber-soft: #fef7e0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--text-3);
+  }
+
+  .nav-left a {
+    color: var(--punch);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .nav-left span { color: var(--text-4); }
+
+  .nav-right {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .nav-right a {
+    font-size: 0.875rem;
+    color: var(--text-3);
+    text-decoration: none;
+    font-weight: 400;
+  }
+
+  .nav-right a:hover { color: var(--punch); }
+
+  /* HERO */
+  .hero {
+    padding: 80px 40px 64px;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--punch-soft);
+    color: var(--punch-dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    letter-spacing: 0;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .meta-item label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .meta-item span {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    font-weight: 400;
+  }
+
+  /* OUTCOME STRIP */
+  .outcome-strip {
+    background: var(--text);
+    color: var(--white);
+    padding: 40px;
+    margin: 0 0 0 0;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .outcome-strip-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .outcome-strip p {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .outcome-stat strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .outcome-stat span {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--punch);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .section h2 {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .section p {
+    font-size: 1rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ROLE PILLS */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .role-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--off);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .role-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--punch);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .role-item span {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* DECISION BLOCK */
+  .decision-block {
+    margin-top: 40px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .decision-header {
+    padding: 20px 24px;
+    background: var(--off);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .decision-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--punch);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .decision-header-text h3 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .decision-header-text p {
+    font-size: 0.875rem;
+    color: var(--text-3);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .decision-body {
+    padding: 24px;
+  }
+
+  /* BEFORE AFTER */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ba-card {
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+
+  .ba-card.before {
+    background: var(--red-soft);
+    border: 1px solid #f5c6c5;
+  }
+
+  .ba-card.after {
+    background: var(--green-soft);
+    border: 1px solid #b7dfbf;
+  }
+
+  .ba-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .ba-card.before .ba-label { color: var(--red); }
+  .ba-card.after .ba-label { color: var(--green); }
+
+  .ba-card p {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ba-card.before p { color: #c5221f; }
+  .ba-card.after p { color: #137333; }
+
+  .decision-reasoning {
+    background: var(--punch-soft);
+    border-radius: 8px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--punch);
+  }
+
+  .decision-reasoning p {
+    font-size: 0.875rem;
+    color: var(--punch-dark);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .decision-reasoning strong {
+    font-weight: 500;
+  }
+
+  /* SYSTEM BLOCK */
+  .system-block {
+    margin-top: 32px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .system-block-header {
+    padding: 16px 24px;
+    background: var(--text);
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+
+  .system-rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .system-col {
+    padding: 24px;
+  }
+
+  .system-col:first-child {
+    border-right: 1px solid var(--border);
+  }
+
+  .system-col h4 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-4);
+    margin-bottom: 16px;
+  }
+
+  .rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .rule-badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: var(--mono);
+  }
+
+  .rule-badge.use {
+    background: var(--green-soft);
+    color: var(--green);
+  }
+
+  .rule-badge.avoid {
+    background: var(--red-soft);
+    color: var(--red);
+  }
+
+  .rule-item span {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    margin-top: 40px;
+    padding: 32px;
+    background: var(--off);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .quote-block::before {
+    content: '"';
+    font-family: var(--serif);
+    font-size: 5rem;
+    color: var(--border);
+    position: absolute;
+    top: 8px;
+    left: 24px;
+    line-height: 1;
+  }
+
+  .quote-block blockquote {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.6;
+    padding-left: 16px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quote-source {
+    font-size: 0.875rem;
+    color: var(--text-3);
+    padding-left: 16px;
+  }
+
+  .quote-source strong {
+    color: var(--text-2);
+    font-weight: 500;
+  }
+
+  /* OUTCOME SECTION */
+  .outcome-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .outcome-card {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+  }
+
+  .outcome-card .num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--punch);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .outcome-card .label {
+    font-size: 0.875rem;
+    color: var(--text-3);
+    line-height: 1.4;
+  }
+
+  /* STORY TIMELINE */
+  .timeline {
+    margin-top: 32px;
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: 7px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--punch);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--punch);
+  }
+
+  .timeline-item h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .timeline-item p {
+    font-size: 0.875rem;
+    color: var(--text-3);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* INTERVIEW CALLOUT */
+  .interview-callout {
+    margin-top: 48px;
+    padding: 32px;
+    border: 2px solid var(--punch);
+    border-radius: 12px;
+    background: var(--punch-soft);
+  }
+
+  .interview-callout h3 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--punch-dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .interview-callout p {
+    font-size: 0.95rem;
+    color: var(--punch-dark);
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  footer p {
+    font-size: 0.875rem;
+    color: var(--text-4);
+  }
+
+  footer a {
+    font-size: 0.875rem;
+    color: var(--punch);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SCROLL ANIMATIONS */
+  .section { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .section.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.8rem; }
+    .outcome-stats { grid-template-columns: 1fr; gap: 20px; }
+    .before-after { grid-template-columns: 1fr; }
+    .system-rules { grid-template-columns: 1fr; }
+    .outcome-cards { grid-template-columns: 1fr; }
+    .role-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+    .content { padding: 0 20px; }
+    .hero { padding: 40px 20px 48px; }
+    .outcome-strip { padding: 32px 20px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="#">Rishi Sharma</a>
+    <span>/</span>
+    <span>Search AI: Case study</span>
+  </div>
+  <div class="nav-right">
+    <a href="#problem">Problem</a>
+    <a href="#decisions">Decisions</a>
+    <a href="#system">System</a>
+    <a href="#outcome">Outcome</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#1557b0" stroke-width="1.5"/><path d="M6 4v2.5l1.5 1.5" stroke="#1557b0" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Content design · Birdeye · 2024–2025
+  </div>
+  <h1>Designing the language layer for Search AI</h1>
+  <p class="hero-sub">Search AI is a Birdeye product that helps businesses track and improve their visibility in AI-generated answers from ChatGPT, Gemini, and Perplexity. I was the content designer across the full product, from dashboard microcopy to landing page to the content system that kept it consistent.</p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <label>My role</label>
+      <span>Lead Content Designer</span>
+    </div>
+    <div class="meta-item">
+      <label>Scope</label>
+      <span>Full product</span>
+    </div>
+    <div class="meta-item">
+      <label>Timeline</label>
+      <span>3-month launch window</span>
+    </div>
+    <div class="meta-item">
+      <label>Recognition</label>
+      <span>Employee of the Month</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- CONTEXT -->
+  <div class="section" id="problem">
+    <div class="section-label">Context</div>
+    <h2>A new product category needed a new content vocabulary</h2>
+    <p>Search AI sits at the intersection of local SEO, AI citations, and brand reputation. None of these had established UX language when the product launched. When someone asks ChatGPT "best dentist near me," your business either appears or it doesn't. Search AI helps you track that, understand why, and fix it.</p>
+    <p>The challenge wasn't just writing copy. It was building a language system from scratch, for a product category that didn't fully exist yet, under a 3-month launch deadline.</p>
+
+    <div class="role-grid">
+      <div class="role-item"><div class="dot"></div><span>Dashboard copy: section titles, body text, labels, tooltips</span></div>
+      <div class="role-item"><div class="dot"></div><span>Landing page: H1, H2s, value cards, FAQ, CTAs</span></div>
+      <div class="role-item"><div class="dot"></div><span>Email copy: report-ready notifications, onboarding flows</span></div>
+      <div class="role-item"><div class="dot"></div><span>Content system: Brand vs Location language rules</span></div>
+      <div class="role-item"><div class="dot"></div><span>Microcopy: banners, alerts, error states, empty states</span></div>
+      <div class="role-item"><div class="dot"></div><span>Stakeholder alignment: translating engineering logic to UX copy</span></div>
+    </div>
+  </div>
+
+  <!-- DECISIONS -->
+  <div class="section" id="decisions">
+    <div class="section-label">Key decisions</div>
+    <h2>Four decisions that shaped the product's voice</h2>
+    <p>These weren't just copywriting calls. Each one required diagnosing a problem, making a case, and sometimes pushing back on what already existed.</p>
+
+    <!-- DECISION 1 -->
+    <div class="decision-block">
+      <div class="decision-header">
+        <div class="decision-num">1</div>
+        <div class="decision-header-text">
+          <h3>Rewriting the visibility score banner</h3>
+          <p>The PM's draft was technically accurate but would have alarmed users. Engineering logic needed to become user reassurance.</p>
+        </div>
+      </div>
+      <div class="decision-body">
+        <div class="before-after">
+          <div class="ba-card before">
+            <div class="ba-label">PM's draft</div>
+            <p>"Visibility Score Update: Now includes rank in LLM searches (was 100% just for appearing). Rank 1 = 100%, drops with lower ranks. Score fell? Algorithm change only — optimize for #1!"</p>
+          </div>
+          <div class="ba-card after">
+            <div class="ba-label">Final copy</div>
+            <p>"Visibility score now reflects ranking in AI results. Higher positions contribute more to your score, so changes may be due to this update."</p>
+          </div>
+        </div>
+        <div class="decision-reasoning">
+          <p><strong>Why I changed it:</strong> "LLM searches" is internal jargon. "Score fell?" triggers panic before explaining why. The exclamation mark undercuts trust. I translated the engineering logic (a weighted ranking formula) into one calm, accurate sentence. I also gave my colleague the reasoning so they could defend it in the team group chat without me being in the room.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DECISION 2 -->
+    <div class="decision-block" style="margin-top: 20px;">
+      <div class="decision-header">
+        <div class="decision-num">2</div>
+        <div class="decision-header-text">
+          <h3>Pushing back on a generic H2</h3>
+          <p>The landing page needed section headings that explained mechanism, not just outcome. Generic was easy. Specific took longer but earned it.</p>
+        </div>
+      </div>
+      <div class="decision-body">
+        <div class="before-after">
+          <div class="ba-card before">
+            <div class="ba-label">First draft</div>
+            <p>"See why AI recommends certain brands over others"</p>
+          </div>
+          <div class="ba-card after">
+            <div class="ba-label">Final copy</div>
+            <p>"Decode what AI looks at before recommending your brand"</p>
+          </div>
+        </div>
+        <div class="decision-reasoning">
+          <p><strong>Why I pushed for this:</strong> The first version explains nothing new. It creates no tension. "Decode" signals insight and mechanism. It tells the reader this section will actually teach them something. "What AI looks at" explains the process, not just the outcome. I flagged the original as too generic and held the revision through multiple iterations until it earned its place.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DECISION 3 -->
+    <div class="decision-block" style="margin-top: 20px;">
+      <div class="decision-header">
+        <div class="decision-num">3</div>
+        <div class="decision-header-text">
+          <h3>Standardising dashboard section structure</h3>
+          <p>The dashboard had an inconsistent mix of question-format titles and statement titles. A system decision was needed, not a one-off fix.</p>
+        </div>
+      </div>
+      <div class="decision-body">
+        <div class="before-after">
+          <div class="ba-card before">
+            <div class="ba-label">Before (inconsistent)</div>
+            <p>Section 1: "Overview"<br/>Section 2: "How is Search AI score calculated?"<br/>Section 3: "Business performance by location"<br/>Section 4: "How are your themes & prompts performing"</p>
+          </div>
+          <div class="ba-card after">
+            <div class="ba-label">After (pattern established)</div>
+            <p>Question title + supporting body text, applied consistently.<br/><br/>"How is your Search AI score calculated?"<br/>See the key metrics that contribute to your overall Search AI score.</p>
+          </div>
+        </div>
+        <div class="decision-reasoning">
+          <p><strong>Why this mattered:</strong> Inconsistency across a dashboard erodes trust even when individual copy is good. I established a clear pattern, question title followed by body text that expands it, and applied it across every section. The table headers also got fixed: "Impact" became "Expected impact" and "Impact metric" became "Metric affected." Small changes, but they make the product feel designed rather than assembled.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DECISION 4 -->
+    <div class="decision-block" style="margin-top: 20px;">
+      <div class="decision-header">
+        <div class="decision-num">4</div>
+        <div class="decision-header-text">
+          <h3>Defending question-format titles without question marks</h3>
+          <p>The CPO pushed back on dropping the question mark from section titles. I held the position, explained the reasoning, and he agreed. The pattern shipped as I proposed.</p>
+        </div>
+      </div>
+      <div class="decision-body">
+        <div style="margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
+          <p class="cs-figure-note" style="font-size:.85rem;color:var(--text-3);padding:1rem;background:var(--off);border-radius:8px;border:1px solid var(--border);">Figure: reference screenshot from the full case study (embedded image omitted in this web export).</p>
+        </div>
+        <div class="decision-reasoning">
+          <p><strong>Why I held this:</strong> These titles aren't real questions. They don't prompt an answer from the user. They frame a data view. A question mark creates a false expectation, implying the section will respond to something the user asked. Search AI is a genuinely new concept and users arrive with a lot of questions about AI visibility. Starting sections with "How" and "What" matches that mental state without turning the dashboard into a FAQ. NN/g and the Microsoft Style Guide both recommend minimising punctuation in UI headings for exactly this reason. Products like Amplitude and Mixpanel use the same Wh-word pattern in their dashboards without ending punctuation. Anil agreed, the pattern shipped, and no user confusion was reported.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM -->
+  <div class="section" id="system">
+    <div class="section-label">Content system</div>
+    <h2>Brand vs Location: a language rule that prevented drift</h2>
+    <p>Search AI has two main views: performance by location and performance by brand. Without a clear language rule, copy would bleed across views. "Your locations" would appear in brand reports. "Across locations" would leak into brand-level analysis.</p>
+    <p>I documented this as a system rule so any writer, PM, or designer could apply it without asking:</p>
+
+    <div class="system-block">
+      <div class="system-block-header">content-system / brand-vs-location.md</div>
+      <div class="system-rules">
+        <div class="system-col">
+          <h4>Location view</h4>
+          <div class="rule-item">
+            <span class="rule-badge use">use</span>
+            <span>"your locations"</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-badge use">use</span>
+            <span>"across locations"</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-badge use">use</span>
+            <span>"for all locations"</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-badge avoid">avoid</span>
+            <span>any brand-level aggregation language</span>
+          </div>
+        </div>
+        <div class="system-col">
+          <h4>Brand view</h4>
+          <div class="rule-item">
+            <span class="rule-badge use">use</span>
+            <span>"your brand"</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-badge use">use</span>
+            <span>"for your brand across AI platforms"</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-badge avoid">avoid</span>
+            <span>"your locations"</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-badge avoid">avoid</span>
+            <span>"across locations" — brand is already the aggregation layer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 24px;">This isn't a style preference. It's a signal of whether the product understands its own data model. Getting it wrong tells the user the product doesn't know which view they're in.</p>
+
+    <!-- TERMINOLOGY TABLE -->
+    <h3 style="font-family: var(--serif); font-size: 1.15rem; font-weight: 600; color: var(--text); margin-top: 48px; margin-bottom: 8px;">Terminology standardisation</h3>
+    <p>Search AI surfaces data from multiple AI platforms. Without locked terminology, labels would drift across the product. The same platform could be referenced three different ways across filters, tabs, and chart legends. I defined a single standard and applied it consistently.</p>
+
+    <div class="system-block" style="margin-top: 24px;">
+      <div class="system-block-header">content-system / platform-terminology.md</div>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+          <thead>
+            <tr style="background: var(--off); border-bottom: 1px solid var(--border);">
+              <th style="padding: 12px 20px; text-align: left; font-weight: 500; color: var(--text-3); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">Term</th>
+              <th style="padding: 12px 20px; text-align: left; font-weight: 500; color: var(--text-3); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">Use</th>
+              <th style="padding: 12px 20px; text-align: left; font-weight: 500; color: var(--text-3); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">Avoid</th>
+              <th style="padding: 12px 20px; text-align: left; font-weight: 500; color: var(--text-3); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 14px 20px; color: var(--text); font-family: var(--mono); font-size: 0.82rem;">AI mode</td>
+              <td style="padding: 14px 20px;"><span class="rule-badge use">AI mode</span></td>
+              <td style="padding: 14px 20px;"><span class="rule-badge avoid">AI Mode</span></td>
+              <td style="padding: 14px 20px; color: var(--text-3); line-height: 1.5;">Descriptive category, not a branded feature. Sentence case applies.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 14px 20px; color: var(--text); font-family: var(--mono); font-size: 0.82rem;">Google overviews</td>
+              <td style="padding: 14px 20px;"><span class="rule-badge use">Google overviews</span></td>
+              <td style="padding: 14px 20px;"><span class="rule-badge avoid">Google Overview</span></td>
+              <td style="padding: 14px 20px; color: var(--text-3); line-height: 1.5;">Plural — the feature surfaces multiple overviews. "Overview" implies a single fixed artifact.</td>
+            </tr>
+            <tr>
+              <td style="padding: 14px 20px; color: var(--text); font-family: var(--mono); font-size: 0.82rem;">ChatGPT, Gemini, Perplexity</td>
+              <td style="padding: 14px 20px;"><span class="rule-badge use">As branded</span></td>
+              <td style="padding: 14px 20px;"><span class="rule-badge avoid">chatgpt, gemini</span></td>
+              <td style="padding: 14px 20px; color: var(--text-3); line-height: 1.5;">Proper nouns. Always match official capitalisation.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="decision-reasoning" style="margin-top: 20px;">
+      <p><strong>Why this mattered:</strong> Terminology drift across a product erodes trust the same way visual inconsistency does. When labels don't match across sections, users question whether they're looking at the same data. Locking these terms meant the product spoke with one voice regardless of which screen you were on.</p>
+    </div>
+  </div>
+
+  <!-- LANDING PAGE -->
+  <div class="section">
+    <div class="section-label">Landing page</div>
+    <h2>Building the case for a product category that didn't have established language</h2>
+    <p>The landing page had hard constraints: specific SEO keywords had to land in specific positions, the H1 needed a verb first, and everything had to feel enterprise-credible without sounding like a dashboard feature list.</p>
+    <p>We ran two variants with different buyer hypotheses:</p>
+
+    <div class="before-after" style="margin-top: 24px;">
+      <div class="ba-card" style="background: var(--punch-soft); border: 1px solid #c5d9f8;">
+        <div class="ba-label" style="color: var(--punch-dark);">Variant A: Discovery angle</div>
+        <p style="color: var(--punch-dark); font-family: var(--mono);">Dominate local search with an AI visibility checker on ChatGPT<br/><br/>Buyer: Growth / Marketing<br/>Emotion: Discovery</p>
+      </div>
+      <div class="ba-card" style="background: #f3e8fd; border: 1px solid #d7b8f5;">
+        <div class="ba-label" style="color: #6a1b9a;">Variant B: Authority angle</div>
+        <p style="color: #6a1b9a; font-family: var(--mono);">Lead local search with an AI visibility checker on ChatGPT<br/><br/>Buyer: Enterprise / Ops<br/>Emotion: Control</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;">The A/B structure wasn't just about tone. It was about learning which buyer converts. Different emotional centers, same structural constraints, same keyword placement.</p>
+  </div>
+
+  <!-- OUTCOME -->
+  <div class="section" id="outcome">
+    <div class="section-label">Outcome</div>
+    <h2>The product launched. The numbers followed.</h2>
+    <p>Search AI went from inception to beta in 3 months and hit $1M quarterly revenue at launch, called out by the CPO as the fastest-selling product at Birdeye in recent history. The content system built during this period was cited as a direct reason I was recognised as Employee of the Month.</p>
+
+    <div class="outcome-cards">
+      <div class="outcome-card">
+        <div class="num">$1M</div>
+        <div class="label">Quarterly revenue at launch. CPO called it the fastest-selling product in recent history.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="num">3 mo</div>
+        <div class="label">Inception to beta. Full content coverage from day one: dashboard, LP, email, system.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="num">EoTM</div>
+        <div class="label">Employee of the Month at Birdeye. Search AI content work cited as a direct reason.</div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <blockquote>Her shifting to Search AI was instrumental to our successful launch which has delivered tangible outcomes to businesses and Birdeye. With a 3 month launch window, the product quickly scaled to $1M/quarter revenue, making it the fastest selling product upon launch we have seen in the recent past.</blockquote>
+      <div class="quote-source"><strong>Adam Dorfman</strong>, CPO, Birdeye (via Slack, March 2025)</div>
+    </div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="section">
+    <div class="section-label">Reflection</div>
+    <h2>What this project taught me about content design at scale</h2>
+    <p>The work that mattered most on Search AI wasn't the headline copy. It was the decisions that prevented drift. The language rules that meant any screen in the product sounded like it was designed, not just populated.</p>
+    <p>It also reinforced something I believe strongly: content designers need to understand the data model. The Brand vs Location rule only made sense because I understood what the two views were actually measuring. The banner rewrite only worked because I understood the scoring formula well enough to translate it without distorting it.</p>
+    <p>The best UX copy is invisible. You only notice it when it's wrong.</p>
+
+    <div style="margin-top: 40px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+          <p class="cs-figure-note" style="font-size:.85rem;color:var(--text-3);padding:1rem;background:var(--off);border-radius:8px;border:1px solid var(--border);">Figure: reference screenshot from the full case study (embedded image omitted in this web export).</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Rishi Sharma · Lead Content Designer · rishi.g.sharma@gmail.com</p>
+  <a href="https://linkedin.com/in/rishisharma6">linkedin.com/in/rishisharma6 →</a>
+</footer>
+
+<script>
+  // Scroll animations
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  // Console easter egg
+  console.log('%cRishi Sharma · Lead Content Designer', 'font-size:14px;font-weight:bold;color:#1a73e8;');
+  console.log('%crishi.g.sharma@gmail.com', 'color:#5f6368;');
+</script>
+
+</body>
+</html>
