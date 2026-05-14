@@ -39,6 +39,7 @@
       --g-green: #34a853;
       --serif: 'Roboto Slab', Georgia, serif;
       --sans: 'Roboto', system-ui, sans-serif;
+      --banner-h: 36px;
     }
     /* ── DARK MODE TOKENS ── */
     [data-theme="dark"] {
@@ -150,8 +151,14 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--sans); background: var(--white); color: var(--text); font-size: 16px; line-height: 1.6; overflow-x: hidden; transition: background .25s, color .25s; }
 
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+    }
     /* Nav */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
     .nav-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: .01em; font-weight: 500; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { font-size: .875rem; color: var(--text-3); text-decoration: none; transition: color .15s; font-weight: 400; }
@@ -160,7 +167,39 @@
     .nav-cta:hover { background: var(--punch); }
 
     /* Hero */
-    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5rem; padding-top: 58px; }
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5rem; padding-top: calc(58px + var(--banner-h)); padding-bottom: 24px; }
+
+    /* Ticker */
+    .ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      background: #f1f3f4;
+      border-bottom: 1px solid #dadce0;
+      padding: 6px 0;
+      white-space: nowrap;
+    }
+
+    .ticker-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 20s linear infinite;
+      font-size: 13px;
+      color: #3c4043;
+    }
+
+    .ticker-text:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    @media (max-width: 768px) {
+      :root { --banner-h: 32px; }
+      nav { padding: 0 1.5rem; }
+      #hero { padding: 0 1.5rem 24px; padding-top: calc(58px + var(--banner-h)); }
+    }
     .hero-top {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -239,7 +278,7 @@
     .btn-line:hover { color: var(--punch); border-color: var(--punch); }
 
     /* Hero stats — horizontal row below the headline */
-    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4rem; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 0; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
     .hstat { padding: 1.5rem 1.75rem; border-inline-end: 1px solid var(--border); background: var(--white); }
     .hstat:last-child { border-inline-end: none; }
     .hstat-num { font-family: var(--serif); font-size: 2.6rem; font-weight: 400; color: var(--text); line-height: 1; display: flex; align-items: baseline; gap: .1rem; }
@@ -892,6 +931,37 @@
   </style>
 </head>
 <body>
+<div class="sticky-header">
+  <div class="ticker-wrap">
+    <span class="ticker-text">Built this myself. The design, the code, the copy. If you have feedback, I'm all ears.</span>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Rishi Sharma — home">Rishi Sharma</a>
+    <ul class="nav-links" role="list">
+      <li><a href="#portfolio" data-i18n="nav_work">Work</a></li>
+      <li><a href="#builder" data-i18n="nav_builder">Builder</a></li>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#analytics" data-i18n="nav_analytics">Analytics</a></li>
+      <li><a href="#speaking" data-i18n="nav_speaking">Speaking</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button type="button" class="theme-btn" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
+        <span class="theme-icons" aria-hidden="true">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </span>
+        <span id="themeLabel">Dark</span>
+      </button>
+      <select class="lang-select" id="langSelect" aria-label="Select language">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+      </select>
+      <a href="#contact" class="nav-cta" data-i18n="nav_cta">Get in touch</a>
+    </div>
+  </nav>
+</div>
 <a href="#main-content" class="skip-link" data-i18n="skip_link">Skip to main content</a>
 
 <!-- BOOT SCREEN -->
@@ -936,32 +1006,6 @@
   </div>
 </div>
 
-<nav aria-label="Main navigation">
-  <a href="#hero" class="nav-logo" aria-label="Rishi Sharma — home">Rishi Sharma</a>
-  <ul class="nav-links" role="list">
-    <li><a href="#portfolio" data-i18n="nav_work">Work</a></li>
-    <li><a href="#builder" data-i18n="nav_builder">Builder</a></li>
-    <li><a href="#about" data-i18n="nav_about">About</a></li>
-    <li><a href="#analytics" data-i18n="nav_analytics">Analytics</a></li>
-    <li><a href="#speaking" data-i18n="nav_speaking">Speaking</a></li>
-  </ul>
-  <div class="nav-controls">
-    <button type="button" class="theme-btn" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
-      <span class="theme-icons" aria-hidden="true">
-        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </span>
-      <span id="themeLabel">Dark</span>
-    </button>
-    <select class="lang-select" id="langSelect" aria-label="Select language">
-      <option value="en">English</option>
-      <option value="ar">العربية</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-    </select>
-    <a href="#contact" class="nav-cta" data-i18n="nav_cta">Get in touch</a>
-  </div>
-</nav>
 
 <main id="main-content">
 <section id="hero" aria-labelledby="hero-heading">
