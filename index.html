@@ -971,8 +971,8 @@
       <p class="gate-sub">Enter the access code, or request access from Rishi.</p>
     </div>
     <div class="gate-tabs">
-      <button class="gate-tab active" onclick="switchTab('password')">I have a code</button>
-      <button class="gate-tab" onclick="switchTab('email')">Request access</button>
+      <button class="gate-tab active" onclick="switchTab('password', this)">I have a code</button>
+      <button class="gate-tab" onclick="switchTab('email', this)">Request access</button>
     </div>
     <div class="gate-body">
       <div class="gate-panel active" id="panel-password">
@@ -2085,10 +2085,10 @@ function closeGate(){
   if(btn){ btn.disabled = false; btn.textContent = 'Send request'; btn.style.background = ''; }
 }
 
-function switchTab(tab){
+function switchTab(tab, btn){
   document.querySelectorAll('.gate-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.gate-panel').forEach(p=>p.classList.remove('active'));
-  event.target.classList.add('active');
+  btn.classList.add('active');
   document.getElementById('panel-'+tab).classList.add('active');
 }
 
