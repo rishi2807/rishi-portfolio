@@ -195,6 +195,27 @@
       0%   { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
+    .toast {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-16px);
+      background: #202124;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.3;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 2000;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
     @media (max-width: 768px) {
       :root { --banner-h: 32px; }
       nav { padding: 0 1.5rem; }
@@ -367,101 +388,58 @@
     .fb:hover, .fb.active { background: var(--text); color: var(--white); border-color: var(--text); }
     .pgrid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      align-items: stretch;
+      grid-template-columns: 40% 20% 25% 15%;
     }
-    .pcard {
-      background: var(--white);
-      padding: 2rem;
-      transition: background .15s;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 0;
+    .pgrid-header {
+      display: contents;
+      font-size: 0.75rem;
+      color: var(--text-4);
+      font-weight: 500;
     }
-    .pcard:hover { background: var(--off); }
-    .pcard::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--punch); transform: scaleY(0); transform-origin: bottom; transition: transform .25s; }
-    .pcard:hover::before { transform: scaleY(1); }
-    .pcard.hidden { display: none; }
-    .ptag { display: inline-block; font-size: .875rem; color: var(--punch); background: var(--punch-soft); padding: .2rem .6rem; border-radius: 4px; margin-bottom: .85rem; flex-shrink: 0; max-width: 100%; }
-    .ptitle {
+    .pgrid-header div {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .prow { display: contents; }
+    .prow .cell { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .prow:first-of-type .cell { border-top: 1px solid var(--border); }
+    .prow:hover .cell { background: var(--off); }
+    .prow:hover .cell.title .ptitle { transform: translateX(4px); }
+    .cell.title .ptitle {
       font-family: var(--serif);
       font-size: 1.2rem;
       font-weight: 500;
       color: var(--text);
       line-height: 1.3;
-      margin-bottom: .6rem;
-      flex-shrink: 0;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      overflow: hidden;
-      min-height: calc(1.2rem * 1.3 * 2);
-      max-height: calc(1.2rem * 1.3 * 2);
+      margin: 0 0 .4rem 0;
+      transition: transform .15s ease;
     }
-    .pdesc {
-      font-size: .85rem;
-      color: var(--text-3);
-      line-height: 1.65;
-      margin-bottom: 0;
-      flex: 0 0 auto;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4;
-      line-clamp: 4;
-      overflow: hidden;
-      min-height: calc(0.85rem * 1.65 * 4);
-      max-height: calc(0.85rem * 1.65 * 4);
+    .cell.title .ptag {
+      display: inline-block;
+      font-size: .875rem;
+      color: var(--punch);
+      background: var(--punch-soft);
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      margin: 0 .35rem .35rem 0;
     }
-    .pnums {
-      display: flex;
-      gap: 1rem;
-      padding: .65rem 0;
-      border-top: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      margin-top: 1.1rem;
-      margin-bottom: 1.1rem;
-      flex-shrink: 0;
-      align-items: stretch;
-      height: 6.35rem;
-      box-sizing: border-box;
+    .cell.meta { color: var(--text-3); font-size: .95rem; display: flex; align-items: center; }
+    .cell.impact { color: var(--text-3); font-size: .875rem; display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
+    .cell.cta { text-align: right; }
+    .cell.cta a, .cell.cta button {
+      color: var(--punch);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .95rem;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: var(--sans);
     }
-    .pn { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; }
-    .pn-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--punch); line-height: 1; flex-shrink: 0; }
-    .pn-label {
-      font-size: .8rem;
-      color: var(--text-4);
-      margin-top: .35rem;
-      line-height: 1.3;
-      flex: 1 1 auto;
-      min-height: 0;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      overflow: hidden;
-      max-height: calc(0.8rem * 1.3 * 2);
-    }
-    .pmeta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: .75rem;
-      font-size: .76rem;
-      color: var(--text-4);
-      flex-shrink: 0;
-      min-height: 2.5rem;
-      margin-top: auto;
-      padding-top: .15rem;
-    }
-    .plink { font-size: .76rem; color: var(--text-2); text-decoration: none; transition: color .15s; }
-    .plink:hover { color: var(--punch); }
+    .cell.cta a:hover, .cell.cta button:hover { text-decoration: underline; }
+    .prow.locked .cell.impact { filter: blur(4px); pointer-events: none; user-select: none; }
+    .pmeta, .pnums, .pdesc, .pn, .pn-num, .pn-label { display: none; }
 
     /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 500; display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 3rem 1rem; }
@@ -923,7 +901,6 @@
       .pgrid{grid-template-columns:1fr;}
       .bgrid{grid-template-columns:1fr;}
       .tgrid{grid-template-columns:1fr 1fr;}
-      .pcard{grid-column:span 1 !important;}
     }
     @media (max-width: 500px) {
       .cert-grid { grid-template-columns: 1fr; }
@@ -1089,151 +1066,159 @@
     <button class="fb" data-filter="onboarding" aria-pressed="false" data-i18n="filter_onboarding">Onboarding</button>
   </div>
   <div class="pgrid reveal content-en" role="list" aria-label="Portfolio projects">
-
-    <div class="pcard locked" data-tags="ai systems research">
-      <span class="ptag">AI &amp; Content design &middot; Birdeye</span>
-      <div class="ptitle">Designing the language layer for Search AI</div>
-      <p class="pdesc">Search AI tracks how brands show up in AI answers (ChatGPT, Gemini, Perplexity). I owned dashboard, landing, email, and the Brand vs Location language system so a new category read as one product.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">$1M+</div><div class="pn-label">Post-launch revenue cited</div></div>
-        <div class="pn"><div class="pn-num">3 mo</div><div class="pn-label">Beta to launch coverage</div></div>
-        <div class="pn"><div class="pn-num">EoTM</div><div class="pn-label">Award; Search AI cited</div></div>
-      </div>
-      <button class="lock-cta" onclick="openGate('modal-searchai')">Unlock full case study &rarr;</button>
+    <div class="pgrid-header">
+      <div>Project</div><div>Company</div><div>Impact</div><div>&nbsp;</div>
     </div>
-
-    <div class="pcard" data-tags="ai systems">
-      <span class="ptag">AI &amp; Systems &middot; Birdeye</span>
-      <div class="ptitle">AI-Powered Style Guide and Error Framework</div>
-      <p class="pdesc">One product surface for reviews, listings, surveys, social, and messaging. I shipped an AI style guide plus error patterns so quality did not depend on one writer.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">AI</div><div class="pn-label">Powered system</div></div>
-        <div class="pn"><div class="pn-num">5+</div><div class="pn-label">Product surfaces</div></div>
-        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Source of truth</div></div>
+    <!-- Birdeye: Figma Plugin -->
+    <div class="prow" data-tags="ai tools">
+      <div class="cell title">
+        <div class="ptitle">Figma Plugin: Real-Time UX Writing Validator</div>
+        <span class="ptag">AI &amp; Tools</span>
       </div>
-      <div class="pmeta"><span>Birdeye, 2025</span><a href="#" class="plink" onclick="openModal('modal-aistyle');return false;">Read more &#8599;</a></div>
+      <div class="cell meta">Birdeye · 2026</div>
+      <div class="cell impact">Live readability checks · In-flow guidance</div>
+      <div class="cell cta"><a href="figma-plugin-case-study.html">Read more →</a></div>
     </div>
-
-    <div class="pcard" data-tags="research systems">
-      <span class="ptag">Research &middot; Cvent</span>
-      <div class="ptitle">Content Audit with Flesch-Kincaid Scoring</div>
-      <p class="pdesc">Gut-feel decisions everywhere. I built a 10-dimension audit with Flesch-Kincaid at the centre so content quality became measurable and repeatable.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">10</div><div class="pn-label">Audit dimensions</div></div>
-        <div class="pn"><div class="pn-num">2</div><div class="pn-label">Audit modes</div></div>
-        <div class="pn"><div class="pn-num">FK</div><div class="pn-label">Grade scoring</div></div>
+    <!-- Birdeye: Chrome Extension Audit Tool -->
+    <div class="prow" data-tags="ai systems tools">
+      <div class="cell title">
+        <div class="ptitle">Chrome Extension: Audit Tool</div>
+        <span class="ptag">AI &amp; Systems</span>
       </div>
-      <div class="pmeta"><span>Cvent, 2024</span><a href="#" class="plink" onclick="openModal('modal-audit');return false;">Read more &#8599;</a></div>
+      <div class="cell meta">Birdeye · 2026</div>
+      <div class="cell impact">35% shorter sentences · 25% less passive voice</div>
+      <div class="cell cta"><a href="assets/case-chrome-audit.html">Read more →</a></div>
     </div>
-
-    <div class="pcard" data-tags="ux-writing systems">
-      <span class="ptag">UX Writing &middot; Cvent</span>
-      <div class="ptitle">Cutting Subordinating Conjunctions Across the Product</div>
-      <p class="pdesc">Opening words like “Because” and “While” buried the action. Training, style guide updates, and audits—with before/after proof—cut the noise.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">3</div><div class="pn-label">Guide, training, audit</div></div>
-        <div class="pn"><div class="pn-num">4</div><div class="pn-label">Impact areas</div></div>
-        <div class="pn"><div class="pn-num">+</div><div class="pn-label">L10N speed</div></div>
+    <!-- Birdeye: Search AI (locked) -->
+    <div class="prow locked" data-tags="ai systems research">
+      <div class="cell title">
+        <div class="ptitle">Designing the language layer for Search AI</div>
+        <span class="ptag">AI &amp; Content design</span>
       </div>
-      <div class="pmeta"><span>Cvent, 2023</span><a href="#" class="plink" onclick="openModal('modal-conjunctions');return false;">Read more &#8599;</a></div>
+      <div class="cell meta">Birdeye · 2025</div>
+      <div class="cell impact">Post-launch revenue cited · Beta to launch 3 mo</div>
+      <div class="cell cta"><button onclick="openGate('Latest_search-ai-case-study.html')">Unlock →</button></div>
     </div>
-
-    <div class="pcard" data-tags="systems research">
-      <span class="ptag">Strategy &middot; Cvent</span>
-      <div class="ptitle">Cross-functional collaboration framework</div>
-      <p class="pdesc">Content was always last in the room. Discovery with non-UX teams, gap maps, and a repeatable model changed when writers joined the work.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">3</div><div class="pn-label">Phases</div></div>
-        <div class="pn"><div class="pn-num">4+</div><div class="pn-label">Teams involved</div></div>
-        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Scalable model</div></div>
+    <!-- Birdeye: AI Style Guide -->
+    <div class="prow" data-tags="ai systems">
+      <div class="cell title">
+        <div class="ptitle">AI-Powered Style Guide and Error Framework</div>
+        <span class="ptag">AI &amp; Systems</span>
       </div>
-      <div class="pmeta"><span>Cvent, 2023</span><a href="#" class="plink" onclick="openModal('modal-outside');return false;">Read more &#8599;</a></div>
+      <div class="cell meta">Birdeye · 2025</div>
+      <div class="cell impact">5+ product surfaces · 1 source of truth</div>
+      <div class="cell cta"><a href="assets/case-styleguide.html">Read more →</a></div>
     </div>
-
-    <div class="pcard locked" data-tags="ux-writing research">
-      <span class="ptag">UX Writing &middot; Cvent</span>
-      <div class="ptitle">Workflow Hub: Meeting Management Redesign</div>
-      <p class="pdesc">Admins could not see how workflow pieces connected—siloed pages, jargon labels, no dependency map—so changes broke things and support volume spiked.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">40%</div><div class="pn-label">Support cases down</div></div>
-        <div class="pn"><div class="pn-num">35%</div><div class="pn-label">Fewer nav clicks</div></div>
-        <div class="pn"><div class="pn-num">+12%</div><div class="pn-label">SUS score up</div></div>
+    <!-- Cvent: Audit -->
+    <div class="prow" data-tags="research systems">
+      <div class="cell title">
+        <div class="ptitle">Content Audit with Flesch-Kincaid Scoring</div>
+        <span class="ptag">Research</span>
       </div>
-      <button class="lock-cta" onclick="openGate('modal-workflow')">Unlock full case study &rarr;</button>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">10 audit dimensions · 2 audit modes</div>
+      <div class="cell cta"><a href="assets/case-audit.html">Read more →</a></div>
     </div>
-
-    <div class="pcard locked" data-tags="systems">
-      <span class="ptag">Content Systems &middot; Cvent</span>
-      <div class="ptitle">Carina Editorial Components Framework</div>
-      <p class="pdesc">Forty-plus components, five writers, five tooltip styles. I wrote the Carina reference—tone, limits, a11y, L10n, CTAs—so the product sounded designed, not improvised.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">40+</div><div class="pn-label">Components covered</div></div>
-        <div class="pn"><div class="pn-num">33%</div><div class="pn-label">Fewer review rounds</div></div>
-        <div class="pn"><div class="pn-num">50%</div><div class="pn-label">Less version docs</div></div>
+    <!-- Cvent: Conjunctions -->
+    <div class="prow" data-tags="ux-writing systems">
+      <div class="cell title">
+        <div class="ptitle">Cutting Subordinating Conjunctions Across the Product</div>
+        <span class="ptag">UX Writing</span>
       </div>
-      <button class="lock-cta" onclick="openGate('modal-styleguide')">Unlock full case study &rarr;</button>
+      <div class="cell meta">Cvent · 2023</div>
+      <div class="cell impact">Guide+training+audit · 4 impact areas</div>
+      <div class="cell cta"><a href="assets/case-conjunctions.html">Read more →</a></div>
     </div>
-
-    <div class="pcard locked" data-tags="ux-writing onboarding">
-      <span class="ptag">Onboarding &middot; Cvent</span>
-      <div class="ptitle">Phoenix: Venue Sourcing Onboarding Redesign</div>
-      <p class="pdesc">Five planner types, one new platform, no shared onboarding. Persona-segmented Pendo flows—tooltips, walkthroughs, and in-app video—with zero engineering tickets.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">5</div><div class="pn-label">Persona segments</div></div>
-        <div class="pn"><div class="pn-num">0</div><div class="pn-label">Dev dependency</div></div>
-        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Feature adoption</div></div>
+    <!-- Cvent: Cross-functional -->
+    <div class="prow" data-tags="systems research">
+      <div class="cell title">
+        <div class="ptitle">Cross-functional collaboration framework</div>
+        <span class="ptag">Strategy</span>
       </div>
-      <button class="lock-cta" onclick="openGate('modal-phoenix')">Unlock full case study &rarr;</button>
+      <div class="cell meta">Cvent · 2023</div>
+      <div class="cell impact">3 phases · 4+ teams involved</div>
+      <div class="cell cta"><a href="assets/case-outside.html">Read more →</a></div>
     </div>
-
-    <div class="pcard" data-tags="ux-writing research">
-      <span class="ptag">Content Research &middot; Cvent</span>
-      <div class="ptitle">Meeting Space Calculator: Unit Standardisation</div>
-      <p class="pdesc">“SF,” “sq ft,” and “ft2” mixed on one page; no metric path. Research-backed standard, toggle defaults, and layout tooltips so planners stopped guessing.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Abbrev. standard</div></div>
-        <div class="pn"><div class="pn-num">2</div><div class="pn-label">Unit systems</div></div>
-        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Global reach</div></div>
+    <!-- Cvent: Workflow (locked) -->
+    <div class="prow locked" data-tags="ux-writing research">
+      <div class="cell title">
+        <div class="ptitle">Workflow Hub: Meeting Management Redesign</div>
+        <span class="ptag">UX Writing</span>
       </div>
-      <div class="pmeta"><span>Cvent, 2024</span><a href="#" class="plink" onclick="openModal('modal-calculator');return false;">Read more &#8599;</a></div>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">40% support drop · 35% fewer clicks</div>
+      <div class="cell cta"><button onclick="openGate('assets/case-workflow.html')">Unlock →</button></div>
     </div>
-
-    <div class="pcard locked" data-tags="ux-writing systems">
-      <span class="ptag">UX Writing &middot; Cvent</span>
-      <div class="ptitle">SPP reporting: pharma finance copy</div>
-      <p class="pdesc">Pharma teams needed Spend Per Person reporting they could trust. I aligned labels, split two confused setup paths, and shipped self-serve guidance so compliance could defend the numbers.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Consistent nomenclature</div></div>
-        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Compliance reporting</div></div>
-        <div class="pn"><div class="pn-num">-</div><div class="pn-label">Config support cases</div></div>
+    <!-- Cvent: Carina locked -->
+    <div class="prow locked" data-tags="systems">
+      <div class="cell title">
+        <div class="ptitle">Carina Editorial Components Framework</div>
+        <span class="ptag">Content Systems</span>
       </div>
-      <button class="lock-cta" onclick="openGate('modal-spp')">Unlock full case study &rarr;</button>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">40+ components · 33% fewer reviews</div>
+      <div class="cell cta"><button onclick="openGate('assets/case-styleguide.html')">Unlock →</button></div>
     </div>
-
-    <div class="pcard" data-tags="research systems ai">
-      <span class="ptag" style="background:#e8f0fe;color:#1557b0;">Meta &middot; This Site</span>
-      <div class="ptitle">Building This Portfolio: A Full Case Study</div>
-      <p class="pdesc">This site is the case study: research, IA, gated case studies, boot sequence, analytics, and a Figma-to-code loop—why each decision exists.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">5</div><div class="pn-label">Technical features</div></div>
-        <div class="pn"><div class="pn-num">1</div><div class="pn-label">Day to first version</div></div>
-        <div class="pn"><div class="pn-num">AI</div><div class="pn-label">Assisted build</div></div>
+    <!-- Cvent: Phoenix locked -->
+    <div class="prow locked" data-tags="ux-writing onboarding">
+      <div class="cell title">
+        <div class="ptitle">Phoenix: Venue Sourcing Onboarding Redesign</div>
+        <span class="ptag">Onboarding</span>
       </div>
-      <div class="pmeta"><span>2025</span><a href="#" class="plink" onclick="openModal('modal-thissite');return false;">Read the story &#8599;</a></div>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">5 persona segments · 0 dev dependency</div>
+      <div class="cell cta"><button onclick="openGate('assets/case-phoenix.html')">Unlock →</button></div>
     </div>
-
-    <div class="pcard" data-tags="research systems">
-      <span class="ptag">Strategy &middot; Cvent</span>
-      <div class="ptitle">Cross-Team Product Workshops</div>
-      <p class="pdesc">Writers had never walked full flows; localizers lacked context. A monthly 1-hour ritual—live product tour, then critique—built shared understanding without slides.</p>
-      <div class="pnums">
-        <div class="pn"><div class="pn-num">1hr</div><div class="pn-label">Per session</div></div>
-        <div class="pn"><div class="pn-num">2</div><div class="pn-label">CD &amp; L10N teams</div></div>
-        <div class="pn"><div class="pn-num">+</div><div class="pn-label">Content quality</div></div>
+    <!-- Cvent: Calculator -->
+    <div class="prow" data-tags="ux-writing research">
+      <div class="cell title">
+        <div class="ptitle">Meeting Space Calculator: Unit Standardisation</div>
+        <span class="ptag">Content Research</span>
       </div>
-      <div class="pmeta"><span>Cvent, 2023</span><a href="#" class="plink" onclick="openModal('modal-workshops');return false;">Read more &#8599;</a></div>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">Unit toggle · Global reach</div>
+      <div class="cell cta"><a href="assets/case-calculator.html">Read more →</a></div>
     </div>
-
+    <!-- Cvent: SPP locked -->
+    <div class="prow locked" data-tags="ux-writing systems">
+      <div class="cell title">
+        <div class="ptitle">SPP reporting: pharma finance copy</div>
+        <span class="ptag">UX Writing</span>
+      </div>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">Consistent nomenclature · Compliance reporting</div>
+      <div class="cell cta"><button onclick="openGate('assets/case-spp.html')">Unlock →</button></div>
+    </div>
+    <!-- Meta: This site -->
+    <div class="prow" data-tags="research systems ai">
+      <div class="cell title">
+        <div class="ptitle">Building This Portfolio: A Full Case Study</div>
+        <span class="ptag" style="background:#e8f0fe;color:#1557b0;">Meta · This Site</span>
+      </div>
+      <div class="cell meta">2025</div>
+      <div class="cell impact">5 technical features · AI-assisted build</div>
+      <div class="cell cta"><a href="assets/case-thissite.html">Read the story →</a></div>
+    </div>
+    <!-- Cvent: Workshops -->
+    <div class="prow" data-tags="research systems">
+      <div class="cell title">
+        <div class="ptitle">Cross-Team Product Workshops</div>
+        <span class="ptag">Strategy · Cvent</span>
+      </div>
+      <div class="cell meta">Cvent · 2023</div>
+      <div class="cell impact">1hr sessions · CD+L10N teams</div>
+      <div class="cell cta"><a href="assets/case-workshops.html">Read more →</a></div>
+    </div>
+    <!-- Figma Plugin Case Study -->
+    <div class="prow" data-tags="ai tools">
+      <div class="cell title">
+        <div class="ptitle">Figma Plugin: Real-Time UX Writing Validator</div>
+        <span class="ptag">AI &amp; Tools</span>
+      </div>
+      <div class="cell meta">Cvent · 2024</div>
+      <div class="cell impact">Live readability checks · In-flow guidance</div>
+      <div class="cell cta"><a href="figma-plugin-case-study.html">Read more →</a></div>
+    </div>
   </div>
 </section>
 
@@ -2028,37 +2013,44 @@ function toggleReckless(btn) {
   target.classList.toggle('open', !expanded);
 }
 
-// ── PORTFOLIO FILTER + LAST ROW FIX ──
-function fixLastRow(){
-  const cols = 3;
-  const visible = [...document.querySelectorAll('.pgrid .pcard:not(.hidden)')];
-  visible.forEach(c=>c.style.gridColumn='');
-  const rem = visible.length % cols;
-  if(rem === 1) visible[visible.length-1].style.gridColumn='span 3';
-  if(rem === 2) visible[visible.length-2].style.gridColumn='span 2';
-}
+// ── PORTFOLIO FILTER ──
 document.querySelectorAll('.fb').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     const f=btn.dataset.filter;
-    document.querySelectorAll('.pcard').forEach(c=>c.classList.toggle('hidden',f!=='all'&&!c.dataset.tags.includes(f)));
-    fixLastRow();
+    document.querySelectorAll('.prow').forEach(c=>c.classList.toggle('hidden',f!=='all'&&!c.dataset.tags.includes(f)));
   });
 });
-fixLastRow();
+(()=>{ document.querySelectorAll('.fb')[0].click(); })();
 
 // ── GATE SYSTEM ──
 const CORRECT_PASSWORD = 'rishi2025'; // Change this to your chosen password
-let pendingModal = null;
-let gateUnlocked = sessionStorage.getItem('rs_access') === '1';
+let pendingTarget = null;
+let gateUnlocked = false;
+sessionStorage.removeItem('rs_access');
+let toastTimer = null;
 
-function openGate(modalId){
-  if(gateUnlocked){ openModal(modalId); return; }
-  pendingModal = modalId;
+function showToast(msg, duration=1800){
+  let el = document.getElementById('toast');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'toast';
+    el.className = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ el.classList.remove('show'); }, duration);
+}
+
+function openGate(targetUrl){
+  if(gateUnlocked){ window.location.href = targetUrl; return; }
+  pendingTarget = targetUrl;
   document.getElementById('gate-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  logSession({event:'gate_triggered', target: modalId});
+  logSession({event:'gate_triggered', target: targetUrl});
 }
 
 function closeGate(){
@@ -2081,10 +2073,10 @@ function switchTab(tab){
 function checkPassword(){
   const val = document.getElementById('gate-pw').value.trim();
   if(val === CORRECT_PASSWORD){
-    sessionStorage.setItem('rs_access','1');
     gateUnlocked = true;
     closeGate();
-    if(pendingModal) openModal(pendingModal);
+    showToast('Unlocked. Redirecting...', 1500);
+    if(pendingTarget) { const dest = pendingTarget; pendingTarget = null; setTimeout(()=>{ window.location.href = dest; }, 1200); }
     // Unlock all cards visually
     document.querySelectorAll('.pcard.locked').forEach(c=>c.classList.remove('locked'));
     logSession({event:'gate_unlocked', method:'password'});
