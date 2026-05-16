@@ -15,6 +15,7 @@
 
   gtag('config', 'G-ZFL80M33TL');
 </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600&family=Roboto+Slab:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -347,10 +348,10 @@
       border: 1px solid var(--border); overflow: hidden;
     }
     .gate-top { padding: 2rem 2rem 0; }
-    .gate-lock { font-size: .875rem; color: var(--text-4); margin-bottom: .85rem; display: flex; align-items: center; gap: .5rem; }
-    .gate-lock::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #d94f1e; flex-shrink: 0; }
-    .gate-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: .6rem; }
-    .gate-sub { font-size: .875rem; color: var(--text-3); line-height: 1.6; margin-bottom: 1.5rem; }
+    .gate-lock { font-size: .9rem; color: var(--text-3); margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem; }
+    .gate-lock::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--punch); flex-shrink: 0; }
+    .gate-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: .35rem; }
+    .gate-sub { font-size: .9rem; color: var(--text-3); line-height: 1.5; margin-bottom: 1rem; }
     .gate-tabs { display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .gate-tab { flex: 1; padding: .75rem; font-size: .875rem; text-align: center; cursor: pointer; color: var(--text-3); font-family: var(--sans); background: none; border: none; transition: all .15s; }
     .gate-tab.active { color: var(--text); background: var(--off); font-weight: 500; }
@@ -359,10 +360,17 @@
     .gate-panel.active { display: block; }
     .gate-input { width: 100%; padding: .75rem .9rem; border: 1px solid var(--border); border-radius: 2px; font-family: var(--sans); font-size: .9rem; color: var(--text); background: var(--off); outline: none; transition: border-color .15s; }
     .gate-input:focus { border-color: var(--punch); }
+    .gate-textarea { width: 100%; padding: .75rem .9rem; border: 1px solid var(--border); border-radius: 2px; font-family: var(--sans); font-size: .9rem; color: var(--text); background: var(--off); outline: none; transition: border-color .15s; min-height: 120px; resize: vertical; }
+    .gate-textarea:focus { border-color: var(--punch); }
     .gate-btn { width: 100%; margin-top: .85rem; padding: .8rem; background: var(--text); color: var(--white); border: none; border-radius: 2px; font-family: var(--sans); font-size: .875rem; font-weight: 500; cursor: pointer; transition: background .15s; }
     .gate-btn:hover { background: var(--punch); }
     .gate-err { font-size: .78rem; color: #c0392b; margin-top: .5rem; display: none; }
     .gate-ok { font-size: .78rem; color: #22a06b; margin-top: .5rem; display: none; }
+    .gate-success-pop { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 1200; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); }
+    .gate-success-pop.open { display: flex; }
+    .gate-success-card { background: var(--white); border-radius: 6px; border: 1px solid var(--border); padding: 1.5rem 1.75rem; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 16px 48px rgba(0,0,0,.14); }
+    .gate-success-title { font-family: var(--serif); font-size: 1.1rem; color: var(--text); margin-bottom: .4rem; }
+    .gate-success-sub { color: var(--text-3); font-size: .95rem; line-height: 1.5; }
     .gate-email-note { font-size: .78rem; color: var(--text-3); line-height: 1.55; margin-bottom: .85rem; }
     .gate-email-note a { color: var(--punch); text-decoration: none; }
     .gate-close { position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.2rem; color: var(--text-4); cursor: pointer; }
@@ -958,9 +966,9 @@
   <div class="gate-box">
     <button class="gate-close" onclick="closeGate()" aria-label="Close gate">&#10005;</button>
     <div class="gate-top">
-      <p class="gate-lock">Restricted content</p>
-      <p class="gate-title" id="gate-title">This case study is gated.</p>
-      <p class="gate-sub">Full metrics, copy examples, and process details are available to verified visitors. Enter the access code, or request access from Rishi.</p>
+      <p class="gate-lock">Authorized viewers only</p>
+      <p class="gate-title" id="gate-title">You need access to view this content.</p>
+      <p class="gate-sub">Enter the access code, or request access from Rishi.</p>
     </div>
     <div class="gate-tabs">
       <button class="gate-tab active" onclick="switchTab('password')">I have a code</button>
@@ -973,13 +981,20 @@
         <button class="gate-btn" onclick="checkPassword()">Unlock</button>
       </div>
       <div class="gate-panel" id="panel-email">
-        <p class="gate-email-note">Send your email to <a href="mailto:rishi.g.sharma@gmail.com">rishi.g.sharma@gmail.com</a> with the subject <strong>"Portfolio Access"</strong> and Rishi will send you the access code. Or enter your email below and he'll reach out.</p>
+        <p class="gate-email-note">Please share why you need access to this content and where to send the code.</p>
+        <textarea class="gate-textarea" id="gate-reason" placeholder="Why do you need access?"></textarea>
         <input class="gate-input" id="gate-email" type="email" placeholder="your@email.com" />
         <p class="gate-err" id="email-err">Enter a valid email address.</p>
-        <p class="gate-ok" id="email-ok">Request sent. Rishi will be in touch.</p>
+        <p class="gate-ok" id="email-ok">Request sent.</p>
         <button class="gate-btn" onclick="requestAccess()">Send request</button>
       </div>
     </div>
+  </div>
+</div>
+<div class="gate-success-pop" id="gate-success-pop" onclick="if(event.target===this)this.classList.remove('open');">
+  <div class="gate-success-card">
+    <div class="gate-success-title">Request sent</div>
+    <div class="gate-success-sub">You’ll receive your access code within 24 hours. Please check your email.</div>
   </div>
 </div>
 
@@ -1814,6 +1829,11 @@
 </div>
 
 <script>
+  // ── SUPABASE ──
+const _sbc = supabase.createClient(
+  'https://aoqiidxcyjppenvbohmz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvcWlpZHhjeWpwcGVudmJvaG16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4NzE2MzIsImV4cCI6MjA5NDQ0NzYzMn0.0eJbEX-gk5FaDh1lKNzv_LLICg4soQuLf9Ro01u1phM'
+);
 // ── CONSOLE EASTER EGG ──
 (function(){
   const s=[
@@ -2025,7 +2045,6 @@ document.querySelectorAll('.fb').forEach(btn=>{
 (()=>{ document.querySelectorAll('.fb')[0].click(); })();
 
 // ── GATE SYSTEM ──
-const CORRECT_PASSWORD = 'rishi2025'; // Change this to your chosen password
 let pendingTarget = null;
 let gateUnlocked = false;
 sessionStorage.removeItem('rs_access');
@@ -2059,8 +2078,11 @@ function closeGate(){
   document.getElementById('gate-pw').value='';
   document.getElementById('pw-err').style.display='none';
   document.getElementById('gate-email').value='';
+  const reason = document.getElementById('gate-reason'); if(reason){ reason.value=''; }
   document.getElementById('email-err').style.display='none';
   document.getElementById('email-ok').style.display='none';
+  const btn = document.getElementById('email-send-btn');
+  if(btn){ btn.disabled = false; btn.textContent = 'Send request'; btn.style.background = ''; }
 }
 
 function switchTab(tab){
@@ -2070,14 +2092,20 @@ function switchTab(tab){
   document.getElementById('panel-'+tab).classList.add('active');
 }
 
-function checkPassword(){
+async function checkPassword(){
   const val = document.getElementById('gate-pw').value.trim();
-  if(val === CORRECT_PASSWORD){
+  if(!val) return;
+  const { data, error } = await _sbc
+    .from('access_config')
+    .select('value')
+    .eq('key', 'gate_password')
+    .single();
+  const correct = !error && data && data.value === val;
+  if(correct){
     gateUnlocked = true;
     closeGate();
     showToast('Unlocked. Redirecting...', 1500);
-    if(pendingTarget) { const dest = pendingTarget; pendingTarget = null; setTimeout(()=>{ window.location.href = dest; }, 1200); }
-    // Unlock all cards visually
+    if(pendingTarget){ const dest=pendingTarget; pendingTarget=null; setTimeout(()=>{ window.location.href=dest; },1200); }
     document.querySelectorAll('.pcard.locked').forEach(c=>c.classList.remove('locked'));
     logSession({event:'gate_unlocked', method:'password'});
   } else {
@@ -2088,7 +2116,7 @@ function checkPassword(){
   }
 }
 
-function requestAccess(){
+async function requestAccess(){
   const email = document.getElementById('gate-email').value.trim();
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if(!valid){
@@ -2096,13 +2124,12 @@ function requestAccess(){
     return;
   }
   document.getElementById('email-err').style.display='none';
-  document.getElementById('email-ok').style.display='block';
   SESSION.email = email;
-  logSession({event:'access_requested', email: email, target: pendingModal});
-  // Disable button after send
-  event.target.disabled = true;
-  event.target.textContent = 'Request sent';
-  event.target.style.background = '#22a06b';
+  await _sbc.from('gate_requests').insert({ email, target: pendingTarget || '' });
+  logSession({event:'access_requested', email, target: pendingTarget});
+  document.getElementById('email-ok').style.display='block';
+  const btn = document.querySelector('#panel-email .gate-btn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Request sent'; btn.style.background = '#22a06b'; }
 }
 
 // ── STANDARD CASE STUDY MODALS ──
@@ -2114,7 +2141,19 @@ document.addEventListener('keydown',e=>{
     closeGate();
   }
 });
-function handleSubmit(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Sent';b.style.background='#22a06b';b.disabled=true;}
+
+async function handleSubmit(e){
+  e.preventDefault();
+  const b = document.getElementById('fsub');
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const message = document.getElementById('fmsg').value.trim();
+  b.textContent = 'Sending...';
+  b.disabled = true;
+  await _sbc.from('contact_messages').insert({ name, email, message });
+  b.textContent = 'Sent';
+  b.style.background = '#22a06b';
+}
 
 // ── LOCALIZATION (i18n) ──
 const translations = {
