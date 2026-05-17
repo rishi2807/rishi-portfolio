@@ -16,7 +16,7 @@
       --off: #f8f9fa;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Roboto', sans-serif; color: var(--text); background: #fff; line-height: 1.65; padding: 0; }
+    body { padding-top: 58px; font-family: 'Roboto', sans-serif; color: var(--text); background: #fff; line-height: 1.65; padding: 0; }
     .case-header{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--border);backdrop-filter:blur(6px);}
     .case-nav{max-width:1040px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:20px;}
     .case-logo{font-family:'Roboto Slab',serif;font-size:1.05rem;color:var(--text);text-decoration:none;}
@@ -37,25 +37,39 @@
     .back-link { display: block; align-items: center; gap: .35rem; margin-bottom: .5rem; font-size: .95rem; color: var(--text-3); }
     .back-link:hover { color: var(--punch); }
     .case-footer{border-top:1px solid var(--border);padding:18px 20px;color:var(--text-4);font-size:.9rem;text-align:center;}
+  
+  /* ── STANDARD CASE STUDY NAV ── */
+  .cs-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    background: #fff; border-bottom: 1px solid #dadce0;
+    height: 58px; padding: 0 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
+  }
+  .cs-nav-back {
+    font-family: 'Roboto Slab', Georgia, serif;
+    font-size: 1.1rem; font-weight: 500;
+    color: #202124; text-decoration: none;
+    transition: color .15s;
+  }
+  .cs-nav-back:hover { color: #1a73e8; }
+  .cs-nav-back::before { content: '← '; font-size: .85rem; color: #9aa0a6; }
+  .cs-nav-crumb {
+    font-family: 'Roboto Mono', monospace; font-size: .72rem;
+    color: #9aa0a6; letter-spacing: .05em;
+  }
+  .cs-nav-crumb span { color: #1a73e8; }
+  @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
+
   </style>
 </head>
 <body>
-  <header class="case-header">
-    <div class="case-nav">
-      <a class="case-logo" href="../index.html">Rishi Sharma</a>
-      <nav class="case-links">
-        <a href="../index.html#portfolio">Work</a>
-        <a href="../index.html#builder">Builder</a>
-        <a href="../index.html#about">About</a>
-        <a href="../index.html#analytics">Analytics</a>
-        <a href="../index.html#speaking">Speaking</a>
-      </nav>
-      <a class="case-cta" href="../index.html#contact">Get in touch</a>
-    </div>
-  </header>
-  <main>
-    <a class="back-link" href="../index.html">&#8592; Back to portfolio</a>
-    <div style="margin-bottom:1.1rem;">
+  <nav class="cs-nav">
+  <a href="../index.html" class="cs-nav-back">Rishi Sharma</a>
+  <span class="cs-nav-crumb">Case study · <span>Style guide</span></span>
+</nav>
+<main>
+<div style="margin-bottom:1.1rem;">
       <div class="tag">AI &amp; Systems · Birdeye</div>
     </div>
     <h1>AI-Powered Style Guide and Error Framework</h1>

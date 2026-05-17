@@ -36,7 +36,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
-  body {
+  body { padding-top: 58px;
     font-family: var(--sans);
     background: var(--paper);
     color: var(--ink);
@@ -378,16 +378,39 @@
     footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
     .flow { min-width: 700px; }
   }
-</style>
+
+  /* ── STANDARD CASE STUDY NAV ── */
+  .cs-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    background: #fff; border-bottom: 1px solid #dadce0;
+    height: 58px; padding: 0 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
+  }
+  .cs-nav-back {
+    font-family: 'Roboto Slab', Georgia, serif;
+    font-size: 1.1rem; font-weight: 500;
+    color: #202124; text-decoration: none;
+    transition: color .15s;
+  }
+  .cs-nav-back:hover { color: #1a73e8; }
+  .cs-nav-back::before { content: '← '; font-size: .85rem; color: #9aa0a6; }
+  .cs-nav-crumb {
+    font-family: 'Roboto Mono', monospace; font-size: .72rem;
+    color: #9aa0a6; letter-spacing: .05em;
+  }
+  .cs-nav-crumb span { color: #1a73e8; }
+  @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
+
+  </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-back">Rishi Sharma</a>
-  <span class="nav-crumb">Case study · <span>This portfolio</span></span>
+<nav class="cs-nav">
+  <a href="../index.html" class="cs-nav-back">Rishi Sharma</a>
+  <span class="cs-nav-crumb">Case study · <span>This portfolio</span></span>
 </nav>
-
 <!-- HERO -->
 <div class="hero">
   <div style="max-width:1100px;margin:0 auto;">
