@@ -495,7 +495,7 @@
     <div class="rule"></div>
     <p>The portfolio is a single <span class="chip">index.html</span> file. No build step, no framework, no server. But it connects to a real database, calls a serverless function, and triggers email notifications — the same infrastructure pattern used in production SaaS applications.</p>
 
-    <h3>Full data flow: visitor to your inbox</h3>
+    <h3>Full data flow: visitor to my inbox</h3>
 
     <div class="flow-container fade-in">
       <div class="flow-title">// Visitor action → database → edge function → email</div>
@@ -531,7 +531,7 @@
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-node">
-          <div class="flow-box green">Email lands<br>in your inbox</div>
+          <div class="flow-box green">Email lands<br>in my inbox</div>
           <div class="flow-sub">&lt;2 seconds</div>
         </div>
       </div>
@@ -701,7 +701,7 @@
         <span class="c-line">  key  <span class="c-kw">text unique not null</span>,</span>
         <span class="c-line">  value <span class="c-kw">text not null</span></span>
         <span class="c-line">);</span>
-        <span class="c-line"><span class="c-kw">insert into</span> access_config (key, value) <span class="c-kw">values</span> (<span class="c-str">'gate_password'</span>, <span class="c-str">'your-password-here'</span>);</span>
+        <span class="c-line"><span class="c-kw">insert into</span> access_config (key, value) <span class="c-kw">values</span> (<span class="c-str">'gate_password'</span>, <span class="c-str">'my-set-password-here'</span>);</span>
         <span class="c-line">&nbsp;</span>
         <span class="c-line"><span class="c-cm">-- Table 2: Every email access request, with which case study they wanted.</span></span>
         <span class="c-line"><span class="c-kw">create table</span> <span class="c-fn">gate_requests</span> (</span>
