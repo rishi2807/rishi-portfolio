@@ -29,6 +29,7 @@
   html { scroll-behavior: smooth; }
 
   body {
+    padding-top: 58px;
     font-family: 'Outfit', sans-serif;
     background: var(--paper);
     color: var(--ink);
@@ -37,44 +38,28 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: var(--birdeye-navy);
-    padding: 14px 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+  /* ── STANDARD CASE STUDY NAV ── */
+  .cs-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    background: #fff; border-bottom: 1px solid #dadce0;
+    height: 58px; padding: 0 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
   }
-
-  .nav-brand {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .cs-nav-back {
+    font-family: 'Roboto Slab', Georgia, serif;
+    font-size: 1.1rem; font-weight: 500;
+    color: #202124; text-decoration: none;
+    transition: color .15s;
   }
-
-  .nav-brand span { color: var(--birdeye-blue); }
-
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
+  .cs-nav-back:hover { color: #1a73e8; }
+  .cs-nav-back::before { content: '← '; font-size: .85rem; color: #9aa0a6; }
+  .cs-nav-crumb {
+    font-family: 'Roboto Mono', monospace; font-size: .72rem;
+    color: #9aa0a6; letter-spacing: .05em;
   }
-
-  .nav-links a {
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: white; }
+  .cs-nav-crumb span { color: #1a73e8; }
+  @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
 
   /* HERO */
   .hero {
@@ -1074,15 +1059,9 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-brand">Rishi Sharma — <span>UX Writer</span></div>
-  <ul class="nav-links">
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#engine">Engine</a></li>
-    <li><a href="#compare">Compare</a></li>
-    <li><a href="#outcome">Outcome</a></li>
-  </ul>
+<nav class="cs-nav">
+  <a href="index.html" class="cs-nav-back">Rishi Sharma</a>
+  <span class="cs-nav-crumb">Case study · <span>Chrome extension</span></span>
 </nav>
 
 <!-- HERO -->
@@ -2062,8 +2041,8 @@ pages",3</pre>
   <div class="footer-inner">
     <div class="footer-left">
       <p style="font-size: 18px; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 8px;">Rishi Sharma</p>
-      <p>UX Writer · Design POD · Platform-AgentArc · Birdeye</p>
-      <p>github.com/rishisharma-tech/ux-communication-audit-extension</p>
+      <p>Lead Content Designer · Birdeye Software</p>
+      <p>rishi.g.sharma@gmail.com</p>
     </div>
     <div class="footer-right">
       <div>Birdeye UXW Auditor v0.2.0</div>
