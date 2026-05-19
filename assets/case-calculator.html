@@ -54,6 +54,20 @@
   .cs-nav-crumb span { color: #1a73e8; }
   @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
 
+  
+  /* ── INTRO DESCRIPTION (visible before gate) ── */
+  .cs-intro {
+    font-size: 1rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 680px;
+    margin: 0 0 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--off);
+    border-left: 3px solid var(--punch);
+    border-radius: 0 4px 4px 0;
+  }
+
   </style>
 </head>
 <body>
@@ -65,6 +79,8 @@
 <div class="tag">Content Research · Cvent</div>
     <h1>Meeting Space Calculator: Unit Standardisation</h1>
     <div class="meta">Lead Content Designer · Global UI · 2024</div>
+
+    <p class="cs-intro">Cvent's meeting space calculator used three different abbreviations for square feet on the same product, with no metric option for international users. I researched the right standard, introduced a unit toggle with location-based defaults, and added layout-specific tooltips explaining why space requirements vary by seating type. One terminology decision, applied consistently across UI, tooltips, and documentation.</p>
 
     <h2>The problem</h2>
     <p>"SF," "sq ft," and "ft2" appeared in the same product, sometimes on the same page. International users had no metric option. Layout-specific space requirements were unexplained, leading to consistent calculation errors.</p>

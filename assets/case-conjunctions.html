@@ -54,6 +54,20 @@
   .cs-nav-crumb span { color: #1a73e8; }
   @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
 
+  
+  /* ── INTRO DESCRIPTION (visible before gate) ── */
+  .cs-intro {
+    font-size: 1rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 680px;
+    margin: 0 0 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--off);
+    border-left: 3px solid var(--punch);
+    border-radius: 0 4px 4px 0;
+  }
+
   </style>
 </head>
 <body>
@@ -65,6 +79,8 @@
 <div class="tag">UX Writing · Cvent</div>
     <h1>Cutting Subordinating Conjunctions Across the Product</h1>
     <div class="meta">Lead Content Designer · Style guide + training + audit · 2023</div>
+
+    <p class="cs-intro">Across Cvent's product, sentences regularly led with "Because," "While," and "Once" — constructions that bury the action and slow down scanning. I updated the style guide with a clear rule and restructuring alternatives, ran live rewriting workshops with the team, and audited existing product content. Shorter strings, faster scannability, and more consistent voice across all surfaces.</p>
 
     <h2>The problem</h2>
     <p>Across Cvent's product, sentences regularly started with "Because," "While," "Although," and "Once." These constructions bury the action. Users scanning a notification or error message miss the thing they actually need to do.</p>

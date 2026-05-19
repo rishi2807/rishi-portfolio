@@ -54,6 +54,20 @@
   .cs-nav-crumb span { color: #1a73e8; }
   @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
 
+  
+  /* ── INTRO DESCRIPTION (visible before gate) ── */
+  .cs-intro {
+    font-size: 1rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 680px;
+    margin: 0 0 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--off);
+    border-left: 3px solid var(--punch);
+    border-radius: 0 4px 4px 0;
+  }
+
   </style>
 </head>
 <body>
@@ -65,6 +79,8 @@
 <div class="tag">UX Writing · Cvent</div>
     <h1>SPP Reporting: Financial Terminology for Pharma</h1>
     <div class="meta">Lead Content Designer · Compliance reporting · 2024</div>
+
+    <p class="cs-intro">Pharma event managers at Cvent needed to track healthcare professional spend for regulatory compliance, but inconsistent terminology made the feature unreliable. I standardised SPP language across every label, config screen, and help text, and clarified two separate admin workflows that were being confused with each other. The work directly supported Cvent's 2024 customer-centricity goal.</p>
 
     <h2>The context</h2>
     <p>Pharma event managers track healthcare professional (HCP) expenses across events for regulatory compliance. SPP (Spend Per Person) was unreliable because of inconsistent labels, unclear admin setup, and no cross-event reporting.</p>

@@ -61,6 +61,20 @@
   .cs-nav-crumb span { color: #1a73e8; }
   @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
 
+  
+  /* ── INTRO DESCRIPTION (visible before gate) ── */
+  .cs-intro {
+    font-size: 1rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 680px;
+    margin: 0 0 2rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--off);
+    border-left: 3px solid var(--punch);
+    border-radius: 0 4px 4px 0;
+  }
+
   </style>
 </head>
 <body>
@@ -74,6 +88,8 @@
     </div>
     <h1>AI-Powered Style Guide and Error Framework</h1>
     <div class="meta">Lead Content Designer · All Birdeye product surfaces · 2025</div>
+
+    <p class="cs-intro">Birdeye's platform spans reviews, listings, surveys, social media, and messaging — all written by different designers across different sprints. A static style guide document wasn't working. I built an AI-powered system that surfaces relevant standards contextually, with error message frameworks, voice and tone guidance, and AI agent content patterns so automated actions feel transparent rather than robotic.</p>
 
     <h2>The context</h2>
     <p>Birdeye's platform spans reviews, listings, surveys, social media, and messaging. Getting consistent content across all of those, written by different designers across different sprints, required a system, not a document.</p>

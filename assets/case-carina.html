@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carina Editorial Components Framework · Cvent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --text:#202124; --text-2:#3c4043; --text-3:#5f6368; --border:#dadce0; --punch:#1a73e8; --punch-soft:#e8f0fe; --punch-dark:#1557b0; --off:#f8f9fa; --white:#fff; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{padding-top:58px;font-family:'Roboto',sans-serif;color:var(--text);background:#fff;line-height:1.65;}
+    main{max-width:920px;margin:0 auto;padding:32px 20px 56px;}
+    h1{font-family:'Roboto Slab',serif;font-weight:600;font-size:2rem;line-height:1.2;margin-bottom:.4rem;}
+    .meta{color:var(--text-3);font-size:.95rem;margin-bottom:1.5rem;}
+    h2{font-family:'Roboto Slab',serif;font-size:1.25rem;margin:1.75rem 0 .75rem;}
+    p{margin-bottom:1rem;color:var(--text-2);}
+    ul{margin:.4rem 0 1rem 1.1rem;color:var(--text-2);}
+    li{margin-bottom:.45rem;}
+    .tag{display:inline-block;background:var(--off);border:1px solid var(--border);padding:.35rem .6rem;border-radius:16px;font-size:.85rem;color:var(--text-3);margin-bottom:1rem;}
+    a{color:var(--punch);text-decoration:none;}
+    .case-footer{border-top:1px solid var(--border);padding:18px 20px;color:var(--text-3);font-size:.9rem;text-align:center;}
+
+    /* ── INTRO DESCRIPTION (visible before gate) ── */
+    .cs-intro {
+      font-size: 1rem;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 680px;
+      margin: 0 0 2rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--off);
+      border-left: 3px solid var(--punch);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ── STANDARD CASE STUDY NAV ── */
+    .cs-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: #fff; border-bottom: 1px solid #dadce0;
+      height: 58px; padding: 0 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Roboto', sans-serif;
+    }
+    .cs-nav-back {
+      font-family: 'Roboto Slab', Georgia, serif;
+      font-size: 1.1rem; font-weight: 500;
+      color: #202124; text-decoration: none;
+      transition: color .15s;
+    }
+    .cs-nav-back:hover { color: #1a73e8; }
+    .cs-nav-back::before { content: '← '; font-size: .85rem; color: #9aa0a6; }
+    .cs-nav-crumb {
+      font-family: 'Roboto Mono', monospace; font-size: .72rem;
+      color: #9aa0a6; letter-spacing: .05em;
+    }
+    .cs-nav-crumb span { color: #1a73e8; }
+    @media (max-width: 768px) { .cs-nav { padding: 0 1.5rem; } .cs-nav-crumb { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a href="../index.html" class="cs-nav-back">Rishi Sharma</a>
+  <span class="cs-nav-crumb">Case study · <span>Carina components</span></span>
+</nav>
+
+<main>
+  <div class="tag">Content Systems · Cvent</div>
+  <h1>Carina Editorial Components Framework</h1>
+  <div class="meta">Lead Content Designer · Design system · 2023–2024</div>
+
+  <p class="cs-intro">Cvent's design system had visual components but no content layer. Designers were writing their own microcopy, producing 40+ components with inconsistent labels, error messages, and empty states. I built the editorial framework that sat alongside the visual system — defining content patterns, writing rules, and reusable copy for every component type so the product could scale without content debt.</p>
+
+  <h2>The problem</h2>
+  <p>Cvent's design system, Carina, governed visual components — spacing, colour, interaction states. But there were no content standards attached to them. Every designer wrote their own button labels, error messages, and empty states. The result was a product that looked consistent but read inconsistently.</p>
+  <p>With 40+ components and multiple product squads shipping in parallel, the gap was growing faster than it could be manually corrected.</p>
+
+  <h2>What I built</h2>
+  <ul>
+    <li>Content patterns for every major component type: buttons, form fields, modals, tooltips, banners, empty states, error messages, and confirmation dialogs.</li>
+    <li>Writing rules specific to each component — what goes in a button label vs. a tooltip vs. a modal heading, and why.</li>
+    <li>Error message framework: distinct patterns for validation errors, permission errors, network failures, and system errors, each with a template and worked examples.</li>
+    <li>Empty state framework: three categories (first use, no results, error) with content and illustration guidance for each.</li>
+    <li>Tone guidance by context: transactional surfaces vs. onboarding vs. destructive actions.</li>
+  </ul>
+
+  <h2>How it worked in practice</h2>
+  <p>The framework was embedded directly in Figma alongside the visual components. Designers could see the content pattern while building — no separate document to find, no content designer to ask for every string.</p>
+  <p>It also gave content designers a reference when reviewing work. Instead of "I'd change this," the feedback became "this doesn't follow the error message pattern" — specific, system-backed, easier to action.</p>
+
+  <h2>The impact</h2>
+  <ul>
+    <li>40+ components documented with content patterns</li>
+    <li>Reduced back-and-forth between design and content in sprint reviews</li>
+    <li>Consistent error and empty state language across product areas that had previously diverged</li>
+    <li>Framework adopted as the standard for new components added after launch</li>
+  </ul>
+</main>
+
+<footer class="case-footer">© Rishi Sharma</footer>
+
+</body>
+</html>
