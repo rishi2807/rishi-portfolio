@@ -168,7 +168,7 @@
     .nav-cta:hover { background: var(--punch); }
 
     /* Hero */
-    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5rem; padding-top: calc(58px + var(--banner-h)); padding-bottom: 0; }
+    #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-start; padding: 0 5rem; padding-top: calc(58px + var(--banner-h) + 4rem); padding-bottom: 4rem; }
 
     /* Ticker */
     .ticker-wrap {
@@ -228,13 +228,12 @@
       gap: clamp(1.5rem, 4vw, 3.25rem);
       align-items: stretch;
       width: 100%;
-      min-height: clamp(480px, calc(100vh - 58px - 14rem), 840px);
     }
     .hero-copy {
       min-width: 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding-right: clamp(0rem, 1.5vw, 1rem);
     }
     .hero-photo-wrap {
@@ -254,9 +253,9 @@
       border-radius: 2px;
       overflow: hidden;
       width: 100%;
-      max-width: 100%;
+      max-width: min(640px, 100%);
       aspect-ratio: 819 / 1024;
-      max-height: min(820px, calc(100vh - 58px - 14rem), 78vh);
+      margin-left: auto;
       border: 1px solid var(--border-soft);
       box-shadow: 0 14px 44px rgba(32,33,36,.1);
       background: var(--off);
@@ -294,15 +293,16 @@
     h1 em.hero-em-google span { font-style: normal; font-weight: 400; }
     .hero-p { margin-top: 1.75rem; font-size: 1.05rem; color: var(--text-2); max-width: 540px; line-height: 1.75; font-weight: 400; }
     .hero-acts { margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center; }
-    .btn-dark { background: var(--text); color: var(--white); padding: .8rem 1.75rem; border-radius: 2px; font-size: .875rem; font-weight: 500; text-decoration: none; transition: background .15s; }
+    .btn-dark { background: var(--text); color: var(--white); padding: .65rem 1.5rem; border-radius: 999px; font-size: .875rem; font-weight: 500; text-decoration: none; transition: background .15s; }
     .btn-dark:hover { background: var(--punch); }
-    .btn-line { font-size: .85rem; color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color .15s, border-color .15s; }
-    .btn-line:hover { color: var(--punch); border-color: var(--punch); }
+    .btn-line { font-size: .875rem; font-weight: 500; color: var(--punch); text-decoration: none; padding: .65rem 1rem; border-radius: 999px; transition: background .15s, color .15s; }
+    .btn-line:hover { background: var(--punch-soft); }
 
-    /* Hero stats — horizontal row below the headline */
-    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; margin-top: 2rem; }
-    .hstat { padding: 1.5rem 1.75rem; border-inline-end: 1px solid var(--border); background: var(--white); }
-    .hstat:last-child { border-inline-end: none; }
+    /* Hero stats — 2x2 grid aligned to the left copy column */
+    .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; margin-top: 2rem; }
+    .hstat { padding: 1.5rem 1.75rem; border-inline-end: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); }
+    .hstat:nth-child(2n) { border-inline-end: none; }
+    .hstat:nth-child(n+3) { border-bottom: none; }
     .hstat-num { font-family: var(--serif); font-size: 2.6rem; font-weight: 400; color: var(--text); line-height: 1; display: flex; align-items: baseline; gap: .1rem; }
     .hstat-num sup { font-size: 1rem; color: var(--punch); font-weight: 400; line-height: 1; margin-inline-start: 1px; }
     .hstat-label { font-size: .875rem; color: var(--text-2); margin-top: .55rem; line-height: 1.5; font-weight: 400; }
@@ -899,7 +899,7 @@
       .hero-copy{padding-right:0;}
       .hero-photo-wrap{justify-content:center;align-items:center;}
       .hero-photo-inner{height:auto;max-height:none;max-width:min(440px,96vw);aspect-ratio:819/1024;margin:0 auto;}
-      .hero-stats{grid-template-columns:1fr 1fr;}
+      .hero-stats{grid-template-columns:1fr 1fr;max-width:none;}
       .hstat{border-inline-end:none;border-bottom:1px solid var(--border);}
       .hstat:nth-child(odd){border-inline-end:1px solid var(--border);}
       .hstat:last-child,.hstat:nth-last-child(2):nth-child(odd){border-bottom:none;}
@@ -1004,10 +1004,27 @@
   <div class="hero-top">
     <div class="hero-copy" id="heroCopy" dir="ltr">
       <h1 id="hero-heading" data-i18n="hero_h1">I design content.<br>I build tools.<br><em>I measure both.</em></h1>
-      <p class="hero-p" data-i18n="hero_p">I'm a Lead Content Designer with 8 years across SaaS, event tech, and CDPs. I write product copy, build content systems, run data-driven audits, and ship tools that most content teams don't know they need.</p>
       <div class="hero-acts">
         <a href="#portfolio" class="btn-dark" data-i18n="hero_cta1">See my work</a>
         <a href="#contact" class="btn-line" data-i18n="hero_cta2">Say hello</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <div class="hstat-num">40<sup>%</sup></div>
+          <div class="hstat-label" data-i18n="hero_stat1">Drop in support cases from a single content redesign</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-num">35<sup>%</sup></div>
+          <div class="hstat-label" data-i18n="hero_stat2">Fewer clicks to complete a workflow, through IA and copy changes</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-num">3</div>
+          <div class="hstat-label" data-i18n="hero_stat3">Internal tools built from scratch: AI app, Figma plugin, Chrome extension</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-num">5<sup>x</sup></div>
+          <div class="hstat-label" data-i18n="hero_stat4">Conference speaker: UXDX, ContentEd, Utterly Content, DDX Dubai</div>
+        </div>
       </div>
     </div>
     <figure class="hero-photo-wrap" aria-label="Portrait and illustration">
@@ -1017,24 +1034,6 @@
         </div>
       </div>
     </figure>
-  </div>
-  <div class="hero-stats">
-    <div class="hstat">
-      <div class="hstat-num">40<sup>%</sup></div>
-      <div class="hstat-label" data-i18n="hero_stat1">Drop in support cases from a single content redesign</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-num">35<sup>%</sup></div>
-      <div class="hstat-label" data-i18n="hero_stat2">Fewer clicks to complete a workflow, through IA and copy changes</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-num">3</div>
-      <div class="hstat-label" data-i18n="hero_stat3">Internal tools built from scratch: AI app, Figma plugin, Chrome extension</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-num">5<sup>x</sup></div>
-      <div class="hstat-label" data-i18n="hero_stat4">Conference speaker: UXDX, ContentEd, Utterly Content, DDX Dubai</div>
-    </div>
   </div>
 </section>
 
@@ -1112,7 +1111,7 @@
       </div>
       <div class="cell meta">Birdeye · 2026</div>
       <div class="cell impact">35% shorter sentences · 25% less passive voice</div>
-      <div class="cell cta"><button onclick="openGate('assets/case-chrome-audit.html')">Unlock →</button></div>
+      <div class="cell cta"><button onclick="openGate('Chrome_Extension_Audit_Tool_Case_Study.html')">Unlock →</button></div>
     </div>
     <!-- Birdeye: Search AI (locked) -->
     <div class="prow locked" data-tags="ai systems research">
