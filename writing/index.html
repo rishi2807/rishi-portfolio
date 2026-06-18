@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing · Rishi Sharma</title>
+  <meta name="description" content="Rishi Sharma writes about content design, UX writing, AI tools, and building things. Practical posts from 8 years of product work.">
+  <meta property="og:title" content="Writing · Rishi Sharma">
+  <meta property="og:description" content="Practical writing on content design, UX writing, AI tools, and career craft. From someone who actually does the work.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://writerishi.com/writing/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://writerishi.com/writing/">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Writing · Rishi Sharma",
+    "url": "https://writerishi.com/writing/",
+    "description": "Practical writing on content design, UX writing, AI tools, and career craft.",
+    "author": {
+      "@type": "Person",
+      "name": "Rishi Sharma",
+      "url": "https://writerishi.com",
+      "jobTitle": "Lead Content Designer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Birdeye"
+      }
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --text: #202124;
+      --text-2: #3c4043;
+      --text-3: #5f6368;
+      --text-4: #9aa0a6;
+      --punch: #1a73e8;
+      --punch-soft: #e8f0fe;
+      --punch-dark: #1557b0;
+      --border: #dadce0;
+      --off: #f8f9fa;
+      --white: #ffffff;
+      --serif: 'Roboto Slab', serif;
+      --sans: 'Roboto', sans-serif;
+      --mono: 'Roboto Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 58px;
+    }
+
+    /* NAV */
+    .cs-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      height: 58px; padding: 0 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--sans);
+    }
+    .cs-nav-back {
+      font-family: var(--serif);
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--text); text-decoration: none;
+      transition: color .15s;
+    }
+    .cs-nav-back:hover { color: var(--punch); }
+    .cs-nav-back::before { content: '← '; font-size: .85rem; color: var(--text-4); }
+    .cs-nav-crumb {
+      font-family: var(--mono); font-size: .72rem;
+      color: var(--text-4); letter-spacing: .05em;
+    }
+    .cs-nav-crumb span { color: var(--punch); }
+    @media (max-width: 768px) {
+      .cs-nav { padding: 0 1.5rem; }
+      .cs-nav-crumb { display: none; }
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 56px 24px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-label {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--punch);
+      margin-bottom: 12px;
+    }
+    .page-header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: .95rem;
+      color: var(--text-3);
+      line-height: 1.65;
+      max-width: 540px;
+    }
+
+    /* CLUSTER FILTER */
+    .filter-bar {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-chip {
+      font-family: var(--sans);
+      font-size: .82rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .filter-chip:hover,
+    .filter-chip.active {
+      background: var(--punch-soft);
+      border-color: var(--punch);
+      color: var(--punch-dark);
+    }
+
+    /* POST LIST */
+    .post-list {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .post-item {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity .15s;
+    }
+    .post-item:hover { opacity: .75; }
+    .post-item:last-child { border-bottom: none; }
+
+    .post-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .post-cluster {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--punch);
+    }
+    .post-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .post-read-time {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--text-4);
+    }
+
+    .post-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .post-excerpt {
+      font-size: .9rem;
+      color: var(--text-3);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .post-date {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--text-4);
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      padding: 56px 0;
+      text-align: center;
+      color: var(--text-4);
+      font-size: .9rem;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      max-width: 740px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-footer p {
+      font-size: .82rem;
+      color: var(--text-4);
+    }
+    .page-footer a {
+      font-size: .82rem;
+      color: var(--punch);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .page-header { padding: 40px 20px 28px; }
+      .post-list { padding: 0 20px 60px; }
+      .filter-bar { padding: 16px 20px; }
+      .post-item { grid-template-columns: 1fr; }
+      .post-date { display: none; }
+      .page-footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="cs-nav">
+    <a href="../index.html" class="cs-nav-back">Rishi Sharma</a>
+    <span class="cs-nav-crumb">Writing</span>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-label">Writing</div>
+    <h1>Things I've figured out the hard way.</h1>
+    <p>Eight years of content design work across SaaS, event tech, and AI products. I write about what actually happens when you do this job — not the theory version.</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <a href="#" class="filter-chip active" data-cluster="all">All</a>
+    <a href="#" class="filter-chip" data-cluster="content-design-craft">Content design craft</a>
+    <a href="#" class="filter-chip" data-cluster="ai-and-content">AI and content design</a>
+    <a href="#" class="filter-chip" data-cluster="content-systems">Content systems</a>
+    <a href="#" class="filter-chip" data-cluster="career-and-craft">Career and craft</a>
+    <a href="#" class="filter-chip" data-cluster="analytics">Analytics and measurement</a>
+  </div>
+
+  <div class="post-list" id="postList">
+
+    <a href="posts/what-is-content-design.html" class="post-item" data-cluster="content-design-craft">
+      <div>
+        <div class="post-meta-top">
+          <span class="post-cluster">Content design craft</span>
+          <span class="post-dot"></span>
+          <span class="post-read-time">7 min read</span>
+        </div>
+        <div class="post-title">What is content design, and why does it keep getting confused with copywriting?</div>
+        <div class="post-excerpt">Content design is not copywriting. It's not UX writing either, though that's closer. Here's what it actually is — and why the distinction matters for the products you're building.</div>
+      </div>
+      <div class="post-date">Jun 18, 2026</div>
+    </a>
+
+    <!-- Future posts go here. Copy the post-item block above. -->
+
+  </div>
+
+  <footer class="page-footer">
+    <p>© Rishi Sharma</p>
+    <a href="mailto:rishi.g.sharma@gmail.com">rishi.g.sharma@gmail.com</a>
+  </footer>
+
+  <script>
+    // Cluster filter
+    const chips = document.querySelectorAll('.filter-chip');
+    const posts = document.querySelectorAll('.post-item');
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', e => {
+        e.preventDefault();
+        const cluster = chip.dataset.cluster;
+
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        posts.forEach(post => {
+          if (cluster === 'all' || post.dataset.cluster === cluster) {
+            post.style.display = 'grid';
+          } else {
+            post.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
